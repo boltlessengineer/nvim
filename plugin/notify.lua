@@ -14,7 +14,7 @@ notify.setup {
     WARN = ''
   },
   level = 2,
-  minimum_width = 50,
+  minimum_width = 35,
   render = function(bufnr, notif, highlights, config)
     if notif.title[1] == '' then
       return renderers.minimal(bufnr, notif, highlights, config)

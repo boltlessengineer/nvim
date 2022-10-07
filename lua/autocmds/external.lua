@@ -57,6 +57,19 @@ function M.packer()
     callback = function(args)
       -- TODO: path to packer.lua instead of args.file
       vim.cmd.source(args.file)
+      -- TODO: add option questioning to start PackerSync
+      -- vim.ui.select({ 'Sync now', 'Not now' }, {
+      --   prompt = 'Would you want to sync now?',
+      --   format_item = function(item)
+      --     return item
+      --   end,
+      -- }, function(choice)
+      --   if choice == 'Sync now' then
+      --     vim.schedule(function()
+      --       vim.cmd [[PackerSync]]
+      --     end)
+      --   end
+      -- end)
     end
   })
 end

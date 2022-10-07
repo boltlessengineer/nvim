@@ -35,11 +35,15 @@ require('autocmds.external').packer()
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- Have packer manage itself
+  use 'lewis6991/impatient.nvim' -- Blazingly fast startup
   use 'nvim-lua/plenary.nvim' -- Useful lua functions used by lots of plugins
   use 'kyazdani42/nvim-web-devicons' -- Dev icons
 
   -- Colorschemes
-  use 'ellisonleao/gruvbox.nvim'
+  -- TODO: check octis.nvim
+  use 'sainnhe/gruvbox-material'
+  use 'RRethy/nvim-base16'
+  use 'rebelot/kanagawa.nvim'
 
   -- General UIs
   use 'feline-nvim/feline.nvim' -- statusline & winbar
@@ -82,6 +86,7 @@ packer.startup(function(use)
 
   -- Treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'nvim-treesitter/playground'
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
@@ -95,8 +100,10 @@ packer.startup(function(use)
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   use 'nvim-treesitter/nvim-treesitter-context' -- sticky header for context
+  use 'p00f/nvim-ts-rainbow' -- rainbow parentheses {}
   use 'lukas-reineke/indent-blankline.nvim' -- pretty indentation guides
   use 'rcarriga/nvim-notify' -- notification manager
+  use 'folke/trouble.nvim' -- pretty list
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

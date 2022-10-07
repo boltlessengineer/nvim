@@ -10,6 +10,11 @@ nvimtree.setup {
   },
   open_on_tab = false,
   update_cwd = true,
+  renderer = {
+    icons = {
+      -- git_placement = 'signcolumn',
+    },
+  },
   view = {
     hide_root_folder = false,
     mappings = {
@@ -43,14 +48,17 @@ nvimtree.setup {
     float = {
       enable = false,
       open_win_config = {
-        relative = "editor",
-        border = "rounded",
+        relative = 'editor',
+        border = 'rounded',
         width = 30,
         height = 30,
         row = 1,
         col = 1,
       },
     },
+  },
+  diagnostics = {
+    enable = true,
   },
   trash = {
     -- TODO check if this work well in linux/macos/windows

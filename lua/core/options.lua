@@ -1,6 +1,9 @@
 -- TODO: change clipboard based on OS
 vim.o.clipboard = 'unnamedplus'
 
+vim.o.langmenu = 'en_US'
+vim.cmd [[let $LANG='en_US']]
+
 vim.o.background = 'dark'
 
 vim.o.mouse = 'nv' -- allow the mouse in normal/visual mode
@@ -35,3 +38,12 @@ vim.o.sidescrolloff = 8
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- TODO: remove VertSplit (winbar can be used instead)
+vim.opt.fillchars:append({
+  -- horiz = ' ',
+  -- horizup = ' ',
+  -- horizdown = ' ',
+  -- vert = ' ',
+  -- vertleft = ' ',
+  -- vertright = ' ',
+  -- verthoriz = ' ',
+})

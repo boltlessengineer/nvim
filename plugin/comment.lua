@@ -1,25 +1,19 @@
 local ok, comment = pcall(require, 'Comment')
 if not ok then return end
 
+local pre_hook = function() end
+local ts_ok, _ = pcall(require, 'ts_context_commentstring')
+if ts_ok then
+  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+end
+
 comment.setup {
   mappings = {
     basic = false,
     extra = false,
     extended = false,
   },
-  pre_hook = function(ctx)
-    local inlay_ok, _ = pcall(require, 'lsp-inlayhints')
-    if inlay_ok then
-      -- TODO: check if this works
-      local line_start = ctx.range.srow
-      local line_end = ctx.range.erow
-      require('lsp-inlayhints.core').clear(0, line_start, line_end)
-    end
-
-    local ts_ok, _ = pcall(require, 'ts_context_commentstring')
-    if not ts_ok then return end
-    require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-  end,
+  pre_hook = pre_hook,
 }
 
 require('keymaps.external').comment()

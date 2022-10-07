@@ -1,0 +1,36 @@
+local c = {
+  vimode = {
+    provider = function()
+      return string.format(" %s ", u.vi.text[vim.fn.mode()])
+    end,
+    hl = vi_mode_hl,
+    right_sep = { str = " ", hl = vi_sep_hl },
+  },
+  gitbranch = {
+    provider = "git_branch",
+    icon = " ",
+    hl = "EdenSLGitBranch",
+    right_sep = { str = "  ", hl = "EdenSLGitBranch" },
+    enabled = function()
+      return vim.b.gitsigns_status_dict ~= nil
+    end,
+  },
+  file_type = {
+    provider = function()
+      return fmt(" %s ", vim.bo.filetype:upper())
+    end,
+    hl = "EdenSLAlt",
+  },
+  fileinfo = {
+    provider = { name = "file_info", opts = { type = "relative" } },
+    hl = "EdenSLAlt",
+    left_sep = { str = " ", hl = "EdenSLAltSep" },
+    right_sep = { str = " ", hl = "EdenSLAltSep" },
+  },
+  file_enc = {
+    provider = function()
+      local os = u.icons[vim.bo.fileformat] or ""
+      return fmt(" %s %s ", os, vim.bo.fileencoding)
+    end,
+    hl = "StatusLine",
+

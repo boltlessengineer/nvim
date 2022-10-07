@@ -3,6 +3,10 @@ if not ok then return end
 
 local actions = require 'telescope.actions'
 
+-- TODO: custom help_tag() function to open help page in floating window
+-- cause I generally open help page temporarily.
+-- open as floating window first, and then set buffer-local keymaps to move buffer to split window
+
 telescope.setup {
   defaults = {
     mappings = {
