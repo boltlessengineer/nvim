@@ -1,8 +1,41 @@
 local fn = vim.fn
-
 local d = {}
+
+GitStatus = {
+  head = '',
+  upstream = '',
+  ahead = 0,
+  behind = 0,
+}
+vim.api.nvim_create_autocmd({ 'VimEnter', 'DirChanged' }, {
+  callback = function()
+    vim.fn.jobstart({ 'git', 'status', '-b', '--porcelain=v2' }, {
+      -- TODO: error handle
+      -- TODO: set GitStatus to null if cwd isn't git repo
+      on_stdout = function(_, data)
+        if not data then return end
+        for _, line in ipairs(data) do
+          if line == '' then return end
+          local header, value = line:match('# ([%w%.]+) (.+)')
+          if header then
+            if header == 'branch.head' then
+              GitStatus.head = value
+            elseif header == 'branch.upstream' then
+              GitStatus.upstream = value
+            elseif header == 'branch.ab' then
+              local ahead, behind = value:match('%+(%d+) %-(%d+)')
+              GitStatus.ahead = tonumber(ahead)
+              GitStatus.behind = tonumber(behind)
+            end
+          end
+        end
+      end,
+    })
+  end
+})
 -- NOTE: print guide
 -- https://github.com/romkatv/powerlevel10k/blob/master/README.md#what-do-different-symbols-in-git-status-mean
+--[[
 local chan = fn.jobstart({ 'git', 'status', '-b', '--porcelain=v2' }, {
   on_exit = function()
     P(d)
@@ -64,3 +97,4 @@ local chan = fn.jobstart({ 'git', 'status', '-b', '--porcelain=v2' }, {
     end
   end,
 })
+]]

@@ -28,7 +28,7 @@ local api = vim.api
 local fn = vim.fn
 local bo = vim.bo
 
-local icons = require('ui.icons')
+local icons = require('boltless.ui.icons')
 local u = require('ui.utils')
 
 -- Get the names of all current listed buffers

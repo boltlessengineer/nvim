@@ -1,6 +1,8 @@
 local ok, nvimtree = pcall(require, 'nvim-tree')
 if not ok then return end
 
+-- TODO: replace folder icon with >/v, draw vertical line for folders
+
 nvimtree.setup {
   disable_netrw = true,
   hijack_cursor = false,

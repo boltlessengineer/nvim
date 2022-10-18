@@ -41,12 +41,19 @@ packer.startup(function(use)
 
   -- Colorschemes
   -- TODO: check octis.nvim
-  use 'sainnhe/gruvbox-material'
-  use 'RRethy/nvim-base16'
   use 'rebelot/kanagawa.nvim'
+  -- use 'sainnhe/gruvbox-material'
+  -- use 'Yazeed1s/minimal.nvim'
+  -- use {'rose-pine/neovim', as = 'rose-pine'}
+  use { 'catppuccin/nvim', as = 'catppuccin' }
+  use {
+    'mcchrish/zenbones.nvim',
+    requires = 'rktjmp/lush.nvim'
+  }
 
   -- General UIs
   use 'feline-nvim/feline.nvim' -- statusline & winbar
+  use 'rebelot/heirline.nvim' -- statusline, winbar, tabline
 
   -- File explorer
   use 'kyazdani42/nvim-tree.lua'
@@ -100,10 +107,23 @@ packer.startup(function(use)
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   use 'nvim-treesitter/nvim-treesitter-context' -- sticky header for context
+  use 'SmiteshP/nvim-navic' -- LSP based code context
   use 'p00f/nvim-ts-rainbow' -- rainbow parentheses {}
+  use 'norcalli/nvim-colorizer.lua' -- colorize hex colors
   use 'lukas-reineke/indent-blankline.nvim' -- pretty indentation guides
+  -- use {
+  --   'folke/noice.nvim',
+  --   -- TODO: check VimEnter vs plugin/ vs after/plugin's order
+  --   event = 'VimEnter',
+  --   requires = {
+  --     'MunifTanjim/nui.nvim',
+  --     'rcarriga/nvim-notify', -- notification manager
+  --   }
+  -- }
   use 'rcarriga/nvim-notify' -- notification manager
   use 'folke/trouble.nvim' -- pretty list
+  use 'folke/todo-comments.nvim' -- highlight & list todos
+  use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' } -- modern looking folds
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

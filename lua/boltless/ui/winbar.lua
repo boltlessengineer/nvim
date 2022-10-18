@@ -1,10 +1,10 @@
 local M = {}
+-- TODO: show only full path in NC, show navic when focused
+-- TODO: nvim-navic feature) conceal item text when cursor goes too deeper
 
-vim.o.winbar = [[%{%v:lua.require('boltless.ui.winbar').generate()%}]]
-
-function M.generate()
-  return [[%#WinBarTitle# %t %h%w%m%r%#WinBar#%=%<%-8.([%l,%c]%) %P ]]
-  -- return [[ %f %h%w%m%r%=%<%-8.([%l,%c]%) %P ]]
+function M.get_no_plugin()
+  return [[ %{expand('%f') != '' ? pathshorten(expand('%f')) : '[NONAME]'} ]]
+      .. [[%m%h%w%r%=%<%-8.([%l,%c]%) %P]]
 end
 
 return M

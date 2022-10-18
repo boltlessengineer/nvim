@@ -15,6 +15,7 @@ notify.setup {
   },
   level = 2,
   minimum_width = 35,
+  max_width = 50,
   render = function(bufnr, notif, highlights, config)
     if notif.title[1] == '' then
       return renderers.minimal(bufnr, notif, highlights, config)

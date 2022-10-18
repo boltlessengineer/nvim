@@ -21,6 +21,7 @@ function M.lsp(opts)
   set_maps('n', {
     { '<space>ld', vim.lsp.buf.definition, 'Go to Definition' },
     { '<space>lr', vim.lsp.buf.rename, 'Rename' },
+    { '<space>la', vim.lsp.buf.code_action, 'Code Action' },
     { 'K', vim.lsp.buf.hover, 'Hover Document' },
     -- TODO: <space>lm for LSP menu (turn on/off AutoFormat, etc)
   }, opts)
@@ -30,6 +31,7 @@ end
 function M.telescope()
   set_maps('n', {
     { '<space>ff', '<cmd>Telescope find_files<CR>', 'Find files' },
+    { '<space>fo', '<cmd>Telescope oldfiles<CR>', 'Recent files' },
     { '<space>fg', '<cmd>Telescope live_grep<CR>', 'Live Grep' },
     { '<space>b', '<cmd>Telescope buffers<CR>', 'Find Buffers' },
     { '<space>h', '<cmd>Telescope help_tags<CR>', 'Help' },
@@ -53,6 +55,14 @@ function M.comment()
   set_maps('v', {
     { [[<C-/>]], '<Plug>(comment_toggle_linewise_visual)', 'Comment Linewise' },
     { [[<C-\>]], '<Plug>(comment_toggle_blockwise_visual)', 'Comment Blockwise' },
+  })
+end
+
+-- Git
+function M.git()
+  set_maps('n', {
+    { '<space>gj', '<cmd>Gitsigns next_hunk<CR>', 'Next Hunk' },
+    { '<space>gk', '<cmd>Gitsigns prev_hunk<CR>', 'Prev Hunk' },
   })
 end
 

@@ -6,15 +6,17 @@ require('autocmds.basic')
 require('boltless.globals')
 
 require('boltless.usercmds.basic')
-require('boltless.ui')
+require('boltless.utils.git')
 
-require('boltless.colorscheme')
+vim.cmd.colorscheme('kanagawa')
+require('boltless.ui')
 
 -- Mason should be setup before lspconfig
 require('plugins.mason')
 
-require('core.lsp')
+-- Highlighting should run first
 require('core.treesitter')
+require('core.lsp')
 
 require('plugins.packer')
 

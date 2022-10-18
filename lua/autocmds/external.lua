@@ -19,6 +19,14 @@ function M.lsp()
         illuminate.on_attach(client)
       end
 
+      -- Attach navic
+      if client.server_capabilities.documentSymbolProvider then
+        local na_ok, navic = pcall(require, 'nvim-navic')
+        if na_ok then
+          navic.attach(client, bufnr)
+        end
+      end
+
       -- Create buffer-local autocmd for AutoFormat
       if client.supports_method('textDocument/formatting') then
         vim.api.nvim_clear_autocmds({ group = autoformat, buffer = bufnr })

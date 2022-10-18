@@ -1,3 +1,8 @@
+-- TODO: global option for borders (see `:help nvim_open_win()`)
+--       this can be used to link NormalFloat highlight group to Normal
+--       left : Packer, Mason, LspInfo ...
+vim.g.borderstyle = 'rounded' -- nil for no-border, 'shadow' for shadow border
+
 -- TODO: change clipboard based on OS
 vim.o.clipboard = 'unnamedplus'
 
@@ -13,6 +18,7 @@ vim.o.cmdheight = 0
 vim.o.fileencoding = 'utf-8' -- encoding written to the file
 vim.o.showmode = false
 
+-- TODO: disable comment smartindent
 vim.o.smartindent = true
 vim.o.splitbelow = true -- force all horizontal splits to go below current window
 vim.o.splitright = true -- force all vertical splits to go to the right of current window
@@ -46,4 +52,7 @@ vim.opt.fillchars:append({
   -- vertleft = ' ',
   -- vertright = ' ',
   -- verthoriz = ' ',
+  foldopen = '',
+  foldsep = ' ',
+  foldclose = '',
 })
