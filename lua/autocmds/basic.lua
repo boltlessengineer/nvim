@@ -14,6 +14,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnte
   callback = function()
     if vim.wo.number and (vim.fn.mode() ~= 'i') then
       vim.wo.relativenumber = true
+      vim.wo.cursorline = true
     end
   end,
 })
@@ -22,6 +23,7 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'
   callback = function()
     if vim.wo.number then
       vim.wo.relativenumber = false
+      vim.wo.cursorline = false
     end
   end,
 })
@@ -43,8 +45,9 @@ vim.api.nvim_create_autocmd('ColorSchemePre', {
   group = UserColorScheme,
   callback = function(opts)
     local colorscheme = opts.match:gsub('%-', '%_')
-    -- NOTE: We don't have to print error. `:colorscheme` already handles error msg itself
-    pcall(require, 'boltless.colorscheme.' .. colorscheme)
+    local c_config = 'boltless.colorscheme.' .. colorscheme
+    package.loaded[c_config] = nil
+    pcall(require, c_config)
   end
 })
 

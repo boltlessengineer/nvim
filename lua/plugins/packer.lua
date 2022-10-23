@@ -26,7 +26,7 @@ packer.init {
   compile_path = compile_path,
   display = {
     open_fn = function()
-      return require('packer.util').float { border = 'rounded' }
+      return require('packer.util').float { border = vim.g.borderstyle }
     end,
   },
 }
@@ -42,7 +42,7 @@ packer.startup(function(use)
   -- Colorschemes
   -- TODO: check octis.nvim
   use 'rebelot/kanagawa.nvim'
-  -- use 'sainnhe/gruvbox-material'
+  use 'sainnhe/gruvbox-material'
   -- use 'Yazeed1s/minimal.nvim'
   -- use {'rose-pine/neovim', as = 'rose-pine'}
   use { 'catppuccin/nvim', as = 'catppuccin' }
@@ -74,6 +74,7 @@ packer.startup(function(use)
   -- LSP
   use 'neovim/nvim-lspconfig' -- enable LSP
   use 'j-hui/fidget.nvim' -- nvim-lsp progress UI
+  use 'RRethy/vim-illuminate' -- auto-highlight word under cursor
 
   -- DAP
   -- TODO: add DAP stuffs here

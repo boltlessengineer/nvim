@@ -13,3 +13,6 @@ set('v', '>', '>gv')
 
 -- don't yank on paste
 set('v', 'p', '"_dP')
+
+-- tmp
+set('n', 'R', '<cmd>colorscheme kanagawa<CR>')

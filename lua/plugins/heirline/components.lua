@@ -118,6 +118,7 @@ M.vi_mode = {
 }
 
 -- TODO: maybe just use neogit's variables
+-- TODO: show cwd if git is disabled
 M.git = {
   condition = function()
     -- Check is git repo & GitStatus is created
@@ -205,7 +206,7 @@ M.diagnostics = {
 M.file_type = {
   provider = function()
     local ft = vim.bo.filetype
-    local ignore_filetype = require('boltless.utils.list').ignore_filetype
+    local ignore_filetype = require('boltless.utils.list').ignore_filetype()
     if vim.tbl_contains(ignore_filetype, ft) then ft = 'etc' end
     if ft == '' then ft = 'notype' end
     return string.upper(ft)
@@ -251,8 +252,8 @@ M.tabstop = {
 M.disable_winbar = {
   condition = function()
     return conditions.buffer_matches({
-      buftype = require('boltless.utils.list').ignore_buftype,
-      filetype = require('boltless.utils.list').ignore_filetype,
+      buftype = require('boltless.utils.list').ignore_buftype(),
+      filetype = require('boltless.utils.list').ignore_filetype(),
     })
   end,
   init = function()
@@ -323,7 +324,7 @@ M.navic = {
 M.align = { provider = '%=' }
 M.separator = {
   provider = ' | ',
-  hl = { fg = 'sep', bg = 'bg' },
+  hl = { fg = 'dark_fg', bg = 'bg' },
 }
 -- use separator (`|`) only when window is wide enough
 M.smartspace = {
@@ -336,7 +337,7 @@ M.smartspace = {
       -- return ' ▏'
     end
   end,
-  hl = { fg = 'sep', bg = 'bg' },
+  hl = { fg = 'dark_fg', bg = 'bg' },
 }
 M.space = { provider = ' ' }
 

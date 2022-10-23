@@ -1,3 +1,4 @@
+-- TODO: remove border (no option for border in plugin)
 local ok, notify = pcall(require, 'notify')
 if not ok then return end
 
@@ -18,9 +19,9 @@ notify.setup {
   max_width = 50,
   render = function(bufnr, notif, highlights, config)
     if notif.title[1] == '' then
-      return renderers.minimal(bufnr, notif, highlights, config)
+      return renderers['minimal'](bufnr, notif, highlights, config)
     else
-      return renderers.default(bufnr, notif, highlights, config)
+      return renderers['default'](bufnr, notif, highlights, config)
     end
   end,
   stages = 'fade_in_slide_out',

@@ -3,8 +3,8 @@ local M = {}
 -- TODO: nvim-navic feature) conceal item text when cursor goes too deeper
 
 function M.get_no_plugin()
-  return [[ %{expand('%f') != '' ? pathshorten(expand('%f')) : '[NONAME]'} ]]
-      .. [[%m%h%w%r%=%<%-8.([%l,%c]%) %P]]
+  return [[ %{expand('%f') != '' ? pathshorten(fnamemodify(expand('%f'), ':.')) : '[No Name]'} ]]
+      .. [[%m%h%w%r%=%<%-8.([%l,%c]%) %P ]]
 end
 
 return M
