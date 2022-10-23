@@ -40,8 +40,8 @@ vim.o.numberwidth = 4 -- set number column width to 2 (default 4)
 vim.o.signcolumn = 'yes' -- always show the sign column.
 vim.o.colorcolumn = '80'
 vim.o.wrap = false -- display lines as one long line
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 8
+-- vim.o.scrolloff = 8
+-- vim.o.sidescrolloff = 8
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 

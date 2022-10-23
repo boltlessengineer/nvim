@@ -11,6 +11,7 @@ brew install neovim --HEAD # (v0.9.0)
 ## TODOS
 
 - IDEA: time-based theme switch (see: [abzcoding/lvim](https://github.com/abzcoding/lvim/commit/8c3f785d820107cff922360f1626e0d8004d5881#commitcomment-84750112))
+- IDEA: diagnostic count & direction indicator on righttop, rightbottom of the buffer window (see: [starsh/everybody-wants-that-line.nvim](https://github.com/strash/everybody-wants-that-line.nvim)
 
 - Important
   - [ ] fix Treesitter/LspHover markdown highlighting issue
@@ -19,6 +20,7 @@ brew install neovim --HEAD # (v0.9.0)
   - [ ] 'add diffcolumn option' for diff icons in normal buffer
 
 - [ ] symbols-outline.nvim
+- [ ] aerial.nvim
 - [ ] neoscroll.nvim
 
 - [ ] make `'titlestring'` more useful

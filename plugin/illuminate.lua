@@ -10,6 +10,7 @@ illuminate.configure {
   filetypes_denylist = require('boltless.utils.list').ignore_filetype({
     'txt',
     'help',
+    'markdown',
   }),
   -- TODO: wait until these options work better
   -- modes_denylist = { 'i', 'v' },

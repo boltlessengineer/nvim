@@ -13,8 +13,17 @@ nvimtree.setup {
   open_on_tab = false,
   update_cwd = true,
   renderer = {
+    indent_markers = {
+      enable = true,
+    },
     icons = {
-      -- git_placement = 'signcolumn',
+      git_placement = 'signcolumn',
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = false,
+        git = true,
+      }
     },
   },
   view = {
@@ -60,7 +69,7 @@ nvimtree.setup {
     },
   },
   diagnostics = {
-    enable = true,
+    enable = false,
   },
   trash = {
     -- TODO check if this work well in linux/macos/windows

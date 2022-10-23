@@ -181,7 +181,7 @@ M.diagnostics = {
     hl = function(self)
       self.error = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.ERROR })
       if self.error > 0 then
-        return 'DiagnosticError'
+        return 'DiagnosticSignError'
       end
     end,
   },
@@ -196,7 +196,7 @@ M.diagnostics = {
     hl = function(self)
       self.warn = #vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.WARN })
       if self.warn > 0 then
-        return 'DiagnosticWarn'
+        return 'DiagnosticSignWarn'
       end
     end,
   },
@@ -311,12 +311,15 @@ M.navic = {
     if not ok then return false end
     return navic.is_available()
   end,
-  provider = function()
-    local navic = require('nvim-navic')
-    -- PLAN
+  init = function()
+    -- TODO: navic
     -- 1. escape `%`s and `->`
+    --    see: [rebelot/dotfiles](https://github.com/rebelot/dotfiles/blob/master/nvim/lua/plugins/heirline.lua#L292)
     -- 2. colaspe icons (calculate max width except filename)
     -- 3. on_click : go to location
+  end,
+  provider = function()
+    return '[WIP] nvim-navic'
   end,
   update = 'CursorMoved',
 }
@@ -326,15 +329,12 @@ M.separator = {
   provider = ' | ',
   hl = { fg = 'dark_fg', bg = 'bg' },
 }
--- use separator (`|`) only when window is wide enough
 M.smartspace = {
   provider = function()
     if is_small() then
       return ' '
     else
-      return ' | '
-      -- return '  '
-      -- return ' ▏'
+      return '  '
     end
   end,
   hl = { fg = 'dark_fg', bg = 'bg' },

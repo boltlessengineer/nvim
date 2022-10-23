@@ -71,7 +71,7 @@ require('kanagawa').setup {
     -- PmenuThumb = { bg = c.fujiWhite }, -- scrollbar fg
 
     TreesitterContextLineNumber = {},
-    TreesitterContext = { bg = t.float_bg },
+    TreesitterContext = { link = 'Pmenu' },
     TelescopeNormal = { link = 'NormalFloat' },
     TelescopeSelection = { link = 'PmenuSel' },
     TelescopeBorder = {
@@ -84,9 +84,11 @@ require('kanagawa').setup {
     NvimTreeFolderIcon = { fg = c.crystalBlue },
     diffRemoved = { fg = c.peachRed },
 
-    -- TODO: Navic colors
     -- TODO: diagnostic inline messages background color
   },
 }
 
-vim.cmd.colorscheme('kanagawa')
+vim.schedule(function()
+  vim.cmd(string.format('highlight WinBar guifg=%s guibg=%s', t.sl_fg, t.win_sep_fg))
+  vim.cmd(string.format('highlight WinBarNC guifg=%s guibg=%s', t.float_border, t.win_sep_fg))
+end)
