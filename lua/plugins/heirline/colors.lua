@@ -30,14 +30,15 @@ local function setup_colors()
     -- git_change = utils.get_highlight('diffChanged').fg,
   }
 
-  colors.fg = utils.get_highlight('StatusLine').fg
+  colors.normal_fg = utils.get_highlight('Normal').fg
+  colors.fg        = utils.get_highlight('Folded').fg
+  colors.bright_fg = utils.get_highlight('StatusLine').fg
   -- TODO: create `dark_fg` color by darken fg with bg
-  colors.dark_fg = utils.get_highlight('FloatBorder').fg
-  colors.bg = utils.get_highlight('StatusLine').bg
+  colors.dark_fg   = utils.get_highlight('LineNr').fg
+  colors.bg        = utils.get_highlight('StatusLine').bg
   -- colors.sep = utils.get_highlight('CursorLine').bg
 
-  -- local kanagawa = require('kanagawa.colors').setup()
-  -- colors = vim.tbl_extend('keep', colors, kanagawa)
+  colors.float_bg = utils.get_highlight('Pmenu').bg
   return colors
 end
 

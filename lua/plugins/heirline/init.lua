@@ -22,12 +22,11 @@ local statusline = {
   c.file_type,
   c.space,
 }
--- TODO: remove this line
-vim.opt.winbar = [[%{%v:lua.require('boltless.ui.winbar').get_no_plugin()%}]]
 
-local winbar = {
-  c.disable_winbar,
-}
-local tabline = {}
+local winbar = require('plugins.heirline.winbar')
+-- TODO: tabline support
+-- local tabline = {}
 
-heirline.setup(statusline)
+heirline.setup(statusline, winbar)
+
+require('autocmds.external').heirline()

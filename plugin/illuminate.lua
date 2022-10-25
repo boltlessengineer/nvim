@@ -8,6 +8,7 @@ illuminate.configure {
     'regex',
   },
   filetypes_denylist = require('boltless.utils.list').ignore_filetype({
+    '',
     'txt',
     'help',
     'markdown',

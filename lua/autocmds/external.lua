@@ -82,4 +82,22 @@ function M.packer()
   })
 end
 
+-- Heirline
+function M.heirline()
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'HeirlineInitWinbar',
+    callback = function(args)
+      local buf = args.buf
+      local buftype = vim.tbl_contains(
+        require('boltless.utils.list').ignore_buftype(),
+        vim.bo[buf].buftype
+      )
+      if buftype then
+        vim.opt_local.winbar = nil
+      end
+    end,
+
+  })
+end
+
 return M

@@ -1,6 +1,6 @@
+if true then return end
 local ok, feline = pcall(require, 'feline')
 if not ok then return end
-if true then return end
 
 -- IDEAs
 -- - Show current file(or folder)'s path on tabline (may include navic)

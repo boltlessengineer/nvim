@@ -9,15 +9,18 @@ local t     = {
   fg           = c.fujiWhite,
   bg           = c.sumiInk1, -- 14
   dim_bg       = c.sumiInk1, -- 14
-  win_sep_fg   = c.sumiInk0, -- 19 (changed)
-  win_sep_bg   = c.sumiInk0, -- 19 (changed)
+  win_sep_fg   = c.sumiInk2c, -- 19 (changed)
+  win_sep_bg   = c.sumiInk1, -- 19 (changed)
   cursor_bg    = c.sumiInk2, -- 17 (changed)
   ref_text     = c.sumiInk4b, -- 24 (changed)
   float_bg     = c.sumiInk3, -- 24 (changed, alot)
   fold_bg      = c.sumiInk3, -- 22 (changed)
-  colorcolumn  = c.sumiInk2c, -- 15 (changed)
+  colorcolumn  = c.sumiInk1c, -- 15 (changed)
   float_border = c.sumiInk4, -- 38
-  sl_fg        = c.springViolet1, -- (changed)
+  sl_fg        = c.springViolet2, -- (changed)
+  sl_bg        = c.sumiInk2c,
+  wb_fg        = c.springViolet1,
+  wb_bg        = c.sumiInk2c,
 
   -- WIP : Pmenu
   menu_fg      = c.fujiWhite,
@@ -53,9 +56,9 @@ require('kanagawa').setup {
     Folded       = { bg = t.fold_bg },
     ColorColumn  = { bg = t.colorcolumn },
     WinSeparator = { fg = t.win_sep_fg, bg = t.win_sep_bg },
-    StatusLine   = { fg = t.sl_fg, bg = t.win_sep_fg },
-    WinBar       = { fg = t.sl_fg, bg = t.win_sep_fg },
-    WinBarNC     = { fg = t.float_border, bg = t.win_sep_fg },
+    StatusLine   = { fg = t.sl_fg, bg = t.sl_bg },
+    -- WinBar       = { fg = t.wb_fg, bg = t.wb_bg },
+    -- WinBarNC     = { fg = t.float_border, bg = t.win_sep_fg },
 
     Pmenu      = { bg = t.menu_bg },
     PmenuSel   = { fg = t.menu_sel_fg, bg = t.menu_sel_bg },
@@ -82,13 +85,14 @@ require('kanagawa').setup {
     -- just my favor
     -- TreesitterContextLineNumber = { fg = c.sumiInk4, bg = c.sumiInk2 }, -- bg from NormalFloat
     NvimTreeFolderIcon = { fg = c.crystalBlue },
+    NvimTreeIndentMarker = { fg = c.sumiInk4 },
     diffRemoved = { fg = c.peachRed },
 
     -- TODO: diagnostic inline messages background color
   },
 }
 
-vim.schedule(function()
-  vim.cmd(string.format('highlight WinBar guifg=%s guibg=%s', t.sl_fg, t.win_sep_fg))
-  vim.cmd(string.format('highlight WinBarNC guifg=%s guibg=%s', t.float_border, t.win_sep_fg))
-end)
+-- vim.schedule(function()
+--   vim.cmd(string.format('highlight WinBar guifg=%s guibg=%s', t.sl_fg, t.win_sep_fg))
+--   vim.cmd(string.format('highlight WinBarNC guifg=%s guibg=%s', t.float_border, t.win_sep_fg))
+-- end)

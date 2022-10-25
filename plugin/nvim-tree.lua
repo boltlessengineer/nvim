@@ -18,12 +18,37 @@ nvimtree.setup {
     },
     icons = {
       git_placement = 'signcolumn',
+      symlink_arrow = ' ➛ ',
       show = {
         file = true,
         folder = true,
-        folder_arrow = false,
+        folder_arrow = true,
         git = true,
-      }
+      },
+      glyphs = {
+        default  = '',
+        symlink  = '',
+        bookmark = '',
+        folder   = {
+          arrow_closed = '',
+          arrow_open   = '',
+          default      = '',
+          open         = '',
+          empty        = '',
+          empty_open   = '',
+          symlink      = '',
+          symlink_open = '',
+        },
+        git      = {
+          unstaged  = '✗',
+          staged    = '✓',
+          unmerged  = '',
+          renamed   = '➜',
+          untracked = '★',
+          deleted   = '',
+          ignored   = '◌',
+        },
+      },
     },
   },
   view = {
@@ -69,6 +94,7 @@ nvimtree.setup {
     },
   },
   diagnostics = {
+    -- diagnostic signs doesn't work as expected
     enable = false,
   },
   trash = {

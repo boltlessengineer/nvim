@@ -78,7 +78,7 @@ M.vi_mode = {
       ['t'] = { 'TERMINAL', 'T' },
     },
     mode_colors = {
-      n = 'fg',
+      n = 'bright_fg',
       i = 'green',
       v = 'magenta',
       V = 'magenta',
@@ -154,7 +154,7 @@ M.diagnostics = {
     self.warn = 0
   end,
   -- TODO: replace color aliases with StatusLine.fg, StatusLine.bg
-  hl = { fg = 'fg', bg = 'bg', force = false },
+  hl = { fg = 'dark_fg', bg = 'bg', force = false },
   on_click = {
     callback = function()
       local ok, trouble = pcall(require, 'trouble')
@@ -265,6 +265,9 @@ M.file_name_block = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(0)
   end,
+  hl = function()
+    return { fg = 'bg', bg = 'fg', bold = true }
+  end,
 }
 
 local file_icon = {
@@ -277,14 +280,13 @@ local file_icon = {
     local extension = vim.fn.fnamemodify(filename, ':e')
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
   end,
-  hl = function(self)
-    return { fg = self.icon_color }
-  end,
+  -- hl = function(self)
+  --   return { fg = self.icon_color }
+  -- end,
   provider = function(self)
     return self.icon and (self.icon .. ' ')
   end,
 }
--- sumiInk1c     = "#1a1a22",
 
 local file_name = {
   provider = function(self)
@@ -300,9 +302,22 @@ local file_name = {
   end,
 }
 
+local file_modi = {
+  provider = function()
+    if not vim.bo.modifiable or vim.bo.readonly then
+      return ' [-]'
+    elseif vim.bo.modified then
+      return ' [+]'
+    end
+  end,
+}
+
 M.file_name_block = utils.insert(M.file_name_block,
+  { provider = ' ' },
   file_icon,
-  file_name
+  file_name,
+  file_modi,
+  { provider = ' ' }
 )
 
 M.navic = {
@@ -311,20 +326,89 @@ M.navic = {
     if not ok then return false end
     return navic.is_available()
   end,
-  init = function()
+  static = {
+    type_hl = {
+      File = 'Directory',
+      Module = '@include',
+      Namespace = '@namespace',
+      Package = '@include',
+      Class = '@structure',
+      Method = '@method',
+      Property = '@property',
+      Field = '@field',
+      Constructor = '@constructor',
+      Enum = '@field',
+      Interface = '@type',
+      Function = '@function',
+      Variable = '@variable',
+      Constant = '@constant',
+      String = '@string',
+      Number = '@number',
+      Boolean = '@boolean',
+      Array = '@field',
+      Object = '@type',
+      Key = '@keyword',
+      Null = '@comment',
+      EnumMember = '@field',
+      Struct = '@structure',
+      Event = '@keyword',
+      Operator = '@operator',
+      TypeParameter = '@type',
+    },
+    enc = function(line, col, winnr)
+      return bit.bor(bit.lshift(line, 16), bit.lshift(col, 6), winnr)
+    end,
+    dec = function(c)
+      local line = bit.rshift(c, 16)
+      local col = bit.band(bit.rshift(c, 6), 1023)
+      local winnr = bit.band(c, 63)
+      return line, col, winnr
+    end
+  },
+  init = function(self)
     -- TODO: navic
-    -- 1. escape `%`s and `->`
-    --    see: [rebelot/dotfiles](https://github.com/rebelot/dotfiles/blob/master/nvim/lua/plugins/heirline.lua#L292)
-    -- 2. colaspe icons (calculate max width except filename)
-    -- 3. on_click : go to location
+    -- 1. colaspe icons (calculate max width except filename)
+    local data = require('nvim-navic').get_data() or {}
+    local children = {}
+    for i, d in ipairs(data) do
+      local pos = self.enc(d.scope.start.line, d.scope.start.character, self.winnr)
+      local child = {
+        {
+          provider = d.icon,
+          hl = self.type_hl[d.type],
+        },
+        {
+          condition = function()
+            return (i > #data - 3) or (i < 2)
+          end,
+          -- excape `%`s (elixir) and buggy default separators
+          provider = d.name:gsub('%%', '%%%%'):gsub('%s*->%s*', '') .. ' ',
+        },
+        on_click = {
+          minwid = pos,
+          callback = function(_, minwid)
+            local line, col, winnr = self.dec(minwid)
+            vim.api.nvim_win_set_cursor(vim.fn.win_getid(winnr), { line, col })
+          end,
+          name = 'heirline_navic',
+        },
+      }
+      if i ~= 1 then
+        table.insert(children, { provider = '> ', hl = { fg = 'dark_fg' } })
+      end
+      table.insert(children, child)
+    end
+    self.child = self:new(children, 1)
   end,
-  provider = function()
-    return '[WIP] nvim-navic'
+  provider = function(self)
+    return self.child:eval()
   end,
-  update = 'CursorMoved',
+  hl = { fg = 'normal_fg' },
+  update = { 'WinNew', 'CursorMoved' },
 }
 
 M.align = { provider = '%=' }
+M.cutoff = { provider = '%<' }
 M.separator = {
   provider = ' | ',
   hl = { fg = 'dark_fg', bg = 'bg' },

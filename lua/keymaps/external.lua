@@ -35,6 +35,7 @@ function M.telescope()
     { '<space>fg', '<cmd>Telescope live_grep<CR>', 'Live Grep' },
     { '<space>b', '<cmd>Telescope buffers<CR>', 'Find Buffers' },
     { '<space>h', '<cmd>Telescope help_tags<CR>', 'Help' },
+    { '<space>e', '<cmd>Telescope file_browser<CR>', 'File Browser' },
   })
 end
 

@@ -40,11 +40,15 @@ packer.startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- Dev icons
 
   -- Colorschemes
-  -- TODO: check octis.nvim
+  -- TODO: check theme list
+  -- - Noctis (kartikp10/noctis.nvim)
+  -- - Mellow (kvrohit/mellow.nvim)
+  -- - Enfocado (wuelnerdotexe/vim-enfocado)
+  -- - Oxocarbon
   use 'rebelot/kanagawa.nvim'
   use 'sainnhe/gruvbox-material'
   -- use 'Yazeed1s/minimal.nvim'
-  -- use {'rose-pine/neovim', as = 'rose-pine'}
+  use { 'rose-pine/neovim', as = 'rose-pine' }
   use { 'catppuccin/nvim', as = 'catppuccin' }
   use {
     'mcchrish/zenbones.nvim',
@@ -101,6 +105,7 @@ packer.startup(function(use)
 
   -- Telescope
   use 'nvim-telescope/telescope.nvim'
+  use 'nvim-telescope/telescope-file-browser.nvim'
 
   use 'numToStr/Comment.nvim' -- Commenting plugin
   -- treesitter based commentstrings

@@ -1,13 +1,7 @@
--- TODO: global option for borders (see `:help nvim_open_win()`)
---       this can be used to link NormalFloat highlight group to Normal
---       left : Packer, Mason, LspInfo ...
-vim.g.borderstyle = 'rounded' -- NOTE: `:h api-floatwin`
-vim.g.diminable = false
-
 -- TODO: change clipboard based on OS
 vim.o.clipboard = 'unnamedplus'
 
-vim.o.langmenu = 'en_US'
+-- vim.o.langmenu = 'en_US'
 vim.cmd [[let $LANG='en_US.UTF-8']]
 vim.o.guifont = 'FiraCode Nerd Font:h16'
 
@@ -40,28 +34,26 @@ vim.o.numberwidth = 4 -- set number column width to 2 (default 4)
 vim.o.signcolumn = 'yes' -- always show the sign column.
 vim.o.colorcolumn = '80'
 vim.o.wrap = false -- display lines as one long line
--- vim.o.scrolloff = 8
+vim.o.scrolloff = 5
 -- vim.o.sidescrolloff = 8
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 -- TODO: remove VertSplit (winbar can be used instead)
 vim.opt.fillchars:append({
-  horiz     = ' ',
-  horizup   = ' ',
-  horizdown = ' ',
-  vert      = '┃',
-  vertleft  = '▋',
-  vertright = '▐',
-  verthoriz = '█',
-  -- horiz = ' ',
-  -- horizup = ' ',
-  -- horizdown = ' ',
-  -- vert = ' ',
-  -- vertleft = ' ',
-  -- vertright = ' ',
-  -- verthoriz = ' ',
   foldopen  = '',
   foldsep   = ' ',
   foldclose = '',
 })
+
+if vim.g.borderstyle == 'none' then
+  vim.opt.fillchars:append {
+    horiz     = '▄',
+    horizup   = '▄',
+    horizdown = '▄',
+    vert      = '█',
+    vertleft  = '█',
+    vertright = '█',
+    verthoriz = '█',
+  }
+end
