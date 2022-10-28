@@ -266,7 +266,12 @@ M.file_name_block = {
     self.filename = vim.api.nvim_buf_get_name(0)
   end,
   hl = function()
-    return { fg = 'bg', bg = 'fg', bold = true }
+    return {
+      fg = 'fg',
+      -- fg = conditions.is_active() and 'fg' or 'dark_fg',
+      reverse = conditions.is_active(),
+      bold = true,
+    }
   end,
 }
 
@@ -324,7 +329,7 @@ M.navic = {
   condition = function()
     local ok, navic = pcall(require, 'nvim-navic')
     if not ok then return false end
-    return navic.is_available()
+    return navic.is_available() and conditions.is_active()
   end,
   static = {
     type_hl = {
@@ -372,18 +377,25 @@ M.navic = {
     local children = {}
     for i, d in ipairs(data) do
       local pos = self.enc(d.scope.start.line, d.scope.start.character, self.winnr)
+      -- excape `%`s (elixir) and buggy default separators
+      local name = d.name:gsub('%%', '%%%%'):gsub('%s*->%s*', '')
       local child = {
         {
           provider = d.icon,
           hl = self.type_hl[d.type],
         },
-        {
-          condition = function()
-            return (i > #data - 3) or (i < 2)
-          end,
-          -- excape `%`s (elixir) and buggy default separators
-          provider = d.name:gsub('%%', '%%%%'):gsub('%s*->%s*', '') .. ' ',
-        },
+        utils.make_flexible_component(i,
+          { provider = name .. ' ' },
+          {
+            provider = string.sub(name, 1, 10),
+            {
+              provider = ' ',
+              hl = { fg = 'dark_fg' },
+            },
+          },
+          { provider = '' }
+        ),
+        -- TODO: open float popup when colasped icon is clicked
         on_click = {
           minwid = pos,
           callback = function(_, minwid)
@@ -394,17 +406,15 @@ M.navic = {
         },
       }
       if i ~= 1 then
-        table.insert(children, { provider = '> ', hl = { fg = 'dark_fg' } })
+        table.insert(children, { provider = ' ', hl = { fg = 'dark_fg' } })
       end
       table.insert(children, child)
     end
-    self.child = self:new(children, 1)
-  end,
-  provider = function(self)
-    return self.child:eval()
+    -- TODO: check how :new() function works (what's the meaning of second parameter `1`)
+    self[1] = self:new(children, 1)
   end,
   hl = { fg = 'normal_fg' },
-  update = { 'WinNew', 'CursorMoved' },
+  update = { 'WinNew', 'CursorMoved', 'VimResized' },
 }
 
 M.align = { provider = '%=' }
