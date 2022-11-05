@@ -14,6 +14,7 @@ function M.setup()
     }
   )
 
+  -- TODO: belows are diagnostics related config, not LSP. should be moved to lua/core/diagnostics
   local icons = require('boltless.ui.icons')
   local signs = {
     { name = 'DiagnosticSignError', text = icons.diagnostics.Error, numhl = '' },

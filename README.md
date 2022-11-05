@@ -19,9 +19,10 @@ brew install neovim --HEAD # (v0.9.0)
 - Issue
   - [ ] 'add diffcolumn option' for diff icons in normal buffer
 
-- [ ] symbols-outline.nvim
-- [ ] aerial.nvim
-- [ ] neoscroll.nvim
+- [ ] replace colorizer with ccc.nvim (more actively maintained)
+- [ ] folke/neodev.nvim
+- [ ] b0o/schemastore.nvim
+- [ ] symbols-outline.nvim | aerial.nvim
 
 - [ ] make `'titlestring'` more useful
 - [ ] complete end with `,` if creating list or object's child

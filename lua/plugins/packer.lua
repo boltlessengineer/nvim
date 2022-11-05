@@ -33,6 +33,7 @@ packer.init {
 
 require('autocmds.external').packer()
 
+-- TODO: try `packer.setup(config, plugins)` (see https://github.com/folke/dot/blob/8d343c36e6ff4109f0585a4828f49ca7b89c1ece/config/nvim/lua/config/plugins.lua)
 packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- Have packer manage itself
   use 'lewis6991/impatient.nvim' -- Blazingly fast startup
@@ -41,11 +42,16 @@ packer.startup(function(use)
 
   -- Colorschemes
   -- TODO: check theme list
+  -- NOTE: https://www.reddit.com/r/neovim/comments/ydnip2/whats_your_recommendations_for_good_colorschemes
+  --
   -- - Noctis (kartikp10/noctis.nvim)
-  -- - Mellow (kvrohit/mellow.nvim)
   -- - Enfocado (wuelnerdotexe/vim-enfocado)
+  -- - Edge (sainnhe/edge)
+  -- - Github (projekt0n/github-nvim-theme)
   -- - Oxocarbon
+  -- - Night Wolf Dark (VSCode theme)
   use 'rebelot/kanagawa.nvim'
+  use 'kvrohit/mellow.nvim'
   use 'sainnhe/gruvbox-material'
   -- use 'Yazeed1s/minimal.nvim'
   use { 'rose-pine/neovim', as = 'rose-pine' }
@@ -97,24 +103,33 @@ packer.startup(function(use)
   }
 
   -- Treesitter
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'nvim-treesitter/playground'
+  -- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {
+    'nvim-treesitter/playground',
+    -- NOTE: Comment.nvim already supports treesitter itself (except tsx/jsx)
+    'JoosepAlviste/nvim-ts-context-commentstring', -- treesitter based commentstrings
+    'nvim-treesitter/nvim-treesitter-context', -- sticky header for context
+    'p00f/nvim-ts-rainbow', -- rainbow parentheses {}
+    requires = 'nvim-treesitter/nvim-treesitter'
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter-textobjects', -- Aware text-object
+    requires = 'nvim-treesitter/nvim-treesitter',
+  }
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
+  use 'TimUntersberger/neogit'
 
   -- Telescope
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
 
   use 'numToStr/Comment.nvim' -- Commenting plugin
-  -- treesitter based commentstrings
-  -- NOTE: Comment.nvim already supports treesitter itself (except tsx/jsx)
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
 
-  use 'nvim-treesitter/nvim-treesitter-context' -- sticky header for context
+  use 'kylechui/nvim-surround' -- surround plugin
+
   use 'SmiteshP/nvim-navic' -- LSP based code context
-  use 'p00f/nvim-ts-rainbow' -- rainbow parentheses {}
   use 'norcalli/nvim-colorizer.lua' -- colorize hex colors
   use 'lukas-reineke/indent-blankline.nvim' -- pretty indentation guides
   --[[ use {
@@ -125,9 +140,12 @@ packer.startup(function(use)
     }
   } ]]
   use 'rcarriga/nvim-notify' -- notification manager
+  use 'goolord/alpha-nvim' -- startup screen
+
   use 'folke/trouble.nvim' -- pretty list
   use 'folke/todo-comments.nvim' -- highlight & list todos
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' } -- modern looking folds
+  use 'karb94/neoscroll.nvim' -- smooth scroll
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

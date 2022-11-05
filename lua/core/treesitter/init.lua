@@ -15,6 +15,13 @@ tsconfigs.setup {
   context_commentstring = {
     enable = true,
   },
+  textobjects = {
+    -- TODO: be used to default/configured mappings
+    select = {},
+    swap = {},
+    move = {},
+    lsp_interop = {},
+  },
   rainbow = {
     enable = false,
     extended_mode = true,

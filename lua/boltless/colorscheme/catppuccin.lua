@@ -13,12 +13,14 @@ require('catppuccin').setup {
   highlight_overrides = {
     mocha = function(colors)
       return {
+        -- TODO: function highlighting in TreesitterContext doesn't work well
         TreesitterContext = { bg = colors.surface0 },
-        WinBar = { fg = colors.text },
+        NvimTreeNormal = { link = 'Normal' },
       }
     end,
   },
   integrations = {
-    navic = { enabled = true, custom_bg = 'NONE' },
+    notify = true,
+    illuminate = true,
   },
 }

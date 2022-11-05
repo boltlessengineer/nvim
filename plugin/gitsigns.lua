@@ -8,7 +8,7 @@ gitsigns.setup {
     change       = { text = '▎' },
     delete       = { text = '▁' },
     topdelete    = { text = '▔' },
-    changedelete = { text = '◣' },
+    changedelete = { text = '▁' }, -- '◣'
   },
   signcolumn = true,
   numhl = false,

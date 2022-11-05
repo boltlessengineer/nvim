@@ -11,3 +11,6 @@ set('v', '>', '>gv')
 -- don't yank on paste
 set('v', 'p', '"_dP')
 
+-- keep search results centered
+set('n', 'n', 'nzzzv')
+set('n', 'N', 'Nzzzv')

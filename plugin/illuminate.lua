@@ -13,7 +13,4 @@ illuminate.configure {
     'help',
     'markdown',
   }),
-  -- TODO: wait until these options work better
-  -- modes_denylist = { 'i', 'v' },
-  -- modes_allowlist = { 'n' },
 }

@@ -42,6 +42,9 @@ function M.telescope()
     { '<space>fo', '<cmd>Telescope oldfiles<CR>', 'Recent files' },
     { '<space>fg', '<cmd>Telescope live_grep<CR>', 'Live Grep' },
     { '<space>b', '<cmd>Telescope buffers<CR>', 'Find Buffers' },
+    -- TODO: replace `help_tags` with custom floating-help Telescope command
+    -- just running `help ~` on floating window can make floating help window
+    -- floating-help-window should be replaced with new help buffer
     { '<space>h', '<cmd>Telescope help_tags<CR>', 'Help' },
     { '<space>e', '<cmd>Telescope file_browser<CR>', 'File Browser' },
   })
@@ -50,7 +53,7 @@ end
 -- NvimTree
 function M.nvimtree()
   set_maps('n', {
-    { '<C-e>', '<cmd>NvimTreeToggle<CR>', 'FileTree' },
+    -- { '<C-e>', '<cmd>NvimTreeToggle<CR>', 'FileTree' },
   })
 end
 
@@ -72,6 +75,12 @@ function M.git()
   set_maps('n', {
     { '<space>gj', '<cmd>Gitsigns next_hunk<CR>', 'Next Hunk' },
     { '<space>gk', '<cmd>Gitsigns prev_hunk<CR>', 'Prev Hunk' },
+  })
+end
+
+-- Neogit
+function M.neogit()
+  set_maps('n', {
   })
 end
 

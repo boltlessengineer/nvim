@@ -17,6 +17,8 @@ telescope.setup {
         ['<C-c>'] = actions.close,
       },
     },
+    -- TODO: this is not enough
+    border = not (vim.g.borderstyle == 'none'),
   },
   extensions = {
     file_browser = {
@@ -24,6 +26,7 @@ telescope.setup {
     },
   },
 }
-telescope.load_extension('file_browser')
-
 require('keymaps.external').telescope()
+
+telescope.load_extension('file_browser')
+-- telescope.load_extension('noice')

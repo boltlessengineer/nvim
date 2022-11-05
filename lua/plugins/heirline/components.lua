@@ -10,9 +10,9 @@ local function is_small()
   if vim.go.laststatus == 3 then
     width = vim.go.columns
   else
-    width = vim.api.nvim_get_mode()
+    width = vim.api.nvim_win_get_width()
   end
-  return width <= 80
+  return width < 80
 end
 
 local function is_big()
@@ -371,8 +371,7 @@ M.navic = {
     end
   },
   init = function(self)
-    -- TODO: navic
-    -- 1. colaspe icons (calculate max width except filename)
+    -- TODO: colasped icons' on_click should be opening small floating button below (hide with CursorMoved)
     local data = require('nvim-navic').get_data() or {}
     local children = {}
     for i, d in ipairs(data) do

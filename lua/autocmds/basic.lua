@@ -38,6 +38,25 @@ au('TermOpen', {
   end
 })
 
+-- Quit UI windows with 'q'
+local UIWindow = aug 'UIWindow'
+au({ 'FileType' }, {
+  group = UIWindow,
+  pattern = {
+    'help',
+    'man',
+    'lspinfo',
+    'tsplayground',
+  },
+  callback = function(args)
+    if args.pattern ~= 'help' then
+      vim.keymap.set('n', '<ESC>', ':q<CR>', { buffer = args.buf })
+    end
+    vim.keymap.set('n', 'q', ':q<CR>', { buffer = args.buf })
+    vim.opt_local.buflisted = false
+  end,
+})
+
 -- Changing colorscheme
 local UserColorScheme = aug 'UserColorScheme'
 au('ColorSchemePre', {

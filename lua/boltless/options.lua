@@ -47,14 +47,14 @@ vim.opt.fillchars:append({
   foldclose = '',
 })
 
-if vim.g.borderstyle == 'none' then
-  vim.opt.fillchars:append {
-    horiz     = '▄',
-    horizup   = '▄',
-    horizdown = '▄',
-    vert      = '█',
-    vertleft  = '█',
-    vertright = '█',
-    verthoriz = '█',
-  }
-end
+-- if vim.g.borderstyle == 'none' then
+--   vim.opt.fillchars:append {
+--     horiz     = '▄',
+--     horizup   = '▄',
+--     horizdown = '▄',
+--     vert      = '█',
+--     vertleft  = '█',
+--     vertright = '█',
+--     verthoriz = '█',
+--   }
+-- end

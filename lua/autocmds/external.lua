@@ -107,6 +107,29 @@ function M.heirline()
   })
 end
 
+-- Alpha
+function M.alpha()
+  local group = aug 'alpha_tabline'
+  au('FileType', {
+    group = group,
+    pattern = 'alpha',
+    callback = function()
+      local user_opt = {
+        laststatus = vim.o.laststatus,
+        -- TODO: handle tabline, ruler, etc
+      }
+      vim.o.laststatus = 0
+      au('BufUnload', {
+        group = group,
+        buffer = 0,
+        callback = function()
+          vim.o.laststatus = user_opt.laststatus
+        end
+      })
+    end
+  })
+end
+
 -- NeoVide
 function M.neovide()
   local group = aug 'neovide_titlebar'
