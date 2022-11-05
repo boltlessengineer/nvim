@@ -13,12 +13,13 @@ nvimtree.setup {
   open_on_tab = false,
   update_cwd = true,
   renderer = {
+    highlight_git = true,
     indent_markers = {
-      enable = true,
+      enable = false,
     },
     icons = {
       git_placement = 'signcolumn',
-      symlink_arrow = ' ➛ ',
+      symlink_arrow = '->',
       show = {
         file = true,
         folder = true,
