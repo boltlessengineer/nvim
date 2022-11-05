@@ -27,6 +27,14 @@ function M.lsp(opts)
   }, opts)
 end
 
+-- Trouble
+function M.trouble()
+  set_maps('n', {
+    { '<space>tt', '<cmd>TodoTrouble keywords=TODO,FIX<CR>', 'List TODOs' },
+    { '<space>ti', '<cmd>TodoTrouble keywords=IDEA<CR>', 'List IDEAs' },
+  })
+end
+
 -- Telescope
 function M.telescope()
   set_maps('n', {

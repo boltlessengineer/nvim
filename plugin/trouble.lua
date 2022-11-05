@@ -21,3 +21,5 @@ trouble.setup {
   -- TODO: maybe setting this option true is better
   use_diagnostic_signs = false,
 }
+
+require('keymaps.external').trouble()
