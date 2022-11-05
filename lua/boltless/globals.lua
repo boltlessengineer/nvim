@@ -4,5 +4,5 @@ P = function(v)
   return v
 end
 
-vim.g.borderstyle = 'none' -- NOTE: `:h api-floatwin`
+vim.g.borderstyle = 'rounded' -- NOTE: `:h api-floatwin`
 vim.g.diminable = false

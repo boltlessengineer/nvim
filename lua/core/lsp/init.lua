@@ -1,6 +1,8 @@
 local ok, nvim_lsp = pcall(require, 'lspconfig')
 if not ok then return end
 
+require('lspconfig.ui.windows').default_options.border = vim.g.borderstyle
+
 -- TODO: show only one signcolumn with priority Error > Warn > ...
 -- TODO: It would be good if I can see server is configured in Mason UI
 -- TODO: & Show available server when entered buffer have no server configured.
