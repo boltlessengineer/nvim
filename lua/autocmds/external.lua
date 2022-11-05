@@ -107,4 +107,17 @@ function M.heirline()
   })
 end
 
+-- NeoVide
+function M.neovide()
+  local group = aug 'neovide_titlebar'
+  au({ 'Colorscheme', 'VimEnter' }, {
+    group = group,
+    callback = function()
+      local bg = vim.api.nvim_get_hl_by_name('Normal', true).background or 0
+      local tr = string.format('%02x', vim.g.transparency * 255)
+      vim.g.neovide_background_color = string.format('#%06x', bg) .. tr
+    end,
+  })
+end
+
 return M

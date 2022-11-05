@@ -7,6 +7,7 @@ vim.o.guifont = 'FiraCode Nerd Font:h16'
 
 vim.o.background = 'dark'
 
+vim.o.title = true -- set gui window's title
 vim.o.mouse = 'nv' -- allow the mouse in normal/visual mode
 vim.o.showtabline = 1 -- only show tab if there are at least two tab pages
 vim.o.laststatus = 3 -- global statusline
