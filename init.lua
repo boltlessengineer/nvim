@@ -8,7 +8,7 @@ require('boltless.options')
 require('boltless.usercmds.basic')
 require('boltless.utils.git')
 
-vim.cmd.colorscheme('catppuccin')
+pcall(vim.cmd.colorscheme, 'catppuccin')
 require('boltless.ui')
 
 -- Mason should be setup before lspconfig
