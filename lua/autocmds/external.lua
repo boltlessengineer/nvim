@@ -1,5 +1,12 @@
 local M = {}
 
+local aug = function(group_name, clear)
+  if clear == nil then clear = true end
+  vim.api.nvim_create_augroup(group_name, { clear = clear })
+end
+
+local au = vim.api.nvim_create_autocmd
+
 -- LSP
 function M.lsp()
   local autoformat = vim.api.nvim_create_augroup('LspAutoFormat', {})

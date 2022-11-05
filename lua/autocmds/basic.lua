@@ -1,15 +1,14 @@
--- TODO: Use these local functions. Make code simple & more readable
-local augroup = function(group_name, clear)
+local aug = function(group_name, clear)
   if clear == nil then clear = true end
   vim.api.nvim_create_augroup(group_name, { clear = clear })
 end
 
-local autocmd = vim.api.nvim_create_autocmd
+local au = vim.api.nvim_create_autocmd
 
 -- Hybrid line numbers (inspired by https://jeffkreeftmeijer.com/vim-number/)
 -- I know, vim script is much shorter
-local numbertoggle = vim.api.nvim_create_augroup('numbertoggle', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
+local numbertoggle = aug 'numbertoggle'
+au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
   group = numbertoggle,
   callback = function()
     if vim.wo.number and (vim.fn.mode() ~= 'i') then
@@ -18,7 +17,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnte
     end
   end,
 })
-vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
+au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
   group = numbertoggle,
   callback = function()
     if vim.wo.number then
@@ -29,7 +28,7 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'
 })
 
 -- Terminal-specific options
-vim.api.nvim_create_autocmd('TermOpen', {
+au('TermOpen', {
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
@@ -40,8 +39,8 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 -- Changing colorscheme
-local UserColorScheme = augroup('UserColorScheme')
-vim.api.nvim_create_autocmd('ColorSchemePre', {
+local UserColorScheme = aug 'UserColorScheme'
+au('ColorSchemePre', {
   group = UserColorScheme,
   callback = function(opts)
     local colorscheme = opts.match:gsub('%-', '%_')
