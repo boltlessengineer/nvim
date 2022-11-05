@@ -117,15 +117,13 @@ packer.startup(function(use)
   use 'p00f/nvim-ts-rainbow' -- rainbow parentheses {}
   use 'norcalli/nvim-colorizer.lua' -- colorize hex colors
   use 'lukas-reineke/indent-blankline.nvim' -- pretty indentation guides
-  -- use {
-  --   'folke/noice.nvim',
-  --   -- TODO: check VimEnter vs plugin/ vs after/plugin's order
-  --   event = 'VimEnter',
-  --   requires = {
-  --     'MunifTanjim/nui.nvim',
-  --     'rcarriga/nvim-notify', -- notification manager
-  --   }
-  -- }
+  --[[ use {
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify', -- notification manager
+    }
+  } ]]
   use 'rcarriga/nvim-notify' -- notification manager
   use 'folke/trouble.nvim' -- pretty list
   use 'folke/todo-comments.nvim' -- highlight & list todos

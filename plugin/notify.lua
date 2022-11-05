@@ -1,5 +1,6 @@
 -- TODO: remove border (no option for border in plugin)
 local ok, notify = pcall(require, 'notify')
+ok = false
 if not ok then return end
 
 local renderers = require('notify.render')
