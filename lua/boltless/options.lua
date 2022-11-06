@@ -46,15 +46,6 @@ vim.opt.fillchars:append({
   foldsep   = ' ',
   foldclose = '',
 })
-
--- if vim.g.borderstyle == 'none' then
---   vim.opt.fillchars:append {
---     horiz     = '▄',
---     horizup   = '▄',
---     horizdown = '▄',
---     vert      = '█',
---     vertleft  = '█',
---     vertright = '█',
---     verthoriz = '█',
---   }
--- end
+vim.opt.diffopt:append({
+  linematch = 60,
+})
