@@ -84,4 +84,12 @@ function M.neogit()
   })
 end
 
+-- Neovide
+function M.neovide()
+  set_maps('n', {
+    { '<C-Tab>', '<cmd>tabnext<CR>', 'Next tab' },
+    { '<CS-Tab>', '<cmd>tabprev<CR>', 'Prev tab' },
+  })
+end
+
 return M
