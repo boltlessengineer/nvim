@@ -3,9 +3,7 @@ if not ok then return end
 
 illuminate.configure {
   providers = {
-    'lsp',
-    'treesitter',
-    'regex',
+    'lsp', -- 'treesitter', 'regex',
   },
   filetypes_denylist = require('boltless.utils.list').ignore_filetype({
     '',
