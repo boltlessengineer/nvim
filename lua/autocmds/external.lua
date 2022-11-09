@@ -70,7 +70,6 @@ function M.packer()
   vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = 'packer.lua',
     callback = function(args)
-      -- TODO: path to packer.lua instead of args.file
       vim.cmd.source(args.file)
       -- TODO: add option questioning to start PackerSync
       -- vim.ui.select({ 'Sync now', 'Not now' }, {
@@ -113,17 +112,25 @@ function M.alpha()
   au('FileType', {
     group = group,
     pattern = 'alpha',
-    callback = function()
-      local user_opt = {
-        laststatus = vim.o.laststatus,
-        -- TODO: handle tabline, ruler, etc
+    callback = function(args)
+      local user_opt    = {
+        laststatus  = vim.o.laststatus,
+        showtabline = vim.o.showtabline,
+        ruler       = vim.o.ruler,
+        showcmd     = vim.o.showcmd,
       }
-      vim.o.laststatus = 0
+      vim.o.laststatus  = 0
+      vim.o.showtabline = 0
+      vim.o.ruler       = false
+      vim.o.showcmd     = false
       au('BufUnload', {
         group = group,
-        buffer = 0,
+        buffer = args.buf,
         callback = function()
-          vim.o.laststatus = user_opt.laststatus
+          vim.o.laststatus  = user_opt.laststatus
+          vim.o.showtabline = user_opt.showtabline
+          vim.o.ruler       = user_opt.ruler
+          vim.o.showcmd     = user_opt.showcmd
         end
       })
     end
