@@ -383,17 +383,17 @@ M.navic = {
           provider = d.icon,
           hl = self.type_hl[d.type],
         },
-        utils.make_flexible_component(i,
+        {
+          flexible = i,
           { provider = name .. ' ' },
           {
             provider = string.sub(name, 1, 10),
             {
               provider = ' ',
-              hl = { fg = 'dark_fg' },
             },
           },
           { provider = '' }
-        ),
+        },
         -- TODO: open float popup when colasped icon is clicked
         on_click = {
           minwid = pos,
