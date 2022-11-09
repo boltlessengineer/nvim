@@ -9,7 +9,6 @@ vim.o.background = 'dark'
 
 vim.o.title = true -- set gui window's title
 vim.o.mouse = 'nv' -- allow the mouse in normal/visual mode
-vim.o.showtabline = 1 -- only show tab if there are at least two tab pages
 vim.o.laststatus = 3 -- global statusline
 vim.o.cmdheight = 0
 vim.o.fileencoding = 'utf-8' -- encoding written to the file
@@ -28,6 +27,8 @@ vim.o.cursorline = true -- highlight the cursorline
 vim.o.termguicolors = true -- set term gui colors (most terminals support this)
 vim.o.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.o.updatetime = 100 -- faster completion (4000ms default)
+
+vim.o.undofile = true -- create undo file for unlimited undo
 
 vim.o.number = true -- set numbered line
 vim.o.relativenumber = true -- set relative numbered lines
