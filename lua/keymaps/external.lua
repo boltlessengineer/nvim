@@ -20,11 +20,20 @@ end
 function M.lsp(opts)
   set_maps('n', {
     { '<space>ld', vim.lsp.buf.definition, 'Go to Definition' },
+    { '<space>le', vim.lsp.buf.references, 'References' },
     { '<space>lr', vim.lsp.buf.rename, 'Rename' },
     { '<space>la', vim.lsp.buf.code_action, 'Code Action' },
     { 'K', vim.lsp.buf.hover, 'Hover Document' },
     -- TODO: <space>lm for LSP menu (turn on/off AutoFormat, etc)
   }, opts)
+  -- HACK: update LSP keymaps when trouble enabled
+  local ok = pcall(require, 'trouble')
+  if ok then
+    set_maps('n', {
+      { '<space>ld', 'Trouble lsp_references', 'References' },
+      { '<space>le', 'Trouble lsp_definitions', 'Go to definition' },
+    }, opts)
+  end
 end
 
 -- Trouble
