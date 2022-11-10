@@ -6,4 +6,7 @@ vim.g.transparency = 0.97
 require('autocmds.external').neovide()
 require('keymaps.external').neovide()
 
+-- HACK: solve noice.nvim problems
+vim.o.cmdheight = 1
+
 vim.cmd.cd '~/.config/nvim'
