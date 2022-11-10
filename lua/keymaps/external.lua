@@ -30,8 +30,8 @@ function M.lsp(opts)
   local ok = pcall(require, 'trouble')
   if ok then
     set_maps('n', {
-      { '<space>ld', 'Trouble lsp_references', 'References' },
-      { '<space>le', 'Trouble lsp_definitions', 'Go to definition' },
+      { '<space>ld', '<cmd>Trouble lsp_definitions<CR>', 'Go to definition' },
+      { '<space>le', '<cmd>Trouble lsp_references<CR>', 'References' },
     }, opts)
   end
 end
