@@ -1,4 +1,8 @@
-vim.api.nvim_create_user_command('ToggleNums', function()
+local function usercmd(name, command, opts)
+  vim.api.nvim_create_user_command(name, command, opts)
+end
+
+usercmd('ToggleNums', function()
   if vim.go.number then
     vim.notify('nonumber')
     vim.o.number = false
