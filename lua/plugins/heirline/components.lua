@@ -25,6 +25,26 @@ local function is_big()
   return width > 120
 end
 
+M.align = { provider = '%=' }
+M.cutoff = { provider = '%<' }
+M.separator = {
+  provider = ' | ',
+  hl = { fg = 'dark_fg', bg = 'bg' },
+}
+M.space = { provider = ' ' }
+M.smartspace = {
+  provider = function()
+    if is_big() then
+      return ' | '
+    elseif not is_small() then
+      return '  '
+    else
+      return ' '
+    end
+  end,
+  hl = { fg = 'dark_fg', bg = 'bg' },
+}
+
 -- TODO: create autocmd group
 
 M.vi_mode = {
@@ -117,35 +137,34 @@ M.vi_mode = {
   }
 }
 
--- TODO: maybe just use neogit's variables
 -- TODO: show cwd if git is disabled
 M.git = {
   condition = function()
-    -- Check is git repo & GitStatus is created
-    local gitpath = vim.loop.cwd() .. '/.git'
-    local ok = vim.loop.fs_stat(gitpath)
-    return ok and GitStatus
+    return _G.GitStatus.enabled
+  end,
+  init = function()
   end,
   provider = function()
     return string.format('%s %s',
       icons.git.Branch,
-      GitStatus.head
+      _G.GitStatus.head
     )
   end,
   {
     -- GitStatus ahead & behind
     condition = function()
-      return GitStatus.ahead > 0 or GitStatus.behind > 0
+      return _G.GitStatus.ahead > 0 or _G.GitStatus.behind > 0
     end,
     provider = function()
-      local a = GitStatus.ahead
-      local b = GitStatus.behind
+      local a = _G.GitStatus.ahead
+      local b = _G.GitStatus.behind
       local str = ''
       if a > 0 then str = a .. icons.git.Ahead end
       if b > 0 then str = str .. b .. icons.git.Behind end
       return '(' .. str .. ')'
     end
   },
+  M.smartspace,
 }
 
 M.diagnostics = {
@@ -377,6 +396,7 @@ M.navic = {
     for i, d in ipairs(data) do
       local pos = self.enc(d.scope.start.line, d.scope.start.character, self.winnr)
       -- excape `%`s (elixir) and buggy default separators
+      -- TODO: escape `[~]` things first
       local name = d.name:gsub('%%', '%%%%'):gsub('%s*->%s*', '')
       local child = {
         {
@@ -415,23 +435,5 @@ M.navic = {
   hl = { fg = 'normal_fg' },
   update = { 'WinNew', 'CursorMoved', 'VimResized' },
 }
-
-M.align = { provider = '%=' }
-M.cutoff = { provider = '%<' }
-M.separator = {
-  provider = ' | ',
-  hl = { fg = 'dark_fg', bg = 'bg' },
-}
-M.smartspace = {
-  provider = function()
-    if is_small() then
-      return ' '
-    else
-      return '  '
-    end
-  end,
-  hl = { fg = 'dark_fg', bg = 'bg' },
-}
-M.space = { provider = ' ' }
 
 return M

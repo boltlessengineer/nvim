@@ -12,7 +12,6 @@ local statusline = {
   c.vi_mode,
   c.space,
   c.git,
-  c.smartspace,
   c.diagnostics,
   c.align,
   c.tabstop,
@@ -23,10 +22,21 @@ local statusline = {
   c.space,
 }
 
+-- IDEA: use tabline instead of winbar
+-- winbar would only enabled for unfocused file buffers
+-- tabline would contain focused filename, navic, tab count (like bufferline, but not including unfocused buffers)
+-- this way, navic can have more spaces
+
 local winbar = require('plugins.heirline.winbar')
 -- TODO: tabline support
 -- local tabline = {}
 
+-- test function
+--[[ function Statusline()
+  return _G.GitStatus.head .. ' A' .. _G.GitStatus.ahead .. ' B' .. _G.GitStatus.behind
+end
+
+vim.opt.statusline = "%!luaeval('Statusline()')" ]]
 heirline.setup(statusline, winbar)
 
 require('autocmds.external').heirline()
