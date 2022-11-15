@@ -36,28 +36,13 @@ nvim_lsp.gopls.setup {}
 nvim_lsp.sumneko_lua.setup {
   settings = {
     Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = { 'vim' },
-
-        -- NOTE: disable `different-requires` to hide warnings
-        -- https://www.reddit.com/r/neovim/comments/rvc4vo/annoying_lua_warning/
-        -- https://www.reddit.com/r/neovim/comments/snmkr3/comment/hw6diw9/
-        -- disable = { 'different-requires' },
-      },
       format = {
         -- NOTE: refer these for configuration documents.
         -- https://github.com/sumneko/lua-language-server/wiki/Code-Formatter
         -- https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/docs/format_config_EN.md
         defaultConfig = {
-          quote_style = 'single',
+          -- quote_style = 'single',
         },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false,
       },
     },
   },

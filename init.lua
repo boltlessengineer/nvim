@@ -13,6 +13,7 @@ require('boltless.ui')
 
 -- Mason should be setup before lspconfig
 require('plugins.mason')
+require('plugins.neodev')
 
 -- Highlighting should run first
 require('core.treesitter')

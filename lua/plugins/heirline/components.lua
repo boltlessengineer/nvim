@@ -10,7 +10,7 @@ local function is_small()
   if vim.go.laststatus == 3 then
     width = vim.go.columns
   else
-    width = vim.api.nvim_win_get_width()
+    width = vim.api.nvim_win_get_width(0)
   end
   return width < 80
 end

@@ -117,6 +117,9 @@ packer.startup(function(use)
     requires = 'nvim-treesitter/nvim-treesitter',
   }
 
+  -- Language specific
+  use 'folke/neodev.nvim' -- full signature help for neovim config developing
+
   -- Git
   use 'lewis6991/gitsigns.nvim'
   use 'TimUntersberger/neogit'
