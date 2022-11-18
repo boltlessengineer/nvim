@@ -17,7 +17,8 @@ local function set_maps(mode, maps, opts)
 end
 
 -- LSP
-function M.lsp(opts)
+function M.lsp(buffer)
+  local opts = { buffer = buffer }
   set_maps('n', {
     { '<space>ld', vim.lsp.buf.definition, 'Go to Definition' },
     { '<space>le', vim.lsp.buf.references, 'References' },
@@ -80,11 +81,11 @@ function M.comment()
 end
 
 -- Git
-function M.git()
+function M.git(buffer)
   set_maps('n', {
     { '<space>gj', '<cmd>Gitsigns next_hunk<CR>', 'Next Hunk' },
     { '<space>gk', '<cmd>Gitsigns prev_hunk<CR>', 'Prev Hunk' },
-  })
+  }, { buffer = buffer })
 end
 
 -- Neogit

@@ -52,7 +52,7 @@ function M.lsp()
       end
 
       -- Keymaps
-      require('keymaps.external').lsp({ buffer = bufnr })
+      require('keymaps.external').lsp(bufnr)
     end
   })
 
