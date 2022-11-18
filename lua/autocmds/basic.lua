@@ -8,7 +8,7 @@ local au = vim.api.nvim_create_autocmd
 -- Hybrid line numbers (inspired by https://jeffkreeftmeijer.com/vim-number/)
 -- I know, vim script is much shorter
 local numbertoggle = aug 'numbertoggle'
-au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
+au({ 'BufEnter', 'FocusGained', 'WinEnter' }, {
   group = numbertoggle,
   callback = function()
     if vim.wo.number and (vim.fn.mode() ~= 'i') then
@@ -17,7 +17,7 @@ au({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
     end
   end,
 })
-au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
+au({ 'BufLeave', 'FocusLost', 'WinLeave' }, {
   group = numbertoggle,
   callback = function()
     if vim.wo.number then
@@ -30,11 +30,11 @@ au({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
 -- Terminal-specific options
 au('TermOpen', {
   callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = 'no'
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.wo.signcolumn = 'no'
     -- Use toggleterm.nvim with option below
-    vim.opt_local.winfixheight = true
+    vim.wo.winfixheight = true
   end
 })
 
@@ -53,7 +53,7 @@ au({ 'FileType' }, {
       vim.keymap.set('n', '<ESC>', ':q<CR>', { buffer = args.buf })
     end
     vim.keymap.set('n', 'q', ':q<CR>', { buffer = args.buf })
-    vim.opt_local.buflisted = false
+    vim.bo.buflisted = false
   end,
 })
 
