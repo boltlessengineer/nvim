@@ -44,6 +44,9 @@ nvim_lsp.sumneko_lua.setup {
           -- quote_style = 'single',
         },
       },
+      workspace = {
+        checkThirdParty = false,
+      },
     },
   },
 }
