@@ -32,21 +32,27 @@ end)
 -- NOTE: on_attach function isn't needed. LspAttach can be used instead in v0.8
 require('autocmds.external').lsp()
 
-nvim_lsp.gopls.setup {}
-nvim_lsp.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      format = {
-        -- NOTE: refer these for configuration documents.
-        -- https://github.com/sumneko/lua-language-server/wiki/Code-Formatter
-        -- https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/docs/format_config_EN.md
-        defaultConfig = {
-          -- quote_style = 'single',
+---@type lspconfig.options
+local servers = {
+  clangd = {},
+  gopls = {},
+  sumneko_lua = {
+    settings = {
+      Lua = {
+        workspace = {
+          checkThirdParty = false,
         },
-      },
-      workspace = {
-        checkThirdParty = false,
+        format = {
+          defaultConfig = {
+          },
+        },
+        diagnostics = {
+          unusedLocalExclude = { "_*" },
+        },
       },
     },
   },
 }
+for server, opts in pairs(servers) do
+  nvim_lsp[server].setup(opts)
+end
