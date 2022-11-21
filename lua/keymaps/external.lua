@@ -21,6 +21,7 @@ function M.lsp(buffer)
   local opts = { buffer = buffer }
   set_maps('n', {
     { '<space>ld', vim.lsp.buf.definition, 'Go to Definition' },
+    { '<space>lt', vim.lsp.buf.type_definition, 'Go to Type Definition' },
     { '<space>le', vim.lsp.buf.references, 'References' },
     { '<space>lr', vim.lsp.buf.rename, 'Rename' },
     { '<space>la', vim.lsp.buf.code_action, 'Code Action' },
