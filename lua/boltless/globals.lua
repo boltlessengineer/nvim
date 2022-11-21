@@ -23,3 +23,4 @@ end
 
 vim.g.borderstyle = 'rounded' -- NOTE: `:h api-floatwin`
 vim.g.diminable = false
+vim.g.autoformat = false

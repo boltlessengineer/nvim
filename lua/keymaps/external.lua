@@ -24,6 +24,8 @@ function M.lsp(buffer)
     { '<space>le', vim.lsp.buf.references, 'References' },
     { '<space>lr', vim.lsp.buf.rename, 'Rename' },
     { '<space>la', vim.lsp.buf.code_action, 'Code Action' },
+    { '<space>lf', vim.lsp.buf.format, 'Format File' },
+    -- TODO: '<space>lfm' for lsp-format-modifications.nvim
     { 'K', vim.lsp.buf.hover, 'Hover Document' },
     -- TODO: <space>lm for LSP menu (turn on/off AutoFormat, etc)
   }, opts)
