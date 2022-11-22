@@ -20,22 +20,31 @@ end
 function M.lsp(buffer)
   local opts = { buffer = buffer }
   set_maps('n', {
-    { '<space>ld', vim.lsp.buf.definition, 'Go to Definition' },
-    { '<space>lt', vim.lsp.buf.type_definition, 'Go to Type Definition' },
-    { '<space>le', vim.lsp.buf.references, 'References' },
+    -- actions
     { '<space>lr', vim.lsp.buf.rename, 'Rename' },
     { '<space>la', vim.lsp.buf.code_action, 'Code Action' },
     { '<space>lf', vim.lsp.buf.format, 'Format File' },
     -- TODO: '<space>lfm' for lsp-format-modifications.nvim
     { 'K', vim.lsp.buf.hover, 'Hover Document' },
+    -- goto+
+    { 'gd', vim.lsp.buf.definition, 'Go to Definition' },
+    { 'gt', vim.lsp.buf.type_definition, 'Go to Type Definition' },
+    { 'ge', vim.lsp.buf.references, 'References' },
+    -- next/prev
+    { '[d', vim.diagnostic.goto_prev, 'Prev Diagnostic' },
+    { ']d', vim.diagnostic.goto_next, 'Next Diagnostic' },
+    { '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, 'Prev Error' },
+    { ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, 'Next Error' },
+    { '[w', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, 'Prev Warning' },
+    { ']w', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, 'Next Warning' },
     -- TODO: <space>lm for LSP menu (turn on/off AutoFormat, etc)
   }, opts)
   -- HACK: update LSP keymaps when trouble enabled
   local ok = pcall(require, 'trouble')
   if ok then
     set_maps('n', {
-      { '<space>ld', '<cmd>Trouble lsp_definitions<CR>', 'Go to definition' },
-      { '<space>le', '<cmd>Trouble lsp_references<CR>', 'References' },
+      { 'gd', '<cmd>Trouble lsp_definitions<CR>', 'Go to definition' },
+      { 'ge', '<cmd>Trouble lsp_references<CR>', 'References' },
     }, opts)
   end
 end
