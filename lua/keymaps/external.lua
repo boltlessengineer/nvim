@@ -95,8 +95,8 @@ end
 -- Git
 function M.git(buffer)
   set_maps('n', {
-    { '<space>gj', '<cmd>Gitsigns next_hunk<CR>', 'Next Hunk' },
-    { '<space>gk', '<cmd>Gitsigns prev_hunk<CR>', 'Prev Hunk' },
+    { '[g', '<cmd>Gitsigns prev_hunk<CR>', 'Prev Hunk' },
+    { ']g', '<cmd>Gitsigns next_hunk<CR>', 'Next Hunk' },
   }, { buffer = buffer })
 end
 
