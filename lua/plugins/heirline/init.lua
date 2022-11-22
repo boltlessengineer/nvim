@@ -14,6 +14,8 @@ local statusline = {
   c.git,
   c.diagnostics,
   c.align,
+  c.lsp_client_names,
+  c.smartspace,
   c.tabstop,
   c.smartspace,
   c.file_info,

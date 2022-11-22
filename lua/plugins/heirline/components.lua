@@ -436,4 +436,16 @@ M.navic = {
   update = { 'WinNew', 'CursorMoved', 'VimResized' },
 }
 
+M.lsp_client_names = {
+  provider = function()
+    local clients = {}
+    for _, client in pairs(vim.lsp.get_active_clients()) do
+      clients[#clients + 1] = client.name
+    end
+    return string.format('%s[%s]',
+      icons.ui.Gear .. ' ',
+      table.concat(clients, ' '))
+  end
+}
+
 return M

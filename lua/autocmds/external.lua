@@ -41,12 +41,14 @@ function M.lsp()
           group = autoformat,
           buffer = bufnr,
           callback = function()
-            vim.lsp.buf.format({
-              bufnr = bufnr,
-              filter = function(c)
-                return c.name ~= 'tsserver'
-              end,
-            })
+            if vim.g.autoformat then
+              vim.lsp.buf.format({
+                bufnr = bufnr,
+                filter = function(c)
+                  return c.name ~= 'tsserver'
+                end,
+              })
+            end
           end
         })
       end
