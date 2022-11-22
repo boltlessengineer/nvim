@@ -35,6 +35,16 @@ function M.lsp()
       end
 
       -- Create buffer-local autocmd for AutoFormat
+      if client.supports_method('textDocument/rangeFormatting') then
+        local fm_ok, format_modi = pcall(require, 'lsp-format-modifications')
+        if fm_ok then
+          format_modi.attach(client, bufnr, { format_on_save = false })
+        end
+      end
+      -- TODO: create some functions or keymaps
+      -- format modifications : <cmd>FormatModifications<CR>
+      -- format file          : <cmd>lua vim.lsp.format()<CR>
+      -- TODO: unpack this if
       if client.supports_method('textDocument/formatting') then
         vim.api.nvim_clear_autocmds({ group = autoformat, buffer = bufnr })
         vim.api.nvim_create_autocmd('BufWritePre', {

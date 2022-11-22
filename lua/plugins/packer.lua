@@ -102,6 +102,8 @@ packer.startup(function(use)
     'williamboman/mason-lspconfig.nvim',
   }
 
+  use 'joechrisellis/lsp-format-modifications.nvim' -- format modifications
+
   -- Treesitter
   -- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use {
