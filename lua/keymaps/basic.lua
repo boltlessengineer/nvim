@@ -14,3 +14,7 @@ set('v', 'p', '"_dP')
 -- keep search results centered
 set('n', 'n', 'nzzzv')
 set('n', 'N', 'Nzzzv')
+
+-- save with <C-s> and <D-s>
+set('n', '<C-s>', '<cmd>w<CR>')
+set('n', '<D-s>', '<cmd>w<CR>')
