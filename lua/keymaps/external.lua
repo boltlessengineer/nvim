@@ -23,8 +23,8 @@ function M.lsp(buffer)
     -- actions
     { '<space>lr', vim.lsp.buf.rename, 'Rename' },
     { '<space>la', vim.lsp.buf.code_action, 'Code Action' },
-    { '<space>lf', vim.lsp.buf.format, 'Format File' },
-    -- TODO: '<space>lfm' for lsp-format-modifications.nvim
+    { '<space>lfr', vim.lsp.buf.format, 'Format File' },
+    { '<space>lfm', '<cmd>FormatModifications<CR>', 'Format Modifications' },
     { 'K', vim.lsp.buf.hover, 'Hover Document' },
     -- goto+
     { 'gd', vim.lsp.buf.definition, 'Go to Definition' },
