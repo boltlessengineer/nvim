@@ -20,7 +20,8 @@ cmp.setup {
     end,
   },
   window = {
-    -- cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-k>'] = cmp.mapping.scroll_docs(-1),
@@ -52,6 +53,20 @@ cmp.setup {
   }, {
     { name = 'buffer' },
   }),
+  formatting = {
+    format = function(entry, vim_item)
+      local icons = require 'boltless.ui.icons'
+      vim_item.kind = string.format('%s %s', icons.kind[vim_item.kind], vim_item.kind)
+      vim_item.kind = vim_item.kind
+      vim_item.menu = ({
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[lua]',
+        luasnip  = '[Snp]',
+        buffer   = '[buf]',
+      })[entry.source.name]
+      return vim_item
+    end
+  },
 }
 
 -- TODO: maybe add cmp_git?
