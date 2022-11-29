@@ -192,7 +192,7 @@ M.diagnostics = {
   {
     provider = function(self)
       -- self.error = error
-      return string.format('%s %d',
+      return string.format('%s%d',
         icons.diagnostics.Error,
         self.error
       )
@@ -207,7 +207,7 @@ M.diagnostics = {
   { provider = ' ' },
   {
     provider = function(self)
-      return string.format('%s %d',
+      return string.format('%s%d',
         icons.diagnostics.Warning,
         self.warn
       )
@@ -252,19 +252,19 @@ M.tabstop = {
   provider = function()
     local text
     if is_small() then
-      text = 'ﲒ'
+      text = 'ﲒ '
     else
       if vim.bo.expandtab then
-        text = 'Spaces:'
+        text = 'Spaces: '
       else
         if is_big() then
-          text = 'Tab Size:'
+          text = 'Tab Size: '
         else
-          text = 'Tab:'
+          text = 'Tab: '
         end
       end
     end
-    return string.format('%s %d', text, vim.bo.tabstop)
+    return text ..tostring(vim.bo.tabstop)
   end,
 }
 
@@ -308,6 +308,7 @@ local file_icon = {
   --   return { fg = self.icon_color }
   -- end,
   provider = function(self)
+    -- NOTE: webdevicons gives icon with 2-cell width
     return self.icon and (self.icon .. ' ')
   end,
 }
@@ -447,7 +448,7 @@ M.lsp_client_names = {
       clients[#clients + 1] = client.name
     end
     return string.format('%s[%s]',
-      icons.ui.Gear .. ' ',
+      icons.ui.Gear,
       table.concat(clients, ' '))
   end
 }
