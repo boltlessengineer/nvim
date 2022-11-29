@@ -4,8 +4,8 @@ if not ok then return end
 -- TODO: why 'topdelete' thing isn't working?
 gitsigns.setup {
   signs = {
-    add          = { text = '▎' }, -- '┃'
-    change       = { text = '▎' },
+    add          = { text = '┃' }, -- '▎'
+    change       = { text = '┃' },
     delete       = { text = '▁' },
     topdelete    = { text = '▔' },
     changedelete = { text = '▁' }, -- '◣'
@@ -15,7 +15,7 @@ gitsigns.setup {
   signcolumn = true,
   numhl = false,
   attach_to_untracked = true,
-  current_line_blame = true,
+  current_line_blame = false,
   on_attach = function(bufnr)
     require('keymaps.external').git(bufnr)
   end

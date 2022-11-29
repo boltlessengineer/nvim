@@ -50,3 +50,8 @@ vim.opt.fillchars:append({
 vim.opt.diffopt:append({
   linematch = 60,
 })
+-- TODO: much much darker color for listchars (`:h hl-NonText`)
+vim.o.list = true
+vim.opt.listchars = {
+  eol = '¬', -- '↵'
+}

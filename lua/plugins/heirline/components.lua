@@ -405,7 +405,7 @@ M.navic = {
         },
         {
           flexible = i,
-          { provider = name .. ' ' },
+          { provider = name },
           {
             provider = string.sub(name, 1, 10),
             {
@@ -425,7 +425,11 @@ M.navic = {
         },
       }
       if i ~= 1 then
-        table.insert(children, { provider = ' ', hl = { fg = 'dark_fg' } })
+        table.insert(children, {
+          -- provider = ' ' .. icons.ui.ChevronRight .. ' ',
+          provider = icons.ui.ChevronRight ,
+          hl = { fg = 'dark_fg' }
+        })
       end
       table.insert(children, child)
     end
