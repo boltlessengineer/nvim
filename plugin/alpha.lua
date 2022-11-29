@@ -64,7 +64,19 @@ db.section.buttons.val = {
   db.button('q', '> Quit', ':qa<CR>'),
 }
 
-db.section.footer.val = 'i_dont_have_blog_yet.com'
+local function get_neovim_version()
+  local v = vim.version()
+  if v == nil then
+    return '?.?.?'
+  end
+  local s = string.format('v%d.%d.%d', v.major, v.minor, v.patch)
+  if v.prerelease then
+    s = s .. '-nighly'
+  end
+  return s
+end
+
+db.section.footer.val = 'neovim ' .. get_neovim_version()
 
 -- IDEA: just an idea; show isntalled plugins list
 -- source: [cruzin/dotfiles](https://codeberg.org/cruzin/dotfiles/src/commit/e3b38b40ca295beed977259236ecb4def505fbac/.config/nvim/lua/user/utils.lua#L18)
