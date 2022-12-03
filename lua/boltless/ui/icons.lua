@@ -54,7 +54,7 @@ local nerd = {
     Octoface = '',
 
     -- NOTE: these three are not default icons
-    Branch = '',
+    Branch = '',
     Ahead = '⇡',
     Behind = '⇣',
   },
@@ -163,7 +163,7 @@ local codeicons = {
     Octoface = " ",
 
     -- NOTE: these three are not default icons
-    Branch = '',
+    Branch = '',
     Ahead = '⇡',
     Behind = '⇣',
   },
