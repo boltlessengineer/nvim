@@ -151,7 +151,6 @@ packer.startup(function(use)
   use 'folke/trouble.nvim' -- pretty list
   use 'folke/todo-comments.nvim' -- highlight & list todos
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' } -- modern looking folds
-  use 'karb94/neoscroll.nvim' -- smooth scroll
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

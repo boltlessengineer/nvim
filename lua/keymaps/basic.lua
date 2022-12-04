@@ -11,6 +11,8 @@ set('v', '>', '>gv')
 -- don't yank on paste
 set('x', 'p', '"_dP')
 
--- keep search results centered
+-- keep centered while scrolling
 set('n', 'n', 'nzzzv')
 set('n', 'N', 'Nzzzv')
+set('n', '<C-d>', '<C-d>zz')
+set('n', '<C-u>', '<C-u>zz')
