@@ -16,3 +16,7 @@ set('n', 'n', 'nzzzv')
 set('n', 'N', 'Nzzzv')
 set('n', '<C-d>', '<C-d>zz')
 set('n', '<C-u>', '<C-u>zz')
+
+-- save with <C-s> and <D-s>
+set('n', '<C-s>', '<cmd>w<CR>')
+set('n', '<D-s>', '<cmd>w<CR>')

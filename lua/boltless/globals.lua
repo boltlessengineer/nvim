@@ -1,9 +1,3 @@
--- Global functions
-P = function(v)
-  print(vim.inspect(v))
-  return v
-end
-
 -- Shortcut to vim.notify(DEBUG)
 vim.debug = function(msg, opts)
   vim.notify(msg, vim.log.levels.DEBUG, opts)
