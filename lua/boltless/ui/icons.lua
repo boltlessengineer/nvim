@@ -92,6 +92,7 @@ local nerd = {
     Table = '',
     Calendar = '',
     CloudDownload = '',
+    Server = '',
   },
   diagnostics = {
     Error = '',
@@ -200,6 +201,7 @@ local codeicons = {
     Table = " ",
     Calendar = " ",
     CloudDownload = " ",
+    Server = ' ',
   },
   diagnostics = {
     Error = " ",
