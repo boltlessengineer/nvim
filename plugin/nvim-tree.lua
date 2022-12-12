@@ -4,7 +4,8 @@ if not ok then return end
 -- TODO: replace folder icon with >/v, draw vertical line for folders
 
 nvimtree.setup {
-  disable_netrw = true,
+  disable_netrw = false,
+  hijack_netrw = false,
   hijack_cursor = false,
   open_on_setup = false,
   ignore_ft_on_setup = {
