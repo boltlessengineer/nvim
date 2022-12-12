@@ -16,6 +16,9 @@ function M.lsp()
       local bufnr = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
 
+      -- HACK: disable semantic tokens temporarily
+      client.server_capabilities.semanticTokensProvider = nil
+
       -- if client.server_capabilities.completionProvider then
       --   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
       -- end
@@ -82,20 +85,20 @@ function M.packer()
   vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = 'packer.lua',
     callback = function(args)
+      -- TODO: don't when autoformat is on
       vim.cmd.source(args.file)
-      -- TODO: add option questioning to start PackerSync
-      -- vim.ui.select({ 'Sync now', 'Not now' }, {
-      --   prompt = 'Would you want to sync now?',
-      --   format_item = function(item)
-      --     return item
-      --   end,
-      -- }, function(choice)
-      --   if choice == 'Sync now' then
-      --     vim.schedule(function()
-      --       vim.cmd [[PackerSync]]
-      --     end)
-      --   end
-      -- end)
+      vim.ui.select({ 'Sync now', 'Not now' }, {
+        prompt = 'Would you want to sync now?',
+        format_item = function(item)
+          return item
+        end,
+      }, function(choice)
+        if choice == 'Sync now' then
+          vim.schedule(function()
+            vim.cmd [[PackerSync]]
+          end)
+        end
+      end)
     end
   })
 end
