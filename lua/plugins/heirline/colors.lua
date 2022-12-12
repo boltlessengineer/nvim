@@ -31,9 +31,10 @@ local function setup_colors()
     -- git_change = utils.get_highlight('diffChanged').fg,
   }
 
-  colors.fg      = utils.get_highlight('StatusLine').fg
-  colors.bg      = utils.get_highlight('StatusLine').bg
-  colors.nontext = c_utils.blend(colors.fg, colors.bg, 0.3)
+  colors.fg        = utils.get_highlight('StatusLine').fg
+  colors.bg        = utils.get_highlight('StatusLine').bg
+  colors.normal_bg = utils.get_highlight('Normal').bg
+  colors.nontext   = c_utils.blend(colors.fg, colors.bg, 0.3)
 
   local ok, lualine = pcall(require, 'lualine.themes.' .. vim.g.colors_name)
   if ok then

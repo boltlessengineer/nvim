@@ -10,6 +10,7 @@ local defaultwinbar = {
   c.cutoff,
   c.navic,
   c.align,
+  hl = { bg = 'normal_bg' },
 }
 
 return {
