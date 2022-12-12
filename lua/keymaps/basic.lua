@@ -22,6 +22,9 @@ set('c', '<CR>',
 set('n', '<C-d>', '<C-d>zz')
 set('n', '<C-u>', '<C-u>zz')
 
+set('n', '[<space>', 'O<ESC>j')
+set('n', ']<space>', 'o<ESC>k')
+
 -- save with <C-s> and <D-s>
 set('n', '<C-s>', '<cmd>w<CR>')
 set('n', '<D-s>', '<cmd>w<CR>')
