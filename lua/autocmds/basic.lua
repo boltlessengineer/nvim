@@ -69,7 +69,29 @@ au('ColorSchemePre', {
   end
 })
 
--- vim.cmd([[autocmd VimEnter * if argc() == 0 | vert help news | exec '79wincmd|' | endif]])
-
--- TODO: hide save message & notify with nvim-notify
---       https://stackoverflow.com/q/18396759/13150270
+-- Hide Cursor in windows like NvimTree or QuickFix
+local AutoHideCursor = aug 'AutoHideCursor'
+vim.cmd('set guicursor+=a:Cursor/lCursor')
+au('FileType', {
+  group = AutoHideCursor,
+  callback = function(opts)
+    local line_mode_filetypes = {
+      "qf",
+      "NvimTree",
+      "netrw",
+    }
+    local filetype = vim.bo[opts.buf].filetype
+    if vim.tbl_contains(line_mode_filetypes, filetype) then
+      vim.cmd('hi Cursor blend=100')
+    else
+      vim.cmd('hi Cursor blend=0')
+    end
+  end,
+})
+au('ModeChanged', {
+  group = AutoHideCursor,
+  pattern = '*:c',
+  callback = function()
+    vim.cmd 'hi Cursor blend=0'
+  end
+})
