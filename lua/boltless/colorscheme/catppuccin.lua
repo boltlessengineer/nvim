@@ -16,6 +16,8 @@ require('catppuccin').setup {
         -- TODO: function highlighting in TreesitterContext doesn't work well
         TreesitterContext = { bg = colors.surface0 },
         NvimTreeNormal = { link = 'Normal' },
+      --  StatusLine = { fg = colors.overlay1, bg = colors.surface0 },
+      --  StatusLineNC = { fg = colors.overlay1, bg = colors.surface0 },
       }
     end,
   },

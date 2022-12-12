@@ -28,21 +28,24 @@ end
 M.align = { provider = '%=' }
 M.cutoff = { provider = '%<' }
 M.separator = {
-  provider = ' | ',
-  hl = { fg = 'dark_fg', bg = 'bg' },
+  provider = function ()
+    if is_small() then
+      return ' ▏'
+    else
+      return ' │ '
+    end
+  end,
+  -- hl = { fg = 'dark_fg' },
 }
 M.space = { provider = ' ' }
 M.smartspace = {
   provider = function()
-    if is_big() then
-      return ' | '
-    elseif not is_small() then
+    if not is_small() then
       return '  '
     else
       return ' '
     end
   end,
-  hl = { fg = 'dark_fg', bg = 'bg' },
 }
 
 -- TODO: create autocmd group
@@ -98,7 +101,7 @@ M.vi_mode = {
       ['t'] = { 'TERMINAL', 'T' },
     },
     mode_colors = {
-      n = 'bright_fg',
+      n = 'fg',
       i = 'green',
       v = 'magenta',
       V = 'magenta',
@@ -142,14 +145,15 @@ M.git = {
   condition = function()
     return _G.GitStatus.enabled
   end,
-  init = function()
-  end,
-  provider = function()
-    return string.format('%s %s',
-      icons.git.Branch,
-      _G.GitStatus.head
-    )
-  end,
+  M.space,
+  {
+    provider = function()
+      return string.format('%s %s',
+        icons.git.Branch,
+        _G.GitStatus.head
+      )
+    end,
+  },
   {
     -- GitStatus ahead & behind
     condition = function()
@@ -164,7 +168,8 @@ M.git = {
       return '(' .. str .. ')'
     end
   },
-  M.smartspace,
+  M.space,
+  hl = { bg = 'section_bg' },
 }
 
 M.diagnostics = {
@@ -173,7 +178,7 @@ M.diagnostics = {
     self.warn = 0
   end,
   -- TODO: replace color aliases with StatusLine.fg, StatusLine.bg
-  hl = { fg = 'dark_fg', bg = 'bg', force = false },
+  hl = { fg = 'nontext', bg = 'bg', force = false },
   on_click = {
     callback = function()
       local ok, trouble = pcall(require, 'trouble')
@@ -228,44 +233,71 @@ M.file_type = {
     local ignore_filetype = require('boltless.utils.list').ignore_filetype()
     if vim.tbl_contains(ignore_filetype, ft) then ft = 'etc' end
     if ft == '' then ft = 'notype' end
-    return string.upper(ft)
+    return ft
+    -- for uppercase first letter, `return ft:gsub('^%l', string.upper)`
   end,
   hl = function()
     local buf = vim.api.nvim_get_current_buf()
     local ts_active = vim.treesitter.highlighter.active[buf]
     if not ts_active or vim.tbl_isempty(ts_active) then
-      return { fg = 'dark_fg', bg = 'bg' }
+      return { fg = 'nontext' }
     end
   end,
 }
 
 -- contains file encoding (& file format)
-M.file_info = {
+M.file_enc = {
   provider = function()
     local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc
-    -- return string.format('%s[%s]', enc:upper(), vim.bo.fileformat:upper())
-    return enc:upper()
+    if is_big() then
+      return string.format('%s[%s]', enc:upper(), vim.bo.fileformat:upper())
+    else
+      return enc:upper()
+    end
   end,
 }
 
 M.tabstop = {
-  provider = function()
-    local text
-    if is_small() then
-      text = 'ﲒ '
-    else
+  {
+    provider = function()
+      local text
+      local space = '␣'
+      local tab = '↹'
       if vim.bo.expandtab then
-        text = 'Spaces: '
+        text = 'Spaces'
+        text = space
       else
         if is_big() then
-          text = 'Tab Size: '
+          text = 'Tab Size'
         else
-          text = 'Tab: '
+          text = 'Tab'
         end
+        text = tab
       end
-    end
-    return text ..tostring(vim.bo.tabstop)
-  end,
+      return text
+    end,
+  },
+  { provider = ':', hl = { fg = 'section_nontext' } },
+  {
+    provider = function()
+      return tostring(vim.bo.tabstop)
+    end,
+  },
+}
+
+local section_sep = {
+  provider = M.separator.provider,
+  hl = { fg = 'section_nontext' }
+}
+M.etc = {
+  M.smartspace,
+  M.tabstop,
+  section_sep,
+  M.file_enc,
+  section_sep,
+  M.file_type,
+  M.smartspace,
+  hl = { bg = 'section_bg' },
 }
 
 M.disable_winbar = {
@@ -280,21 +312,14 @@ M.disable_winbar = {
   end
 }
 
-M.file_name_block = {
+M.file = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(0)
   end,
-  hl = function()
-    return {
-      fg = 'fg',
-      -- fg = conditions.is_active() and 'fg' or 'dark_fg',
-      reverse = conditions.is_active(),
-      bold = true,
-    }
-  end,
+  hl = { fg = 'fg' },
 }
 
-local file_icon = {
+M.file_icon = {
   condition = function()
     local ok = pcall(require, 'nvim-web-devicons')
     return ok
@@ -304,16 +329,16 @@ local file_icon = {
     local extension = vim.fn.fnamemodify(filename, ':e')
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
   end,
-  -- hl = function(self)
-  --   return { fg = self.icon_color }
-  -- end,
+  hl = function(self)
+    return { fg = self.icon_color }
+  end,
   provider = function(self)
     -- NOTE: webdevicons gives icon with 2-cell width
     return self.icon and (self.icon .. ' ')
   end,
 }
 
-local file_name = {
+M.file_name = {
   provider = function(self)
     local filename = self.filename
     if filename == '' then
@@ -327,7 +352,7 @@ local file_name = {
   end,
 }
 
-local file_modi = {
+M.file_modi = {
   provider = function()
     if not vim.bo.modifiable or vim.bo.readonly then
       return ' [-]'
@@ -337,13 +362,16 @@ local file_modi = {
   end,
 }
 
-M.file_name_block = utils.insert(M.file_name_block,
-  { provider = ' ' },
-  file_icon,
-  file_name,
-  file_modi,
-  { provider = ' ' }
-)
+M.file = utils.insert(M.file, {
+  M.file_icon,
+  M.file_name,
+  M.file_modi,
+})
+
+M.breadcrumb_sep = {
+  provider = icons.ui.ChevronRight,
+  hl = { fg = 'nontext' }
+}
 
 M.navic = {
   condition = function()
@@ -408,9 +436,10 @@ M.navic = {
           flexible = i,
           { provider = name },
           {
+            -- TODO: smart trim (M.disable_w rather than M.disable_)
             provider = string.sub(name, 1, 10),
             {
-              provider = ' ',
+              provider = '…',
             },
           },
           { provider = '' }
@@ -425,32 +454,47 @@ M.navic = {
           name = 'heirline_navic',
         },
       }
-      if i ~= 1 then
-        table.insert(children, {
-          -- provider = ' ' .. icons.ui.ChevronRight .. ' ',
-          provider = icons.ui.ChevronRight ,
-          hl = { fg = 'dark_fg' }
-        })
-      end
+      table.insert(children, M.breadcrumb_sep)
       table.insert(children, child)
     end
     -- TODO: check how :new() function works (what's the meaning of second parameter `1`)
     self[1] = self:new(children, 1)
   end,
-  hl = { fg = 'normal_fg' },
+  hl = { fg = 'fg' },
   update = { 'WinNew', 'CursorMoved', 'VimResized' },
 }
 
 M.lsp_client_names = {
-  provider = function()
-    local clients = {}
+  init = function(self)
+    self.clients = {}
     for _, client in pairs(vim.lsp.get_active_clients()) do
-      clients[#clients + 1] = client.name
+      if client.name ~= 'null-ls' then
+        self.clients[#self.clients + 1] = client.name
+      end
     end
-    return string.format('%s[%s]',
-      icons.ui.Gear,
-      table.concat(clients, ' '))
-  end
+  end,
+  {
+    provider = icons.ui.Server,
+  },
+  -- { provider = '[' },
+  {
+    -- LSP
+    -- [sumneko_lua +1]
+    -- [sumneko_lua stylua]
+    provider = function(self)
+      if #self.clients < 1 then
+        return '-'
+      end
+      return table.concat(self.clients, ' ')
+    end,
+    hl = { fg = 'fg', bg = 'bg' },
+  },
+  -- { provider = ']' },
+  hl = {
+    fg = 'nontext',
+    bg = 'bg',
+    force = false,
+  },
 }
 
 return M

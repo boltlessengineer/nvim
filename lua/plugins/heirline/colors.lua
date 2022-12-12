@@ -1,4 +1,5 @@
 local utils = require('heirline.utils')
+local c_utils = require('boltless.utils.colors')
 
 local function setup_colors()
 
@@ -30,15 +31,23 @@ local function setup_colors()
     -- git_change = utils.get_highlight('diffChanged').fg,
   }
 
-  colors.normal_fg = utils.get_highlight('Normal').fg
-  colors.fg        = utils.get_highlight('Folded').fg
-  colors.bright_fg = utils.get_highlight('StatusLine').fg
-  -- TODO: create `dark_fg` color by darken fg with bg
-  colors.dark_fg   = utils.get_highlight('LineNr').fg
-  colors.bg        = utils.get_highlight('StatusLine').bg
-  -- colors.sep = utils.get_highlight('CursorLine').bg
+  colors.fg      = utils.get_highlight('StatusLine').fg
+  colors.bg      = utils.get_highlight('StatusLine').bg
+  colors.nontext = c_utils.blend(colors.fg, colors.bg, 0.3)
 
-  colors.float_bg = utils.get_highlight('Pmenu').bg
+  local ok, lualine = pcall(require, 'lualine.themes.' .. vim.g.colors_name)
+  if ok then
+    colors.section_bg = lualine.normal.b.bg
+  else
+    colors.section_bg = c_utils.blend(colors.fg, colors.bg, 0.1)
+  end
+  colors.section_fg = colors.fg
+  colors.section_nontext = c_utils.blend(
+    colors.section_fg,
+    colors.section_bg,
+    0.3
+  )
+
   return colors
 end
 

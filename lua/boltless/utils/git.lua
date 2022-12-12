@@ -13,6 +13,9 @@ function _G.update_head()
   Job:new({
     command = 'git',
     args = { 'branch', '--show-current' },
+    on_stderr = function()
+      _G.GitStatus.enabled = false
+    end,
     on_exit = function(job, return_val)
       if return_val == 0 then
         _G.GitStatus.enabled = true

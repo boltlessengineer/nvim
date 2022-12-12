@@ -9,7 +9,6 @@ require('boltless.usercmds.basic')
 require('boltless.utils.git')
 
 pcall(vim.cmd.colorscheme, 'catppuccin')
-require('boltless.ui')
 
 -- Mason should be setup before lspconfig
 require('plugins.mason')
@@ -22,4 +21,5 @@ require('core.lsp')
 
 require('plugins.packer')
 
+require('boltless.ui')
 -- TODO: [feature] reloading

@@ -10,18 +10,14 @@ local c = require('plugins.heirline.components')
 
 local statusline = {
   c.vi_mode,
-  c.space,
   c.git,
+  c.space,
   c.diagnostics,
   c.align,
   c.lsp_client_names,
-  c.smartspace,
-  c.tabstop,
-  c.smartspace,
-  c.file_info,
-  c.smartspace,
-  c.file_type,
   c.space,
+  c.etc,
+  hl = { bg = 'bg' }
 }
 
 -- IDEA: use tabline instead of winbar
@@ -33,12 +29,7 @@ local winbar = require('plugins.heirline.winbar')
 -- TODO: tabline support
 -- local tabline = {}
 
--- test function
---[[ function Statusline()
-  return _G.GitStatus.head .. ' A' .. _G.GitStatus.ahead .. ' B' .. _G.GitStatus.behind
-end
-
-vim.opt.statusline = "%!luaeval('Statusline()')" ]]
 heirline.setup(statusline, winbar)
+-- require('lualine').setup({})
 
 require('autocmds.external').heirline()
