@@ -14,6 +14,11 @@ set('x', 'p', '"_dP')
 -- keep centered while scrolling
 set('n', 'n', 'nzzzv')
 set('n', 'N', 'Nzzzv')
+set('c', '<CR>',
+  function()
+    return vim.fn.getcmdtype() == '/' and '<CR>zzzv' or '<CR>'
+  end,
+  { expr = true })
 set('n', '<C-d>', '<C-d>zz')
 set('n', '<C-u>', '<C-u>zz')
 
