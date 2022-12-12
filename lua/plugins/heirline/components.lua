@@ -249,30 +249,30 @@ M.file_type = {
 M.file_enc = {
   provider = function()
     local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc
-    if is_big() then
-      return string.format('%s[%s]', enc:upper(), vim.bo.fileformat:upper())
-    else
-      return enc:upper()
-    end
+    return enc
   end,
+  {
+    condition = function()
+      return is_big()
+    end,
+    { provider = '[', hl = { fg = 'section_nontext' } },
+    {
+      provider = function()
+        return vim.bo.fileformat
+      end,
+    },
+    { provider = ']', hl = { fg = 'section_nontext' } },
+  }
 }
 
 M.tabstop = {
   {
     provider = function()
       local text
-      local space = '␣'
-      local tab = '↹'
       if vim.bo.expandtab then
-        text = 'Spaces'
-        text = space
+        text = is_big() and 'Spaces' or '␣'
       else
-        if is_big() then
-          text = 'Tab Size'
-        else
-          text = 'Tab'
-        end
-        text = tab
+        text = is_big() and 'Tabs' or '↹'
       end
       return text
     end,

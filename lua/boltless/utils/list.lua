@@ -1,4 +1,4 @@
--- TODO: replace this module to vim.g.get_ignore_filetype(), etc
+-- TODO: rename file to utils/ignore_type.lua
 local M = {}
 
 function M.ignore_buftype(more)
