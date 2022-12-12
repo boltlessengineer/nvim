@@ -71,7 +71,6 @@ packer.startup(function(use)
 
   -- cmp
   use 'hrsh7th/nvim-cmp' -- The completion plugin
-  -- use { 'Shougo/nvim-cmp', branch = 'cmdheight' } -- temporary (#1196)
   use 'hrsh7th/cmp-path' -- path completions
   use 'hrsh7th/cmp-cmdline' -- cmdline completions
   use 'hrsh7th/cmp-nvim-lsp' -- LSP completions

@@ -56,3 +56,6 @@ vim.o.list = true
 vim.opt.listchars = {
   eol = '¬', -- '↵'
 }
+vim.opt.guicursor:append({
+  a = 'Cursor/lCursor',
+})

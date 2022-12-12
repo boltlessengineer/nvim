@@ -71,7 +71,7 @@ au('ColorSchemePre', {
 
 -- Hide Cursor in windows like NvimTree or QuickFix
 local AutoHideCursor = aug 'AutoHideCursor'
-vim.cmd('set guicursor+=a:Cursor/lCursor')
+-- vim.cmd('set guicursor+=a:Cursor/lCursor')
 au('FileType', {
   group = AutoHideCursor,
   callback = function(opts)
