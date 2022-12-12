@@ -1,9 +1,9 @@
 -- pcall(require, 'impatient')
 
+require('boltless.options')
 require('keymaps.basic')
 require('autocmds.basic')
 require('boltless.globals')
-require('boltless.options')
 
 require('boltless.usercmds.basic')
 require('boltless.utils.git')

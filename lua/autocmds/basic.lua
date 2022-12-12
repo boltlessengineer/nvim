@@ -83,15 +83,37 @@ au('FileType', {
     local filetype = vim.bo[opts.buf].filetype
     if vim.tbl_contains(line_mode_filetypes, filetype) then
       vim.cmd('hi Cursor blend=100')
+      -- TODO: autocmd with callback return true instead of else
     else
       vim.cmd('hi Cursor blend=0')
     end
   end,
 })
-au('ModeChanged', {
+au('CmdLineEnter', {
   group = AutoHideCursor,
-  pattern = '*:c',
   callback = function()
     vim.cmd 'hi Cursor blend=0'
   end
+})
+
+-- TODO: no idea how to make completion menu more visible with autocmd below
+
+-- show cmdline in Command Mode
+local CmdLine = aug 'CmdLine'
+au('CmdLineEnter', {
+  group = CmdLine,
+  callback = function()
+    local original_height = vim.o.cmdheight
+    if (vim.o.cmdheight ~= 0) or (not vim.g.cmdheight) or (vim.g.cmdheight == 0) then
+      return
+    end
+    vim.o.cmdheight = vim.g.cmdheight
+    au('CmdLineLeave', {
+      group = CmdLine,
+      callback = function()
+        vim.o.cmdheight = original_height
+        return true
+      end,
+    })
+  end,
 })

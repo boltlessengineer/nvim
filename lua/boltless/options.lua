@@ -11,6 +11,7 @@ vim.o.title = true -- set gui window's title
 vim.o.mouse = '' -- allow the mouse in normal/visual mode
 vim.o.laststatus = 3 -- global statusline
 vim.o.cmdheight = 0
+vim.g.cmdheight = 1 -- custom global variable for cmdheight in Command Mode
 vim.o.fileencoding = 'utf-8' -- encoding written to the file
 vim.o.showmode = false
 
