@@ -82,8 +82,10 @@ end
 
 -- Packer
 function M.packer()
+  local group = aug 'PackerAutoSync'
   vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = 'packer.lua',
+    group = group,
     callback = function(args)
       -- TODO: don't when autoformat is on
       vim.cmd.source(args.file)
