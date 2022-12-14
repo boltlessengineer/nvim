@@ -35,6 +35,10 @@ require('autocmds.external').packer()
 
 -- TODO: try `packer.setup(config, plugins)` (see https://github.com/folke/dot/blob/8d343c36e6ff4109f0585a4828f49ca7b89c1ece/config/nvim/lua/config/plugins.lua)
 packer.startup(function(use)
+  ---@param plugin_name string
+  local use_local = function (plugin_name)
+    use ('~/Projects/' .. plugin_name)
+  end
   use 'wbthomason/packer.nvim' -- Have packer manage itself
   use 'lewis6991/impatient.nvim' -- Blazingly fast startup
   use 'nvim-lua/plenary.nvim' -- Useful lua functions used by lots of plugins
