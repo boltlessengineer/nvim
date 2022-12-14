@@ -83,24 +83,33 @@ end
 -- Packer
 function M.packer()
   local group = aug 'PackerAutoSync'
-  vim.api.nvim_create_autocmd('BufWritePost', {
+  au('BufWritePre', {
     pattern = 'packer.lua',
     group = group,
     callback = function(args)
-      -- TODO: don't when autoformat is on
-      vim.cmd.source(args.file)
-      vim.ui.select({ 'Sync now', 'Not now' }, {
-        prompt = 'Would you want to sync now?',
-        format_item = function(item)
-          return item
-        end,
-      }, function(choice)
-        if choice == 'Sync now' then
-          vim.schedule(function()
-            vim.cmd [[PackerSync]]
+      if not vim.bo[args.buf].modified then
+        return
+      end
+      au('BufWritePost', {
+        pattern = 'packer.lua',
+        group = group,
+        callback = function()
+          vim.cmd.source(args.file)
+          vim.ui.select({ 'Sync now', 'Not now' }, {
+            prompt = 'Would you want to sync now?',
+            format_item = function(item)
+              return item
+            end,
+          }, function(choice)
+            if choice == 'Sync now' then
+              vim.schedule(function()
+                vim.cmd [[PackerSync]]
+              end)
+            end
           end)
+          return true
         end
-      end)
+      })
     end
   })
 end
