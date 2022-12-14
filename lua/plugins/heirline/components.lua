@@ -20,7 +20,7 @@ local function is_big()
   if vim.go.laststatus == 3 then
     width = vim.go.columns
   else
-    width = vim.api.nvim_get_mode()
+    width = vim.api.nvim_win_get_width(0)
   end
   return width > 120
 end
