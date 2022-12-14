@@ -6,7 +6,7 @@ ts_context.setup {
   max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
   trim_scope = 'inner', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
   -- HACK: termporarily disable min_window_height (see #315)
-  min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+  min_window_height = 20, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
   patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
     -- For all filetypes
     -- Note that setting an entry here replaces all other patterns for this entry.
