@@ -28,7 +28,7 @@ end
 M.align = { provider = '%=' }
 M.cutoff = { provider = '%<' }
 M.separator = {
-  provider = function ()
+  provider = function()
     if is_small() then
       return ' ▏'
     else
@@ -51,6 +51,8 @@ M.smartspace = {
 -- TODO: create autocmd group
 
 M.vi_mode = {
+  -- TODO: show showcmd or at least recording status here
+  -- like: "REC @w"
   init = function(self)
     self.mode = vim.fn.mode(1)
     -- execute this only once, this is required if you want the ViMode
@@ -100,6 +102,7 @@ M.vi_mode = {
       ['!'] = { 'SHELL', 'S' },
       ['t'] = { 'TERMINAL', 'T' },
     },
+    -- TODO: try copy from lunarvim. (lunarvim -> termguicolors -> etc)
     mode_colors = {
       n = 'fg',
       i = 'green',
