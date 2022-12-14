@@ -62,12 +62,12 @@ packer.startup(function(use)
   }
 
   -- General UIs
-  use 'feline-nvim/feline.nvim' -- statusline & winbar
   use 'rebelot/heirline.nvim' -- statusline, winbar, tabline
 
   -- File explorer
   use 'kyazdani42/nvim-tree.lua'
   -- use 'tamago324/lir.nvim' -- Simple file explorer
+  use 'prichrd/netrw.nvim' -- Default Netrw with a layer of *bling*
 
   -- cmp
   use 'hrsh7th/nvim-cmp' -- The completion plugin
@@ -82,7 +82,6 @@ packer.startup(function(use)
 
   -- LSP
   use 'neovim/nvim-lspconfig' -- enable LSP
-  use 'j-hui/fidget.nvim' -- nvim-lsp progress UI
   use 'RRethy/vim-illuminate' -- auto-highlight word under cursor
 
   -- DAP
@@ -137,13 +136,13 @@ packer.startup(function(use)
   use 'SmiteshP/nvim-navic' -- LSP based code context
   use 'norcalli/nvim-colorizer.lua' -- colorize hex colors
   use 'lukas-reineke/indent-blankline.nvim' -- pretty indentation guides
-  --[[ use {
+  use {
     'folke/noice.nvim',
     requires = {
       'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify', -- notification manager
+      -- 'rcarriga/nvim-notify', -- notification manager
     }
-  } ]]
+  }
   use 'rcarriga/nvim-notify' -- notification manager
   use 'goolord/alpha-nvim' -- startup screen
 
