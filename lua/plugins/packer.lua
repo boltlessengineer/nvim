@@ -26,7 +26,11 @@ packer.init {
   compile_path = compile_path,
   display = {
     open_fn = function()
-      return require('packer.util').float { border = vim.g.borderstyle }
+      -- TODO: PR to packer.nvim winhighlight option like nvim-cmp
+      return require('packer.util').float {
+        border = vim.g.borderstyle,
+        -- winhighlight = is_bordered() and { Normal = 'Normal' }
+      }
     end,
   },
 }

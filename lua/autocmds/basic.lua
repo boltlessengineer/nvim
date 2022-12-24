@@ -49,6 +49,7 @@ au({ 'FileType' }, {
     'tsplayground',
   },
   callback = function(args)
+    -- TODO: find why `<ESC>` is mapped to `:q` in help window by somewhere (not here)
     if args.pattern ~= 'help' then
       vim.keymap.set('n', '<ESC>', ':q<CR>', { buffer = args.buf })
     end
@@ -83,7 +84,6 @@ au('FileType', {
     local filetype = vim.bo[opts.buf].filetype
     if vim.tbl_contains(line_mode_filetypes, filetype) then
       vim.cmd('hi Cursor blend=100')
-      -- TODO: autocmd with callback return true instead of else
     else
       vim.cmd('hi Cursor blend=0')
     end
@@ -97,10 +97,11 @@ au('CmdLineEnter', {
 })
 
 -- TODO: no idea how to make completion menu more visible with autocmd below
+-- IDEA: y-offset=1 for cmp may be a solution
 
 -- show cmdline in Command Mode
 local CmdLine = aug 'CmdLine'
-au('CmdLineEnter', {
+au('CmdlineEnter', {
   group = CmdLine,
   callback = function()
     local original_height = vim.o.cmdheight
@@ -108,7 +109,7 @@ au('CmdLineEnter', {
       return
     end
     vim.o.cmdheight = vim.g.cmdheight
-    au('CmdLineLeave', {
+    au('CmdlineLeave', {
       group = CmdLine,
       callback = function()
         vim.o.cmdheight = original_height

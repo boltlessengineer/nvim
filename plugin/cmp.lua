@@ -8,6 +8,8 @@ if snip_ok then
 end
 
 -- TODO: snippet help signs (show jumpable places)
+-- TODO: autocomplete based on context
+-- f.e. cmp_path only inside string
 
 cmp.setup {
   snippet = {
@@ -74,6 +76,7 @@ cmp.setup {
   },
   window = {
     completion = cmp.config.window.bordered({
+      -- TODO: change two options based on vim.g.borderstyle
       border = "none",
       winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
       col_offset = -3,

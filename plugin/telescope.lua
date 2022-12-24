@@ -7,6 +7,7 @@ local actions = require 'telescope.actions'
 -- cause I generally open help page temporarily.
 -- open as floating window first, and then set buffer-local keymaps to move buffer to split window
 
+-- TODO: ignore gitcommit file in old_files
 telescope.setup {
   defaults = {
     mappings = {

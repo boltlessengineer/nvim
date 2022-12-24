@@ -29,8 +29,6 @@ brew install neovim --HEAD # (v0.9.0)
 - [ ] shorten filename in `Telescope oldfiles` like /o/h/C/n/asdfasdf.txt
 
 - [ ] tree-sitter based commenting (commenting function)
-- [ ] add [codeicon.ttf](https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf) patched font
-  - NOTE: check neovim-codicons
 
 ## IDEAS
 
