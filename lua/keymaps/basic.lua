@@ -22,9 +22,21 @@ set('c', '<CR>',
 set('n', '<C-d>', '<C-d>zz')
 set('n', '<C-u>', '<C-u>zz')
 
+set('n', 'J', 'mzJ`z')
+-- silent to avoid CmdlineEnter event
+set('v', 'J', ":m '>+1<CR>gv=gv", { silent = true })
+set('v', 'K', ":m '<-2<cr>gv=gv", { silent = true })
+-- BUG: % in  ^ here moves cursor to .............^ here
+
+-- copy to system clipboard
+set({ "n", "v" }, "<leader>y", [["+y]])
+set("n", "<leader>Y", [["+Y]])
+
 set('n', '[<space>', 'O<ESC>j')
 set('n', ']<space>', 'o<ESC>k')
 
 -- save with <C-s> and <D-s>
 set('n', '<C-s>', '<cmd>w<CR>')
 set('n', '<D-s>', '<cmd>w<CR>')
+
+-- TODO: more useful keymaps from primeagen
