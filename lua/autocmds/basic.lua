@@ -28,7 +28,9 @@ au({ 'BufLeave', 'FocusLost', 'WinLeave' }, {
 })
 
 -- Terminal-specific options
+local Terminal = aug 'Terminal'
 au('TermOpen', {
+  group = Terminal,
   callback = function()
     vim.wo.number = false
     vim.wo.relativenumber = false
@@ -36,6 +38,20 @@ au('TermOpen', {
     -- Use toggleterm.nvim with option below
     vim.wo.winfixheight = true
   end
+})
+au({'TermOpen', 'BufWinEnter', 'WinEnter'}, {
+  group = Terminal,
+  pattern = 'term://*',
+  callback = function()
+    vim.cmd.startinsert()
+  end,
+})
+au('BufLeave', {
+  group = Terminal,
+  pattern = 'term://*',
+  callback = function ()
+    vim.cmd.stopinsert()
+  end,
 })
 
 -- Quit UI windows with 'q'
@@ -99,7 +115,7 @@ au('CmdLineEnter', {
 -- TODO: no idea how to make completion menu more visible with autocmd below
 -- IDEA: y-offset=1 for cmp may be a solution
 
--- show cmdline in Command Mode
+-- show statusline in Command Mode (even when cmdheight=0)
 local CmdLine = aug 'CmdLine'
 au('CmdlineEnter', {
   group = CmdLine,
