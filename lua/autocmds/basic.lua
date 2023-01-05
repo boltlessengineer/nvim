@@ -11,7 +11,7 @@ local numbertoggle = aug 'numbertoggle'
 au({ 'BufEnter', 'FocusGained', 'WinEnter' }, {
   group = numbertoggle,
   callback = function()
-    if vim.wo.number and (vim.fn.mode() ~= 'i') then
+    if vim.wo.number then
       vim.wo.relativenumber = true
       vim.wo.cursorline = true
     end
