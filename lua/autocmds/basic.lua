@@ -32,11 +32,15 @@ local Terminal = aug 'Terminal'
 au('TermOpen', {
   group = Terminal,
   callback = function()
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-    vim.wo.signcolumn = 'no'
-    -- Use toggleterm.nvim with option below
-    vim.wo.winfixheight = true
+    -- TODO: make Issue for lua version of `setlocal`
+    -- (`vim.wo[winid]` only works with specific window id)
+    vim.cmd [[
+      setlocal nonu
+      setlocal nornu
+      setlocal signcolumn=no
+      setlocal nowinfixheight
+    ]]
+    -- NOTE: Use toggleterm.nvim with 'winfixheight' option
   end
 })
 au({'TermOpen', 'BufWinEnter', 'WinEnter'}, {
