@@ -50,6 +50,8 @@ M.smartspace = {
 
 -- TODO: create autocmd group
 
+-- TODO: show `showcmd` instead of `vi_mode` when `showcmd` exists
+-- noice.nvim's `noice.api.status.command.get()` can be used
 M.vi_mode = {
   -- TODO: show showcmd or at least recording status here
   -- like: "REC @w"
