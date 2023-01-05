@@ -58,6 +58,7 @@ packer.startup(function(use)
   -- - Github (projekt0n/github-nvim-theme)
   -- - Oxocarbon
   -- - Night Wolf Dark (VSCode theme)
+  -- - habamax (best default theme)
   use 'rebelot/kanagawa.nvim'
   use 'kvrohit/mellow.nvim'
   use 'sainnhe/gruvbox-material'
