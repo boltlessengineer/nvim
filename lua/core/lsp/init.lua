@@ -32,9 +32,22 @@ end)
 -- NOTE: on_attach function isn't needed. LspAttach can be used instead in v0.8
 require('autocmds.external').lsp()
 
+local ss_ok, schemastore = pcall(require, 'schemastore')
+
 ---@type lspconfig.options
 local servers = {
   clangd = {},
+  jsonls = {
+    settings = {
+      json = {
+        format = {
+          enable = false,
+        },
+        schemas = ss_ok and schemastore.json.schemas() or {},
+        validate = { enable = true },
+      },
+    },
+  },
   gopls = {},
   sumneko_lua = {
     settings = {

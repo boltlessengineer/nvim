@@ -128,6 +128,7 @@ packer.startup(function(use)
   -- Language specific
   use 'folke/neodev.nvim' -- full signature help for neovim config developing
   use 'folke/neoconf.nvim' -- local/global settings (both json & lua)
+  use 'b0o/schemastore.nvim' -- schemastore
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
