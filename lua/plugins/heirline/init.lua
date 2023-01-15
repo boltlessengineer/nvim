@@ -28,10 +28,13 @@ local statusline = {
 -- this way, navic can have more spaces
 
 local winbar = require('plugins.heirline.winbar')
--- TODO: tabline support
--- local tabline = {}
 
-heirline.setup(statusline, winbar)
+heirline.setup({
+  statusline = statusline,
+  winbar = winbar,
+  -- TODO: tabline support
+  -- tabline = tabline
+})
 -- require('lualine').setup({})
 
 require('autocmds.external').heirline()
