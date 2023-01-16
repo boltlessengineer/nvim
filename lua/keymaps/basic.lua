@@ -5,7 +5,10 @@ set('t', '<ESC>', '<ESC>')
 set('t', '<C-w>', [[<C-\><C-o><C-w>]])
 set('t', '::', [[<C-\><C-n>:]])
 
-set('n', '<ESC>', '<cmd>noh | echon<CR>')
+set('n', '<leader>h', '<cmd>noh | echon<CR>')
+
+-- window close shortcut
+set('n', '<C-q>', '<cmd>close<CR>')
 
 set('v', '<', '<gv')
 set('v', '>', '>gv')
@@ -33,9 +36,6 @@ set('v', 'K', ":m '<-2<cr>gv=gv", { silent = true })
 -- copy to system clipboard
 set({ "n", "v" }, "<leader>y", [["+y]])
 set("n", "<leader>Y", [["+Y]])
-
-set('n', '[<space>', 'O<ESC>j')
-set('n', ']<space>', 'o<ESC>k')
 
 -- save with <C-s> and <D-s>
 set('n', '<C-s>', '<cmd>w<CR>')

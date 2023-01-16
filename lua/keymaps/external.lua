@@ -67,7 +67,7 @@ function M.telescope()
     -- TODO: replace `help_tags` with custom floating-help Telescope command
     -- just running `help ~` on floating window can make floating help window
     -- floating-help-window should be replaced with new help buffer
-    { '<space>h', '<cmd>Telescope help_tags<CR>', 'Help' },
+    { '<F1>', '<cmd>Telescope help_tags<CR>', 'Help' },
     { '<space>e', '<cmd>Telescope file_browser<CR>', 'File Browser' },
   })
 end
@@ -83,10 +83,12 @@ end
 function M.comment()
   local api = require('Comment.api')
   set_maps('n', {
+    { 'g/', api.toggle.linewise.current, 'Comment Linewise' },
     { [[<C-/>]], api.toggle.linewise.current, 'Comment Linewise' },
     { [[<C-\>]], api.toggle.blockwise.current, 'Comment Blockwise' },
   })
   set_maps('v', {
+    { 'g/', '<Plug>(comment_toggle_linewise_visual)', 'Comment Linewise' },
     { [[<C-/>]], '<Plug>(comment_toggle_linewise_visual)', 'Comment Linewise' },
     { [[<C-\>]], '<Plug>(comment_toggle_blockwise_visual)', 'Comment Blockwise' },
   })
