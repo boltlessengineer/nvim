@@ -29,34 +29,49 @@ au({ 'BufLeave', 'FocusLost', 'WinLeave' }, {
 
 -- Terminal-specific options
 local Terminal = aug 'Terminal'
-au('TermOpen', {
+-- Use `BufWinEnter term://*` instead of just `TermOpen`
+-- just `TermOpen` isn't enough when terminal buffer is created before entered
+au({ 'TermOpen', 'BufWinEnter' }, {
   group = Terminal,
+  pattern = 'term://*',
   callback = function()
-    -- TODO: make Issue for lua version of `setlocal`
-    -- (`vim.wo[winid]` only works with specific window id)
+    -- I should use `setlocal` than `vim.wo` or `vim.bo`
+    -- vim.wo[winid] only works with specific window id
     vim.cmd [[
       setlocal nonu
       setlocal nornu
       setlocal signcolumn=no
-      setlocal nowinfixheight
+      setlocal nocursorline
+      setlocal scrolloff=0
     ]]
-    -- NOTE: Use toggleterm.nvim with 'winfixheight' option
   end
 })
-au({'TermOpen', 'BufWinEnter', 'WinEnter'}, {
-  group = Terminal,
-  pattern = 'term://*',
-  callback = function()
-    vim.cmd.startinsert()
-  end,
-})
-au('BufLeave', {
-  group = Terminal,
-  pattern = 'term://*',
-  callback = function ()
-    vim.cmd.stopinsert()
-  end,
-})
+-- au({'TermOpen', 'BufEnter', 'WinEnter'}, {
+--   group = Terminal,
+--   pattern = 'term://*',
+--   callback = function()
+--     -- TODO: this doesn't work when BufLeave-ed from terminal buffer
+--
+--     vim.cmd.startinsert()
+--   end,
+-- })
+-- au('BufLeave', {
+--   group = Terminal,
+--   pattern = 'term://*',
+--   callback = function()
+--     vim.cmd.stopinsert()
+--   end,
+-- })
+-- close on exit
+-- au('TermClose', {
+--   group = Terminal,
+--   callback = function (opts)
+--     if vim.api.nvim_buf_is_loaded(opts.buf) then
+--       vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, false))
+--       vim.api.nvim_buf_delete(opts.buf, { force = true })
+--     end
+--   end,
+-- })
 
 -- Quit UI windows with 'q'
 local UIWindow = aug 'UIWindow'
@@ -69,6 +84,8 @@ au({ 'FileType' }, {
     'tsplayground',
   },
   callback = function(args)
+    -- TODO: move this to keymaps.lua
+    -- gathering keymaps is more important than autocmds
     -- TODO: find why `<ESC>` is mapped to `:q` in help window by somewhere (not here)
     if args.pattern ~= 'help' then
       vim.keymap.set('n', '<ESC>', ':q<CR>', { buffer = args.buf })
@@ -120,21 +137,21 @@ au('CmdLineEnter', {
 -- IDEA: y-offset=1 for cmp may be a solution
 
 -- show statusline in Command Mode (even when cmdheight=0)
-local CmdLine = aug 'CmdLine'
-au('CmdlineEnter', {
-  group = CmdLine,
-  callback = function()
-    local original_height = vim.o.cmdheight
-    if (vim.o.cmdheight ~= 0) or (not vim.g.cmdheight) or (vim.g.cmdheight == 0) then
-      return
-    end
-    vim.o.cmdheight = vim.g.cmdheight
-    au('CmdlineLeave', {
-      group = CmdLine,
-      callback = function()
-        vim.o.cmdheight = original_height
-        return true
-      end,
-    })
-  end,
-})
+-- local CmdLine = aug 'CmdLine'
+-- au('CmdlineEnter', {
+--   group = CmdLine,
+--   callback = function()
+--     local original_height = vim.o.cmdheight
+--     if (vim.o.cmdheight ~= 0) or (not vim.g.cmdheight) or (vim.g.cmdheight == 0) then
+--       return
+--     end
+--     vim.o.cmdheight = vim.g.cmdheight
+--     au('CmdlineLeave', {
+--       group = CmdLine,
+--       callback = function()
+--         vim.o.cmdheight = original_height
+--         return true
+--       end,
+--     })
+--   end,
+-- })
