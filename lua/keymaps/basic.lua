@@ -1,5 +1,7 @@
 local set = vim.keymap.set
 
+vim.g.mapleader = ' '
+
 set('t', '<C-[>', [[<C-\><C-n>]])
 set('t', '<ESC>', '<ESC>')
 set('t', '<C-w>', [[<C-\><C-o><C-w>]])
