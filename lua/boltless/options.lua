@@ -38,7 +38,7 @@ vim.o.signcolumn = 'yes' -- always show the sign column.
 vim.o.colorcolumn = '80'
 vim.o.wrap = false -- display lines as one long line
 vim.o.scrolloff = 5
--- vim.o.sidescrolloff = 8
+vim.o.sidescrolloff = 8
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
@@ -51,11 +51,11 @@ vim.opt.fillchars:append({
 vim.opt.diffopt:append({
   linematch = 60,
 })
--- TODO: much much darker color for listchars (`:h hl-NonText`)
 vim.o.list = true
 vim.opt.listchars = {
   eol = '¬', -- '↵'
 }
 vim.opt.guicursor:append({
-  a = 'Cursor/lCursor',
+  -- HACK: why can't I use `a = 'Cursor/lCursor'` here?
+  'a:Cursor/lCursor',
 })
