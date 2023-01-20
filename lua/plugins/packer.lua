@@ -44,6 +44,8 @@ packer.startup(function(use)
   use 'nvim-lua/plenary.nvim' -- Useful lua functions used by lots of plugins
   use 'kyazdani42/nvim-web-devicons' -- Dev icons
 
+  use 'ggandor/leap.nvim'
+
   -- Colorschemes
   -- TODO: check theme list
   -- NOTE: https://www.reddit.com/r/neovim/comments/ydnip2/whats_your_recommendations_for_good_colorschemes
@@ -155,6 +157,7 @@ packer.startup(function(use)
   use 'folke/trouble.nvim' -- pretty list
   use 'folke/todo-comments.nvim' -- highlight & list todos
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' } -- modern looking folds
+  use 'eandrju/cellular-automaton.nvim' -- fun
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

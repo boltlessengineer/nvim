@@ -23,3 +23,5 @@ require('plugins.packer')
 
 require('boltless.ui')
 -- TODO: [feature] reloading
+
+require('leap').add_default_mappings()

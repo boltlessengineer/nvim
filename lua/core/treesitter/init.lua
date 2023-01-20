@@ -17,7 +17,15 @@ tsconfigs.setup {
   },
   textobjects = {
     -- TODO: be used to default/configured mappings
-    select = {},
+    select = {
+      enable = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      }
+    },
     swap = {},
     move = {},
     lsp_interop = {},
