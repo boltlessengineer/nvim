@@ -161,6 +161,7 @@ packer.startup(function(use)
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' } -- modern looking folds
   use 'samjwill/nvim-unception'
 
+  use 'andweeb/presence.nvim' -- show status in discord
   use 'eandrju/cellular-automaton.nvim' -- fun
 
   use {'akinsho/toggleterm.nvim',
