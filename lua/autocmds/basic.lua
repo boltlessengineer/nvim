@@ -40,27 +40,26 @@ au({ 'TermOpen', 'BufWinEnter' }, {
     vim.cmd [[
       setlocal nonu
       setlocal nornu
+      setlocal nolist
       setlocal signcolumn=no
       setlocal nocursorline
       setlocal scrolloff=0
     ]]
   end
 })
--- au({'TermOpen', 'BufEnter', 'WinEnter'}, {
+-- vim.api.nvim_create_autocmd({
+--   'TermOpen',
+--   'BufEnter',
+--   'WinEnter',
+-- }, {
 --   group = Terminal,
---   pattern = 'term://*',
---   callback = function()
---     -- TODO: this doesn't work when BufLeave-ed from terminal buffer
---
---     vim.cmd.startinsert()
---   end,
--- })
--- au('BufLeave', {
---   group = Terminal,
---   pattern = 'term://*',
---   callback = function()
---     vim.cmd.stopinsert()
---   end,
+--   callback = function(opts)
+--     if (vim.bo[opts.buf].buftype == 'terminal') then
+--       vim.cmd.startinsert()
+--     else
+--       vim.cmd.stopinsert()
+--     end
+--   end
 -- })
 -- close on exit
 -- au('TermClose', {

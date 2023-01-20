@@ -44,6 +44,8 @@ packer.startup(function(use)
   use 'nvim-lua/plenary.nvim' -- Useful lua functions used by lots of plugins
   use 'kyazdani42/nvim-web-devicons' -- Dev icons
 
+  use '~/Projects/bufterm.nvim'
+
   use 'ggandor/leap.nvim'
 
   -- Colorschemes
@@ -157,7 +159,15 @@ packer.startup(function(use)
   use 'folke/trouble.nvim' -- pretty list
   use 'folke/todo-comments.nvim' -- highlight & list todos
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' } -- modern looking folds
+  use 'samjwill/nvim-unception'
+
   use 'eandrju/cellular-automaton.nvim' -- fun
+
+  use {'akinsho/toggleterm.nvim',
+  config = function()
+    require('toggleterm').setup()
+  end}
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
