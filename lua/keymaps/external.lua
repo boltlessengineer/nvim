@@ -85,18 +85,17 @@ function M.comment()
   set_maps('n', {
     { 'g/', api.toggle.linewise.current, 'Comment Linewise' },
     { [[<C-/>]], api.toggle.linewise.current, 'Comment Linewise' },
-    { [[<C-\>]], api.toggle.blockwise.current, 'Comment Blockwise' },
+    { [[<CS-/>]], api.toggle.blockwise.current, 'Comment Blockwise' },
   })
   set_maps('v', {
-    { 'g/', '<Plug>(comment_toggle_linewise_visual)', 'Comment Linewise' },
     { [[<C-/>]], '<Plug>(comment_toggle_linewise_visual)', 'Comment Linewise' },
-    { [[<C-\>]], '<Plug>(comment_toggle_blockwise_visual)', 'Comment Blockwise' },
+    { [[<CS-/>]], '<Plug>(comment_toggle_blockwise_visual)', 'Comment Blockwise' },
   })
 end
 
 -- Git
 function M.git(buffer)
-  set_maps('n', {
+  set_maps({ 'n', 'v' }, {
     { '[g', '<cmd>Gitsigns prev_hunk<CR>', 'Prev Hunk' },
     { ']g', '<cmd>Gitsigns next_hunk<CR>', 'Next Hunk' },
   }, { buffer = buffer })

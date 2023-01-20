@@ -23,6 +23,7 @@ function M.ignore_filetype(more)
     'lspinfo',
     'mason',
     'tsplayground',
+    'Trouble',
     unpack(more),
   }
 end
