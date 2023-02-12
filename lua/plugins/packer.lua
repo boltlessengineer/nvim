@@ -90,6 +90,12 @@ packer.startup(function(use)
       end)
     end
   }
+
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn["mkdp#util#install"]() end,
+  }
+
   use 'ggandor/leap.nvim'
 
   -- Colorschemes
