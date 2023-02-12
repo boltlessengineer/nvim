@@ -38,7 +38,7 @@ vim.o.signcolumn = 'yes' -- always show the sign column.
 vim.o.colorcolumn = '80'
 vim.o.wrap = false -- display lines as one long line
 vim.o.scrolloff = 5
-vim.o.sidescrolloff = 8
+vim.o.sidescrolloff = 15
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
@@ -47,9 +47,18 @@ vim.opt.fillchars:append({
   foldopen  = '',
   foldsep   = ' ',
   foldclose = '',
+  horiz     = '▄',
+  horizup   = '█',
+  horizdown = '▄',
+  vert      = '█',
+  vertleft  = '█',
+  vertright = '█',
+  verthoriz = '█',
 })
 vim.opt.diffopt:append({
-  linematch = 60,
+  -- FIX: this doesn't work
+  -- linematch = 60,
+  'linematch:60',
 })
 vim.o.list = true
 vim.opt.listchars = {
@@ -59,3 +68,5 @@ vim.opt.guicursor:append({
   -- HACK: why can't I use `a = 'Cursor/lCursor'` here?
   'a:Cursor/lCursor',
 })
+
+vim.g.editorconfig_enable = true
