@@ -2,11 +2,6 @@ local set = vim.keymap.set
 
 vim.g.mapleader = ' '
 
-set('t', '<C-[>', [[<C-\><C-n>]])
-set('t', '<ESC>', '<ESC>')
-set('t', '<C-w>', [[<C-\><C-o><C-w>]])
-set('t', '::', [[<C-\><C-n>:]])
-
 set('n', '<leader>h', '<cmd>noh | echon<CR>')
 
 set('n', '[b', '<cmd>bprev<CR>')

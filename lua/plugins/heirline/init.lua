@@ -29,12 +29,12 @@ local statusline = {
 
 local winbar = require('plugins.heirline.winbar')
 
-heirline.setup({
-  statusline = statusline,
-  winbar = winbar,
-  -- TODO: tabline support
-  -- tabline = tabline
-})
+-- heirline.setup({
+--   statusline = statusline,
+--   winbar = winbar,
+--   -- TODO: tabline support
+--   -- tabline = tabline
+-- })
 -- require('lualine').setup({})
 
-require('autocmds.external').heirline()
+-- require('autocmds.external').heirline()
