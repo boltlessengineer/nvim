@@ -7,10 +7,6 @@ nvimtree.setup {
   disable_netrw = false,
   hijack_netrw = false,
   hijack_cursor = false,
-  open_on_setup = false,
-  ignore_ft_on_setup = {
-    'alpha',
-  },
   open_on_tab = false,
   update_cwd = true,
   renderer = {
