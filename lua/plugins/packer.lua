@@ -214,12 +214,6 @@ packer.startup(function(use)
   use 'andweeb/presence.nvim' -- show status in discord
   use 'eandrju/cellular-automaton.nvim' -- fun
 
-  use {'akinsho/toggleterm.nvim',
-  config = function()
-    require('toggleterm').setup()
-  end}
-
-
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
