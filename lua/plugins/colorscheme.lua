@@ -32,8 +32,16 @@ return {
             EndOfBuffer = { fg = c.surface0 },
             Folded = { bg = c.base },
             TreesitterContextBottom = { style = { "underline" }, sp = c.surface0 },
-            GitSignsChangeDelete = { style = { "underline" }, sp = c.red },
+            -- TODO: fix these
+            --
             -- TreesitterContextLineNumber = { style = {}, sp = 'none' },
+
+            -- these looks bad in wezterm :(
+            -- DiagnosticUnderlineError = { style = { "undercurl" } },
+            -- DiagnosticUnderlineHint = { style = { "undercurl" } },
+            -- DiagnosticUnderlineInfo = { style = { "undercurl" } },
+            -- DiagnosticUnderlineOk = { style = { "undercurl" } },
+            -- DiagnosticUnderlineWarn = { style = { "undercurl" } },
           }
         end,
       },

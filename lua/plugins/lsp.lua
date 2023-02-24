@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   {
     "neovim/nvim-lspconfig",
@@ -5,9 +6,14 @@ return {
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       vim.list_extend(keys, {
         { "gK", false }, -- signature help (just hover is ok)
+        { "<leader>cl", false },
       })
     end,
     opts = {
+      diagnostics = {
+        virtual_text = false,
+        virtual_lines = false,
+      },
       ---@type lspconfig.options
       servers = {
         clangd = {},
@@ -25,6 +31,21 @@ return {
         },
         gopls = {},
         rust_analyzer = {},
+      },
+    },
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = "VeryLazy",
+    -- TODO: PR: use config.virtual_lines.enable to use with one_current_line
+    -- support API like `show_current_line()`
+    config = true,
+    keys = {
+      {
+        "<leader>cl",
+        function()
+          require("lsp_lines").toggle()
+        end,
       },
     },
   },
