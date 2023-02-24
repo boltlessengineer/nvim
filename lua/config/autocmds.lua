@@ -44,3 +44,13 @@ au("FileType", {
     vim.wo.conceallevel = 0
   end,
 })
+
+-- HACK: umm... is this right way..?
+au("BufWinEnter", {
+  group = ftplugins,
+  pattern = "NeogitStatus",
+  callback = function()
+    vim.wo.foldcolumn = "0"
+    vim.wo.statuscolumn = ""
+  end,
+})

@@ -59,7 +59,7 @@ return {
     opts = {
       provider_selector = function(_bufnr, _filetype, _buftype)
         -- use only treesitter for toggleing
-        return { "treesitter", "indent" }
+        return { "treesitter" }
       end,
     },
     -- stylua: ignore
@@ -70,9 +70,6 @@ return {
     init = function()
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
-      -- tree-sitter based folding
-      -- vim.o.foldmethod = "expr"
-      -- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
     end,
   },
   -- alpha
