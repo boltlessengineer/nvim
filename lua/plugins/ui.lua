@@ -1,4 +1,24 @@
 return {
+  -- automatic window resizing
+  {
+    "anuvyklack/windows.nvim",
+    event = "WinNew",
+    dependencies = {
+      "anuvyklack/middleclass",
+      "anuvyklack/animation.nvim",
+    },
+    init = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+    end,
+    opts = {
+      animation = {
+        enable = true,
+        duration = 150,
+      },
+    },
+  },
   -- smart colorcolumn
   "m4xshen/smartcolumn.nvim",
   -- indent
