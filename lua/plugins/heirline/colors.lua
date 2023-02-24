@@ -1,63 +1,37 @@
-local utils = require('heirline.utils')
-local c_utils = require('boltless.utils.colors')
+local utils = require("heirline.utils")
+local get_hl = utils.get_highlight
 
-local function setup_colors()
-
-  local colors = {
-    red              = vim.g.terminal_color_1,
-    green            = vim.g.terminal_color_2,
-    yellow           = vim.g.terminal_color_3,
-    blue             = vim.g.terminal_color_4,
-    magenta          = vim.g.terminal_color_5,
-    cyan             = vim.g.terminal_color_6,
-    white            = vim.g.terminal_color_7,
-    bright_black     = vim.g.terminal_color_8,
-    bright_red       = vim.g.terminal_color_9,
-    bright_green     = vim.g.terminal_color_10,
-    bright_yellow    = vim.g.terminal_color_11,
-    bright_blue      = vim.g.terminal_color_12,
-    bright_magenta   = vim.g.terminal_color_13,
-    bright_cyan      = vim.g.terminal_color_14,
-    bright_white     = vim.g.terminal_color_15,
-    extended_color_1 = vim.g.terminal_color_16,
-    extended_color_2 = vim.g.terminal_color_17,
-
-    diag_warn = utils.get_highlight('DiagnosticWarn').fg,
-    diag_error = utils.get_highlight('DiagnosticError').fg,
-    diag_hint = utils.get_highlight('DiagnosticHint').fg,
-    diag_info = utils.get_highlight('DiagnosticInfo').fg,
-    -- git_del = utils.get_highlight('diffDeleted').fg,
-    -- git_add = utils.get_highlight('diffAdded').fg,
-    -- git_change = utils.get_highlight('diffChanged').fg,
-  }
-
-  colors.fg        = utils.get_highlight('StatusLine').fg
-  colors.bg        = utils.get_highlight('StatusLine').bg
-  colors.normal_bg = utils.get_highlight('Normal').bg
-  colors.nontext   = c_utils.blend(colors.fg, colors.bg, 0.3)
-
-  local ok, lualine = pcall(require, 'lualine.themes.' .. vim.g.colors_name)
-  if ok then
-    colors.section_bg = lualine.normal.b.bg
-  else
-    colors.section_bg = c_utils.blend(colors.fg, colors.bg, 0.1)
-  end
-  colors.section_fg = colors.fg
-  colors.section_nontext = c_utils.blend(
-    colors.section_fg,
-    colors.section_bg,
-    0.3
-  )
-
-  return colors
-end
-
-require('heirline').load_colors(setup_colors())
-
--- TODO move codes below to autocmd/external
-vim.api.nvim_create_autocmd('ColorScheme', {
-  callback = function()
-    local colors = setup_colors()
-    utils.on_colorscheme(colors)
-  end
-})
+local lualine = require("lualine.themes." .. vim.g.colors_name)
+return {
+  load_colors = function()
+    -- stylua: ignore
+    require('heirline').load_colors({
+      fg         = get_hl('Normal').fg,
+      bg         = get_hl('Normal').bg,
+      stl_fg     = get_hl("StatusLine").fg,
+      stl_bg     = get_hl("StatusLine").bg,
+      stl_nc_fg  = get_hl("StatusLineNC").fg,
+      stl_nc_bg  = get_hl("StatusLineNC").bg,
+      wbr_fg     = get_hl('WinBar').fg,
+      wbr_bg     = get_hl('WinBar').bg,
+      wbr_nc_fg  = get_hl('WinBarNC').fg,
+      wbr_nc_bg  = get_hl('WinBarNC').bg,
+      vi_normal  = get_hl('CursorLineNr').fg,
+      vi_visual  = lualine and lualine.visual.a.bg,
+      vi_insert  = vim.g.terminal_color_2, -- green
+      vi_select  = vim.g.terminal_color_1, -- red
+      vi_command = lualine and lualine.command.a.bg,
+      diag_warn  = get_hl('DiagnosticWarn').fg,
+      diag_error = get_hl('DiagnosticError').fg,
+      diag_hint  = get_hl('DiagnosticHint').fg,
+      diag_info  = get_hl('DiagnosticInfo').fg,
+      git_del    = get_hl('GitsignsDelete').fg,
+      git_add    = get_hl('GitsignsAdd').fg,
+      git_change = get_hl('GitsignsChange').fg,
+      comment    = get_hl('@comment').fg,
+      conceal    = get_hl("Conceal").fg,
+      nontext    = get_hl("NonText").fg,
+      section    = lualine and lualine.normal.b.bg,
+    })
+  end,
+}

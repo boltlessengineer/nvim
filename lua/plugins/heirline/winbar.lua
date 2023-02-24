@@ -1,20 +1,53 @@
-local c = require('plugins.heirline.components')
+local c = require("plugins.heirline.components")
+local cond = require("heirline.conditions")
 
--- SHOW FILENAME & git stuffs in tabline,
--- active winbar shows navic
--- inactive winbar shows filename
--- TODO: remove navic. navic uses too much space than it's usefulness
-
-local defaultwinbar = {
+local normal = {
+  c.vi_mode,
+  {
+    condition = cond.is_not_active,
+    c.make_space(5),
+  },
   c.space,
-  c.file,
-  c.cutoff,
-  c.navic,
+  c.space,
+  c.filename_block,
+  -- { provider = "  12" },
+  c.space,
+  c.local_diagnostics,
   c.align,
-  hl = { bg = 'normal_bg' },
+  -- { provider = "%-14.(%l,%c%V%)%P" },
+  c.space,
+}
+
+local terminal = {
+  condition = function()
+    return cond.buffer_matches({
+      buftype = { "prompt", "help", "quickfix", "terminal" },
+    })
+  end,
+  c.vi_mode,
+  {
+    condition = cond.is_not_active,
+    c.make_space(5),
+  },
+  c.align,
+  {
+    provider = function()
+      return vim.bo.buftype
+    end,
+  },
+  c.align,
+  c.make_space(5),
 }
 
 return {
   fallthrough = false,
-  defaultwinbar,
+  terminal,
+  normal,
+  hl = function()
+    if cond.is_active() then
+      return { fg = "wbr_fg", bg = "wbr_bg" }
+    else
+      return { fg = "wbr_nc_fg", bg = "wbr_nc_bg" }
+    end
+  end,
 }

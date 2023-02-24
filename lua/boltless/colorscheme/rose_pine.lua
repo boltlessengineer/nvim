@@ -1,2 +1,0 @@
-require('rose-pine').setup {
-}
