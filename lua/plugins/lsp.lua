@@ -7,6 +7,9 @@ return {
       vim.list_extend(keys, {
         { "gK", false }, -- signature help (just hover is ok)
         { "<leader>cl", false },
+        { "<leader>cm", false },
+        { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+        { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" },
       })
     end,
     opts = {
@@ -17,6 +20,14 @@ return {
       ---@type lspconfig.options
       servers = {
         clangd = {},
+        cssls = {},
+        tsserver = {},
+        svelte = {},
+        html = {},
+        gopls = {},
+        pyright = {},
+        rust_analyzer = {},
+        yamlls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -29,8 +40,6 @@ return {
             },
           },
         },
-        gopls = {},
-        rust_analyzer = {},
       },
     },
   },
@@ -46,6 +55,7 @@ return {
         function()
           require("lsp_lines").toggle()
         end,
+        desc = "Toggle diagnostics",
       },
     },
   },
@@ -54,8 +64,18 @@ return {
     dev = false,
   },
   {
+    "lvimuser/lsp-inlayhints.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function(_, opts)
+      require("lsp-inlayhints").setup(opts)
+      require("lazyvim.util").on_attach(function(client, buffer)
+        -- this checks inlayHintProvider capability automatically
+        require("lsp-inlayhints").on_attach(client, buffer)
+      end)
+    end,
+  },
+  {
     "joechrisellis/lsp-format-modifications.nvim",
-    lazy = true,
     enabled = false,
     opts = {
       format_on_save = false,
