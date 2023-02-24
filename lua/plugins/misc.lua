@@ -37,28 +37,30 @@ return {
     "andweeb/presence.nvim",
     event = "VeryLazy",
     config = function()
-      local presence = require("presence")
-      local augroup = vim.api.nvim_create_augroup("discord_connect", { clear = true })
-      vim.api.nvim_create_autocmd({
-        "FocusLost",
-      }, {
-        group = augroup,
-        callback = function()
-          presence.is_authorized = false
-          presence.is_authorizing = false
-          presence.is_connected = false
-          presence.is_connecting = false
-          presence:stop()
-        end,
-      })
-      vim.api.nvim_create_autocmd({
-        "FocusGained",
-      }, {
-        group = augroup,
-        callback = function()
-          presence:update()
-        end,
-      })
+      -- local presence = require("presence")
+      -- local augroup = vim.api.nvim_create_augroup("discord_connect", { clear = true })
+      -- FIX: autocmds here doesn't work for now
+      --
+      -- vim.api.nvim_create_autocmd({
+      --   "FocusLost",
+      -- }, {
+      --   group = augroup,
+      --   callback = function()
+      --     presence.is_authorized = false
+      --     presence.is_authorizing = false
+      --     presence.is_connected = false
+      --     presence.is_connecting = false
+      --     presence:stop()
+      --   end,
+      -- })
+      -- vim.api.nvim_create_autocmd({
+      --   "FocusGained",
+      -- }, {
+      --   group = augroup,
+      --   callback = function()
+      --     presence:update()
+      --   end,
+      -- })
     end,
   },
   {
