@@ -31,7 +31,6 @@ return {
     config = vim.schedule_wrap(function(_, opts)
       require("auto-hlsearch").setup(opts)
     end),
-    dev = true,
   },
   -- immediate visual feedback for `:norm` command
   {
