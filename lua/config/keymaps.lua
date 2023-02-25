@@ -82,14 +82,8 @@ set(x, ">", ">gv")
 -- TODO: more helix style mappings
 -- o   - im : closest surround pair
 set(nxo, "m", "<nop>")
--- TODO: matching using treesitter
+-- TODO: matching using treesitter (or maybe matchup-vim?)
 set(nxo, "mm", "%", { desc = "Go to matching" })
-set(n, "mi", "vi", { desc = "Select inside object" })
-set(x, "mi", "i", { desc = "Select inside object" })
-set(n, "ma", "va", { desc = "Select around object" })
-set(x, "ma", "a", { desc = "Select around object" })
-set(x, "i", "<esc>`<i")
-set(x, "a", "<esc>`>a")
 
 set(n, "q", "<cmd>close<cr>", { desc = "Close window" })
 set(n, "Q", "q", { desc = "Record macro" })

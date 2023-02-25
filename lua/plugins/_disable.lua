@@ -12,7 +12,6 @@ local disable_plugins = {
   -- replaced with other plugins
   "echasnovski/mini.comment",
   "echasnovski/mini.surround",
-  "echasnovski/mini.ai",
   "echasnovski/mini.pairs",
 }
 
