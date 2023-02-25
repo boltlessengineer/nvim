@@ -1,5 +1,8 @@
 return {
   "folke/noice.nvim",
+  dependencies = {
+    { "smjonas/inc-rename.nvim", config = true },
+  },
   opts = {
     lsp = {
       override = {
@@ -7,6 +10,7 @@ return {
       },
     },
     presets = {
+      inc_rename = true,
       -- cmdline_output_to_split = true,
     },
     messages = {
