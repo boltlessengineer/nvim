@@ -1,4 +1,10 @@
 return {
+  -- nvim-autopairs
+  {
+    "windwp/nvim-autopairs",
+    event = "VeryLazy",
+    opts = {},
+  },
   -- comment
   {
     "numToStr/Comment.nvim",
