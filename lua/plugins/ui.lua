@@ -24,13 +24,12 @@ return {
   -- indent
   {
     "lukas-reineke/indent-blankline.nvim",
-    init = function()
-      vim.g.indent_blankline_context_char = "▏"
-    end,
     opts = {
       char = "▏",
+      context_char = "▏",
       show_current_context = true,
       show_current_context_start = true,
+      context_start_priority = 50, -- set this low to not cover diagnostic underlines
     },
   },
   -- statuscolumn
