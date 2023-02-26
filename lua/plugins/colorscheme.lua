@@ -36,12 +36,11 @@ return {
             --
             -- TreesitterContextLineNumber = { style = {}, sp = 'none' },
 
-            -- these looks bad in wezterm :(
-            -- DiagnosticUnderlineError = { style = { "undercurl" } },
-            -- DiagnosticUnderlineHint = { style = { "undercurl" } },
-            -- DiagnosticUnderlineInfo = { style = { "undercurl" } },
-            -- DiagnosticUnderlineOk = { style = { "undercurl" } },
-            -- DiagnosticUnderlineWarn = { style = { "undercurl" } },
+            DiagnosticUnderlineError = { style = { "undercurl" } },
+            DiagnosticUnderlineHint = { style = { "undercurl" } },
+            DiagnosticUnderlineInfo = { style = { "undercurl" } },
+            DiagnosticUnderlineOk = { style = { "undercurl" } },
+            DiagnosticUnderlineWarn = { style = { "undercurl" } },
           }
         end,
       },
