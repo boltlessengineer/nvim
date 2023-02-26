@@ -2,6 +2,14 @@ return {
   "folke/noice.nvim",
   dependencies = {
     { "smjonas/inc-rename.nvim", config = true },
+    {
+      "rcarriga/nvim-notify",
+      opts = {
+        on_open = function(win)
+          vim.api.nvim_win_set_config(win, { focusable = false })
+        end,
+      },
+    },
   },
   opts = {
     lsp = {
