@@ -16,6 +16,8 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
     { import = "plugins" },
+    { import = "plugins.extras.lang.rust" },
+    { import = "plugins.extras.lang.flutter" },
   },
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
