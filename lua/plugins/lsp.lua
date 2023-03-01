@@ -6,6 +6,8 @@ return {
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       vim.list_extend(keys, {
         { "gK", false }, -- signature help (just hover is ok)
+        { "gt", false },
+        { "gy", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
         { "<leader>cl", false },
         { "<leader>cm", false },
         { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },

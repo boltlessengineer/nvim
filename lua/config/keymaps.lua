@@ -71,9 +71,17 @@ set("", "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
 
 -- helix-style mappings
-set(n, "U", "<C-r>")
+-- stylua: ignore start
+set(n, "U", "<C-r>")  -- reasonable redo
+set(x, "y", "ygv")    -- stay visual mode after yank
+set(x, "p", "<esc>p") -- paste after
+set(x, "P", "<esc>P") -- paste before
+set(x, "R", "p")      -- paste
+-- stylua: ignore end
 set(nxo, "gh", "^")
 set(nxo, "gl", "$")
+set(nxo, "gt", "H")
+set(nxo, "gb", "L")
 set(nxo, "%", "gg0vG$")
 set(n, "<", "<<")
 set(x, "<", "<gv")
