@@ -73,6 +73,8 @@ set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Tog
 -- helix-style mappings
 -- stylua: ignore start
 set(n, "U", "<C-r>")  -- reasonable redo
+set(n, "m", "v")      -- enable mi-/ma- mappings
+set(x, "m", "<nop>")  -- =
 set(x, "y", "ygv")    -- stay visual mode after yank
 set(x, "p", "<esc>p") -- paste after
 set(x, "P", "<esc>P") -- paste before
@@ -82,6 +84,8 @@ set(nxo, "gh", "^")
 set(nxo, "gl", "$")
 set(nxo, "gt", "H")
 set(nxo, "gb", "L")
+set(nxo, "H", "<nop>") -- disable H/L, try be used to gt/gb
+set(nxo, "L", "<nop>")
 set(nxo, "%", "gg0vG$")
 set(n, "<", "<<")
 set(x, "<", "<gv")
@@ -89,7 +93,6 @@ set(n, ">", ">>")
 set(x, ">", ">gv")
 -- TODO: more helix style mappings
 -- o   - im : closest surround pair
-set(nxo, "m", "<nop>")
 -- TODO: matching using treesitter (or maybe matchup-vim?)
 set(nxo, "mm", "%", { desc = "Go to matching" })
 
