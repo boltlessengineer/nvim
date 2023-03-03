@@ -32,29 +32,6 @@ return {
       context_start_priority = 50, -- set this low to not cover diagnostic underlines
     },
   },
-  -- statuscolumn
-  {
-    "luukvbaal/statuscol.nvim",
-    event = "VeryLazy",
-    opts = function()
-      local function gitsigns_click(args)
-        if args.button == "l" then
-          require("gitsigns").preview_hunk_inline()
-        end
-      end
-      return {
-        foldfunc = "builtin",
-        setopt = true,
-        order = "SNFs",
-        Lnum = gitsigns_click,
-        GitSignsTopdelete = gitsigns_click,
-        GitSignsUntracked = gitsigns_click,
-        GitSignsAdd = gitsigns_click,
-        GitSignsChangedelete = gitsigns_click,
-        GitSignsDelete = gitsigns_click,
-      }
-    end,
-  },
   -- better fold
   {
     "kevinhwang91/nvim-ufo",

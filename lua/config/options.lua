@@ -6,7 +6,7 @@ vim.cmd([[let $LANG='en_US.UTF-8']])
 
 vim.o.mouse = "nv"
 vim.o.cmdheight = 0
-vim.o.foldcolumn = "1"
+-- vim.o.foldcolumn = "1"
 vim.o.colorcolumn = "80"
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 15
