@@ -15,9 +15,11 @@ vim.o.showtabline = 1
 vim.o.laststatus = 3
 vim.o.pumblend = 0
 
-vim.opt.diffopt:append({
-  "linematch:60",
-})
+if vim.fn.has("nvim-0.9") == 1 then
+  vim.opt.diffopt:append({
+    "linematch:60",
+  })
+end
 
 -- stylua: ignore
 vim.opt.fillchars = {
