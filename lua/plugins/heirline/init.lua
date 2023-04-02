@@ -10,7 +10,6 @@ return {
       require("heirline").setup({
         statusline = require("plugins.heirline.statusline"),
         winbar = require("plugins.heirline.winbar"),
-        tabline = require("plugins.heirline.tabline"),
       })
       -- clear default autocmd for winbar
       vim.api.nvim_create_augroup("Heirline_init_winbar", { clear = true })

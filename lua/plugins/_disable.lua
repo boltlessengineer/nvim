@@ -3,11 +3,10 @@ local disable_plugins = {
   "akinsho/bufferline.nvim",
   "nvim-lualine/lualine.nvim",
   "echasnovski/mini.indentscope",
-
-  -- don't use
   "windwp/nvim-spectre",
   "RRethy/vim-illuminate",
   "nvim-neo-tree/neo-tree.nvim",
+  "SmiteshP/nvim-navic",
 
   -- replaced with other plugins
   "echasnovski/mini.comment",
