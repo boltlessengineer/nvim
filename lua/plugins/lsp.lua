@@ -72,7 +72,7 @@ return {
       require("lsp-inlayhints").setup(opts)
       require("lazyvim.util").on_attach(function(client, buffer)
         -- this checks inlayHintProvider capability automatically
-        require("lsp-inlayhints").on_attach(client, buffer)
+        require("lsp-inlayhints").on_attach(client, buffer, false)
       end)
     end,
   },
