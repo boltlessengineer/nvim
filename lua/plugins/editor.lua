@@ -54,8 +54,7 @@ return {
     -- TODO: in @comments (which is at end of line, not new line), move comment to prev line
     "Wansmer/treesj",
     keys = {
-      { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
-      { "<A-j>", "J", desc = "Join (builtin)" },
+      { "<leader>j", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
     },
     opts = {
       use_default_keymaps = false,

@@ -17,6 +17,32 @@ return {
         changedelete = { text = "│" }, -- with underline ;)
         untracked    = { text = "┆" },
       },
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, lhs, rhs, desc)
+          vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc, silent = false })
+        end
+        local no = "n"
+        local nv = { "n", "v" }
+        local ox = { "o", "x" }
+
+        -- stylua: ignore start
+        map(ox, "ih", ":<C-U>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
+        map(no, "]h", gs.next_hunk, "Next Hunk")
+        map(no, "[h", gs.prev_hunk, "Prev Hunk")
+        map(no, "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
+        map(nv, "<leader>ga", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+        map(nv, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map(no, "<leader>gA", gs.stage_buffer, "Stage Buffer")
+        map(no, "<leader>gR", gs.reset_buffer, "Reset Buffer")
+        map(no, "<leader>gp", gs.preview_hunk_inline, "Preview Inline")
+        map(no, "<leader>gP", gs.preview_hunk, "Preview Hunk")
+        map(no, "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
+        -- TODO: more git mappings
+        -- <leader>gc : commit
+        -- <leader>gL : lazygit
+      end,
     },
   },
   -- better diffing

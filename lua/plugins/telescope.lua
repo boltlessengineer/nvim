@@ -15,6 +15,8 @@ return {
       { "<leader>so", false }, -- options
       { "<leader>sw", false }, -- word (root dir)
       { "<leader>sW", false }, -- word (cwd)
+      { "<leader>gc", false }, -- git commits
+      { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
     },
     opts = function(_, opts)
       local actions = require("telescope.actions")
