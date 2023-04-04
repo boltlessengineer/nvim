@@ -1,6 +1,7 @@
 return {
   -- automatic window resizing
   {
+    enabled = false,
     "anuvyklack/windows.nvim",
     event = "WinNew",
     dependencies = {
