@@ -412,7 +412,9 @@ M.lsp_list = {
         null_active = true
       end
     end
-    if not null_active then return end
+    if not null_active then
+      return
+    end
     -- collect all loaded buffers & filetypes
     local loaded = {}
     local filetypes = {}
@@ -516,6 +518,10 @@ M.line_col = {
   {
     provider = "Ln %l, Col %c",
   },
+}
+
+M.line_col_simple = {
+  provider = "%l:%c",
 }
 
 M.tab_size = {

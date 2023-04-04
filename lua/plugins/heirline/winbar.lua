@@ -15,6 +15,8 @@ local normal = {
   c.local_diagnostics,
   c.align,
   -- { provider = "%-14.(%l,%c%V%)%P" },
+  c.line_col_simple,
+  -- TODO: show file encoding & file eol only if they are differnt from usual
   c.space,
 }
 
