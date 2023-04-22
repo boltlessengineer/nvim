@@ -6,8 +6,17 @@ return {
     -- TODO: lazy load
     "akinsho/flutter-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    enabled = false,
-    opts = {},
+    enabled = true,
+    opts = {
+      widget_guides = {
+        enabled = true,
+      },
+    },
+    config = function(_, opts)
+      require("flutter-tools").setup(opts)
+    end,
   },
+  -- TODO: snippets
   { "Neevash/awesome-flutter-snippets", enabled = false },
+  { "RobertBrunhage/flutter-riverpod-snippets", enabled = false }, -- copied from akinsho's dotfiles
 }

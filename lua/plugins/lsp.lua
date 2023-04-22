@@ -23,6 +23,7 @@ return {
       servers = {
         clangd = {},
         cssls = {},
+        -- dartls = {}, -- replace with flutter-tools
         tsserver = {},
         svelte = {},
         html = {},
@@ -63,7 +64,19 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    dev = false,
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        sources = {
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.shfmt,
+          nls.builtins.diagnostics.flake8,
+          nls.builtins.formatting.prettierd,
+        },
+      }
+    end,
   },
   {
     "lvimuser/lsp-inlayhints.nvim",
@@ -76,6 +89,7 @@ return {
       end)
     end,
   },
+  { "VidocqH/lsp-lens.nvim", enabled = false },
   {
     "joechrisellis/lsp-format-modifications.nvim",
     enabled = false,
