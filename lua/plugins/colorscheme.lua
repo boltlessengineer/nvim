@@ -41,10 +41,13 @@ return {
             DiagnosticUnderlineInfo = { style = { "undercurl" } },
             DiagnosticUnderlineOk = { style = { "undercurl" } },
             DiagnosticUnderlineWarn = { style = { "undercurl" } },
+            GitSignsChangedelete = { fg = c.blue, style = { "underline" }, sp = c.red },
           }
         end,
       },
-      integrations = {},
+      integrations = {
+        telescope = true,
+      },
     },
     config = function(_, opts)
       require("catppuccin").setup(opts)
