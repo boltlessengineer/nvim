@@ -17,6 +17,7 @@ local nxo = { "n", "x", "o" } -- normal, visual, operator (for motion mappings)
 -- local xo = { "x", "o" } -- visual, operator
 
 set(t, "<C-[>", [[<C-\><C-n>]])
+set(t, "<esc>", "<esc>")
 
 -- better up/down
 set(n, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -78,8 +79,8 @@ set(x, "P", "<esc>P") -- paste before
 set(x, "r", "p")      -- yank & replace
 set(x, "R", '"_dP')   -- replace
 -- stylua: ignore end
-set(nxo, "gh", "^")
-set(nxo, "gl", "$")
+set(nxo, "gh", "^", { desc = "goto line start (non-blank)" })
+set(nxo, "gl", "$", { desc = "goto line end" })
 set(nxo, "gt", "H")
 set(nxo, "gb", "L")
 set(nxo, "H", "<nop>") -- disable H/L, try be used to gt/gb
