@@ -1,6 +1,17 @@
 return {
   -- set buffer options automatically based on file contents
   "tpope/vim-sleuth",
+  "wintermute-cell/gitignore.nvim",
+  {
+    "dimaportenko/telescope-simulators.nvim",
+    opts = {
+      android_emulator = false,
+      apple_simulator = true,
+    },
+    config = function(_, opts)
+      require("simulators").setup(opts)
+    end,
+  },
   -- add highlights to markup files
   {
     "lukas-reineke/headlines.nvim",
