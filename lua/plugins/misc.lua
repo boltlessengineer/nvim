@@ -12,13 +12,6 @@ return {
       require("simulators").setup(opts)
     end,
   },
-  -- add highlights to markup files
-  {
-    "lukas-reineke/headlines.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    config = true,
-  },
   -- colorizer
   {
     "NvChad/nvim-colorizer.lua",
