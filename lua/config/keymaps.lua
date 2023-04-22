@@ -43,9 +43,6 @@ set(i, ";", ";<c-g>u")
 -- Lazy
 set(n, "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
--- don't yank on paste
-set(x, "p", '"_dP')
-
 -- cycle through command history without arrow keys
 set(c, "<c-n>", "<down>")
 set(c, "<c-p>", "<up>")
@@ -78,7 +75,8 @@ set(x, "m", "<nop>")  -- =
 set(x, "y", "ygv")    -- stay visual mode after yank
 set(x, "p", "<esc>p") -- paste after
 set(x, "P", "<esc>P") -- paste before
-set(x, "R", "p")      -- paste
+set(x, "r", "p")      -- yank & replace
+set(x, "R", '"_dP')   -- replace
 -- stylua: ignore end
 set(nxo, "gh", "^")
 set(nxo, "gl", "$")
