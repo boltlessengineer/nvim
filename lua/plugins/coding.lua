@@ -42,8 +42,6 @@ return {
       },
     },
   },
-  -- autopairs
-  {},
   -- easy align
   {
     "junegunn/vim-easy-align",

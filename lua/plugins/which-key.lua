@@ -23,7 +23,6 @@ return {
     local keymaps = {
       mode = { "n" },
       ["<leader>c"] = { name = "+code" },
-      ["<leader>f"] = { name = "+file/find" },
       ["<leader>g"] = { name = "+git" },
       ["<leader>q"] = { name = "+quit/session" },
       ["<leader>s"] = { name = "+search" },

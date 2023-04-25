@@ -8,11 +8,11 @@ return {
   -- snippet creator
   {
     -- TODO: should try
-    'ziontee113/SnippetGenie',
+    "ziontee113/SnippetGenie",
     enabled = false,
-    event = 'VeryLazy',
+    event = "VeryLazy",
     opts = {
-      snippets_directory = '',
-    }
-  }
+      snippets_directory = "",
+    },
+  },
 }
