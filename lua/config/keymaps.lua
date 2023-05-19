@@ -80,7 +80,7 @@ set(x, "r", "p")      -- yank & replace
 set(x, "R", '"_dP')   -- replace
 -- stylua: ignore end
 set(nxo, "gh", "^", { desc = "goto line start (non-blank)" })
-set(nxo, "gl", "$", { desc = "goto line end" })
+set(nxo, "gl", "g_", { desc = "goto line end (non-blank)" })
 set(nxo, "gt", "H")
 set(nxo, "gb", "L")
 set(nxo, "H", "<nop>") -- disable H/L, try be used to gt/gb
