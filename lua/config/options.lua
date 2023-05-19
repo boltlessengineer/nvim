@@ -42,6 +42,7 @@ vim.opt.fillchars = {
 vim.o.list = true
 vim.opt.listchars = {
   eol = "¬", -- '↵'
+  tab = "> ",
 }
 
 vim.g.editorconfig = true
@@ -53,7 +54,8 @@ vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 
 if vim.g.neovide then
-  vim.o.guifont = "FiraCode Nerd Font:h16"
+  vim.o.guifont = "Fira Code:h16"
+  vim.g.neovide_profiler = true
 end
 
 -- vim.o.winbar = "%f %h%w%m%r %=%-14.(%l,%c%V%)%P"
