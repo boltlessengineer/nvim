@@ -8,6 +8,20 @@ return {
   -- comment
   {
     "numToStr/Comment.nvim",
+    dependencies = {
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter",
+          opts = {
+            context_commentstring = {
+              enable = true,
+              enable_autocmd = false,
+            },
+          },
+        },
+      },
+    },
     keys = {
       { "g/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
       { "<C-/>", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
@@ -15,13 +29,15 @@ return {
       { mode = "x", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
       { mode = "x", "<C-?>", "<Plug>(comment_toggle_blockwise_visual)", desc = "Comment Blockwise" },
     },
-    opts = {
-      mappings = {
-        basic = false,
-        extra = false,
-      },
-      pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-    },
+    opts = function()
+      return {
+        mappings = {
+          basic = false,
+          extra = false,
+        },
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
+    end,
   },
   -- surround
   {
