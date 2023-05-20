@@ -20,6 +20,7 @@ local spec = {
     opts = {
       defaults = {
         keymaps = false,
+        autocmds = false,
       },
     },
   },
