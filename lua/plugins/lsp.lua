@@ -80,8 +80,13 @@ return {
   },
   {
     "lvimuser/lsp-inlayhints.nvim",
+    branch = "anticonceal",
     event = { "BufReadPre", "BufNewFile" },
     config = function(_, opts)
+      if vim.has("nvim-0.10.0") == 1 then
+        vim.notify("anticonceal is only supported in nightly", vim.log.levels.WARN)
+        return
+      end
       require("lsp-inlayhints").setup(opts)
       require("lazyvim.util").on_attach(function(client, buffer)
         -- this checks inlayHintProvider capability automatically
