@@ -48,7 +48,7 @@ return {
       -- TODO: separate diagnostic setting to somewhere
       diagnostics = {
         underline = true,
-        update_in_insert = true,
+        update_in_insert = false,
         virtual_text = {
           spacing = 4,
           source = "if_many",
@@ -138,18 +138,21 @@ return {
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = "LspAttach",
-    -- TODO: PR: use config.virtual_lines.enable to use with one_current_line
-    -- support API like `show_current_line()`
-    config = true,
     keys = {
       {
         "<leader>cl",
         function()
-          require("lsp_lines").toggle()
+          local config = vim.diagnostic.config().virtual_lines
+          if not config then
+            vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+          else
+            vim.diagnostic.config({ virtual_lines = false })
+          end
         end,
         desc = "Toggle diagnostics",
       },
     },
+    config = true,
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -184,11 +187,7 @@ return {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
     },
     opts = {
-      -- TODO: replace this with mason-null-ls
-      ensure_installed = {
-        "stylua",
-        "shfmt",
-      },
+      ensure_installed = {},
     },
     config = function(_, opts)
       require("mason").setup(opts)
@@ -259,12 +258,12 @@ return {
     opts = {
       input_buffer_type = "dressing",
     },
-    init = function()
+    config = function(opts)
+      local inc_rename = require("inc_rename")
+      inc_rename.setup(opts)
       vim.keymap.set({ "n", "x" }, "<plug>(lsp_rename)", function()
-        local inc_rename = require("inc_rename")
         return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
       end, { expr = true, desc = "Rename" })
     end,
-    config = true,
   },
 }
