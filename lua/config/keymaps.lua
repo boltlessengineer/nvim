@@ -75,10 +75,7 @@ set(n, "U", "<C-r>")  -- reasonable redo
 set(n, "m", "v")      -- enable mi-/ma- mappings
 set(x, "m", "<nop>")  -- =
 set(x, "y", "ygv")    -- stay visual mode after yank
-set(x, "p", "<esc>p") -- paste after
-set(x, "P", "<esc>P") -- paste before
-set(x, "r", "p")      -- yank & replace
-set(x, "R", '"_dP')   -- replace
+set(x, "R", 'P')      -- replace (don't modify registers)
 -- stylua: ignore end
 set(nxo, "gh", "^", { desc = "goto line start (non-blank)" })
 set(nxo, "gl", "g_", { desc = "goto line end (non-blank)" })
