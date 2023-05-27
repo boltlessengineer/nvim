@@ -8,6 +8,12 @@ brew install neovim # (v0.8.3)
 brew install neovim --HEAD # (v0.9.0)
 ```
 
+## Dependencies
+
+- ripgrep - optional (for grep in neovim/telescope)
+- fd - optional (for telescope)
+- sed - optional (for nvim-spectre)
+
 ## NOTE
 
 ### undercurl in wezterm

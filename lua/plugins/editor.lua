@@ -86,6 +86,12 @@ return {
     },
   },
   {
+    "nvim-pack/nvim-spectre",
+    keys = {
+      { "<leader>sr", "<cmd>lua require('spectre').open()<cr>", desc = "Spectre" },
+    },
+  },
+  {
     "folke/todo-comments.nvim",
     opts = {
       signs = false,
