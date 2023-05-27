@@ -75,7 +75,6 @@ return {
       local actions = require("telescope.actions")
       return {
         defaults = {
-          -- TODO: import from config.icons
           prompt_prefix = " ",
           selection_caret = " ",
           mappings = {

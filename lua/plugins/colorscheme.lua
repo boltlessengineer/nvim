@@ -22,9 +22,6 @@ return {
             EndOfBuffer = { fg = c.surface0 },
             Folded = { bg = c.base },
             TreesitterContextBottom = { style = { "underline" }, sp = c.surface0 },
-            -- TODO: fix these
-            --
-            -- TreesitterContextLineNumber = { style = {}, sp = 'none' },
 
             DiagnosticUnderlineError = { style = { "undercurl" } },
             DiagnosticUnderlineHint = { style = { "undercurl" } },
