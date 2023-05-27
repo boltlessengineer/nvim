@@ -3,7 +3,7 @@ return {
   enabled = false,
   dependencies = {
     "smjonas/inc-rename.nvim",
-    "rcarriga/nvim-notify",
+    { "rcarriga/nvim-notify", lazy = true },
   },
   init = function()
     vim.opt.cmdheight = 0

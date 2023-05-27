@@ -1,7 +1,3 @@
--- TODO: ignore deleted files in git_files view
--- see :h telescope.builtins.git_files and `git ls-files --help`
--- maybe changing command to `git ls-files --exclude-standard --modified --others --stage` will work
-
 local Utils = require("utils")
 
 ---this will return a function that calls telescope

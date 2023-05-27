@@ -6,52 +6,47 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    opts = {
-      -- FIX: enable staged signs
-      _signs_staged_enable = false,
-      -- stylua: ignore
-      _signs_staged = {
-        changedelete = { text = "┃" }, -- with underline ;)
-      },
-      -- stylua: ignore
-      signs = {
-        -- useful signs: ┃▎│┆
-        add          = { text = "┃" },
-        change       = { text = "┃" },
-        delete       = { text = "▁" },
-        topdelete    = { text = "▔" },
-        changedelete = { text = "┃" }, -- with underline ;)
-        untracked    = { text = " " },
-      },
-      on_attach = function(buffer)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, lhs, rhs, desc)
-          vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
-        end
-        local no = "n"
-        local nv = { "n", "v" }
-        local ox = { "o", "x" }
-
-        -- TODO: use require('utils').attach_keymaps
-
-        -- stylua: ignore start
-        map(ox, "ih", ":<C-U>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
-        map(no, "]h", gs.next_hunk, "Next Hunk")
-        map(no, "[h", gs.prev_hunk, "Prev Hunk")
-        map(no, "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
-        map(nv, "<leader>ga", "<cmd>Gitsigns stage_hunk<CR>", "Stage Hunk")
-        map(nv, "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk")
-        map(no, "<leader>gA", gs.stage_buffer, "Stage Buffer")
-        map(no, "<leader>gR", gs.reset_buffer, "Reset Buffer")
-        map(no, "<leader>gp", gs.preview_hunk_inline, "Preview Inline")
-        map(no, "<leader>gP", gs.preview_hunk, "Preview Hunk")
-        map(no, "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
-        -- TODO: more git mappings
-        -- <leader>gc : commit
-        -- <leader>gL : lazygit
-      end,
+    _keys = {
+      { "ih", ":<c-u>Gitsigns select_hunk<cr>", mode = { "o", "x" }, desc = "Select Hunk" },
+      { "ah", ":<c-u>Gitsigns select_hunk<cr>", mode = { "o", "x" }, desc = "Select Hunk" },
+      { "]h", "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
+      { "[h", "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
+      { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
+      { "<leader>gA", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage Buffer" },
+      { "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
+      { "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview Inline" },
+      { "<leader>gP", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview Hunk" },
+      { "<leader>gb", "<cmd>Gitsigns blame_line<cr>", desc = "Blame Line" },
+      { "<leader>ga", "<cmd>Gitsigns stage_hunk<cr>", mode = { "n", "v" }, desc = "Stage Hunk" },
+      { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", mode = { "n", "v" }, desc = "Reset Hunk" },
     },
+    event = "VeryLazy",
+    opts = function(plugin, _)
+      return {
+        -- FIX: enable staged signs
+        _signs_staged_enable = false,
+        -- stylua: ignore
+        _signs_staged = {
+          changedelete = { text = "┃" }, -- with underline ;)
+        },
+        -- stylua: ignore
+        signs = {
+          -- useful signs: ┃▎│┆
+          add          = { text = "┃" },
+          change       = { text = "┃" },
+          delete       = { text = "▁" },
+          topdelete    = { text = "▔" },
+          changedelete = { text = "┃" }, -- with underline ;)
+          untracked    = { text = " " },
+        },
+        on_attach = function(buffer)
+          require("utils").attach_keymaps(buffer, plugin._keys)
+          -- TODO: more git mappings
+          -- <leader>gc : commit
+          -- <leader>gL : lazygit
+        end,
+      }
+    end,
   },
   -- better diffing
   {

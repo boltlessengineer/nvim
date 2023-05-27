@@ -29,20 +29,26 @@ return {
     },
     config = function(_, opts)
       local ls = require("luasnip")
-      -- TODO: do I really need these?
-      -- ls.filetype_extend("dart", { "flutter" })
-      -- ls.filetype_extend("NeogitCommitMessage", { "gitcommit" })
+      ls.filetype_extend("dart", { "flutter" })
+      ls.filetype_extend("NeogitCommitMessage", { "gitcommit" })
+      vim.api.nvim_create_autocmd("ModeChanged", {
+        pattern = { "i:*", "s:n" },
+        callback = function(ev)
+          if not ls.session.current_nodes[ev.bufnr] or ls.session.jump_active then
+            ls.unlink_current()
+          end
+        end,
+      })
       ls.setup(opts)
     end,
   },
-  -- snippet creator
+  -- snippet creator for LuaSnip
   {
-    -- TODO: should try
     "ziontee113/SnippetGenie",
-    enabled = false,
-    event = "VeryLazy",
+    -- HACK: actually make this command... it is fake command now.
+    cmd = "SnippetGenie",
     opts = {
-      snippets_directory = "",
+      snippets_directory = vim.fn.stdpath("config") .. "/snippets",
     },
   },
 }

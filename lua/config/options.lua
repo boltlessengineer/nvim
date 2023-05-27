@@ -36,13 +36,14 @@ vim.opt.fillchars = {
   vertright = '│',
   verthoriz = '│',
 }
-vim.o.foldcolumn = "0" -- TODO: set this to 1
-vim.o.formatoptions = "jcrqlnt" -- TODO: add keymap to ignore 'r' option
-vim.o.grepprg = "rg --vimgrep" -- TODO: only when ripgrep is installed
+vim.o.foldcolumn = "0"
+vim.o.formatoptions = "jcrqlnt"
+vim.fn.system("rg --version")
+if vim.v.shell_error == 0 then
+  vim.o.grepprg = "rg --vimgrep"
+end
 vim.o.ignorecase = true
 vim.o.laststatus = 2
--- TODO: turn this on in text files (md/org/gitcommit)
--- vim.o.linebreak = true
 vim.o.list = true
 vim.opt.listchars = {
   eol = "¬",
@@ -57,7 +58,6 @@ vim.o.pumblend = 0
 vim.o.pumheight = 10
 vim.o.relativenumber = true
 vim.o.scrolloff = 5
--- TODO: store terminal (re-connect to terminal session using tmux)
 vim.opt.sessionoptions = { "buffers", "curdir", "folds", "help", "tabpages", "winsize" }
 vim.o.shiftround = true
 vim.o.shiftwidth = 2

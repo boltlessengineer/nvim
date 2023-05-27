@@ -4,6 +4,8 @@ return {
   "wintermute-cell/gitignore.nvim",
   {
     "dimaportenko/telescope-simulators.nvim",
+    -- FIX: can't lazyload with sub-command `Telescope simulators run`
+    enabled = false,
     opts = {
       android_emulator = false,
       apple_simulator = true,

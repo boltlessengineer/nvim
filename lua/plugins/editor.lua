@@ -67,8 +67,6 @@ return {
     -- TODO: need way to split empty function in lua
     -- e.g. `function() end`.
     -- `function_definition` capture group
-    -- TODO: support `J` in mutli-line @comments like builtin J works
-    -- TODO: in @comments (which is at end of line, not new line), move comment to prev line
     "Wansmer/treesj",
     keys = {
       { "<leader>j", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },

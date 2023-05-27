@@ -17,6 +17,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     keys = {
       {
         "<leader>un",
@@ -26,6 +27,7 @@ return {
         desc = "Dismiss all Notifications",
       },
     },
+    event = "VeryLazy",
     opts = {
       timeout = 3000,
       max_height = function()
@@ -39,8 +41,10 @@ return {
       end,
       render = "minimal",
     },
-    init = function()
-      -- TODO: when noice is not enabled, install notify on VeryLazy
+    config = function(_, opts)
+      local notify = require("notify")
+      notify.setup(opts)
+      vim.notify = notify
     end,
   },
   -- automatic window resizing
@@ -143,7 +147,6 @@ return {
   -- alpha
   {
     "goolord/alpha-nvim",
-    -- TODO: temporary disable (maybe forever?)
     enabled = false,
     event = "VimEnter",
     arts = {

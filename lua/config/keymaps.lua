@@ -90,7 +90,7 @@ set(n, ">", ">>")
 set(x, ">", ">gv")
 -- TODO: more helix style mappings
 -- o   - im : closest surround pair
--- TODO: matching using treesitter (or maybe matchup-vim?)
+-- + matching using treesitter (or maybe matchup-vim?)
 set(nxo, "mm", "%", { desc = "Go to matching" })
 
 set(n, "q", "<cmd>close<cr>", { desc = "Close window" })

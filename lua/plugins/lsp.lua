@@ -45,7 +45,6 @@ return {
     end,
     ---@class PluginLspOpts
     opts = {
-      -- TODO: separate diagnostic setting to somewhere
       diagnostics = {
         underline = true,
         update_in_insert = false,
@@ -235,6 +234,7 @@ return {
       format_on_save = false,
     },
     init = function()
+      -- TODO: use modification format
       vim.g.format_modi = false
     end,
     config = function(_, opts)
@@ -246,7 +246,6 @@ return {
           end
           require("lsp-format-modifications").attach(client, buffer, local_opts)
           vim.b._lsp_format_modi_attached = true
-          -- TODO: setup modification format
         end
       end)
     end,
