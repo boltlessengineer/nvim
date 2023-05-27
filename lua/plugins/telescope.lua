@@ -2,25 +2,16 @@
 -- see :h telescope.builtins.git_files and `git ls-files --help`
 -- maybe changing command to `git ls-files --exclude-standard --modified --others --stage` will work
 
-local Util = require("utils")
+local Utils = require("utils")
 
 ---this will return a function that calls telescope
----cwd will default to lazyvim.util.get_root
----for `files`, git_files or find_files will be chosen depending on .git
+---cwd will default to utils.get_root
 ---@param builtin string
 ---@param opts? any
 ---@return function
 local function telescope(builtin, opts)
   return function()
-    opts = vim.tbl_deep_extend("force", { cwd = Util.get_root() }, opts or {})
-    if builtin == "files" then
-      if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
-        builtin = "git_files"
-      else
-        builtin = "find_files"
-      end
-    end
-
+    opts = vim.tbl_deep_extend("force", { cwd = Utils.get_root() }, opts or {})
     require("telescope.builtin")[builtin](opts)
   end
 end
@@ -31,7 +22,7 @@ return {
     keys = {
       { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help" },
       { "<leader><space>", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>f", telescope("files"), desc = "Find files (root dir)" },
+      { "<leader>f", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>F", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
       { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
@@ -91,6 +82,7 @@ return {
             i = {
               ["<c-s>"] = actions.select_horizontal,
               ["<c-t>"] = actions.select_tab,
+              ["<c-q>"] = actions.send_selected_to_qflist,
               ["<ESC>"] = actions.close,
               ["<c-c>"] = actions.close,
             },
