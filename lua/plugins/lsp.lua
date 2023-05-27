@@ -1,54 +1,143 @@
+local utils = require("plugins.lsp.utils")
+
 ---@type LazyPluginSpec[]
 return {
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      vim.list_extend(keys, {
-        { "gK", false }, -- signature help (just hover is ok)
-        { "gt", false },
-        { "gy", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
-        { "<leader>cl", false },
-        { "<leader>cm", false },
-        { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-        { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" },
-      })
-    end,
-    opts = {
-      diagnostics = {
-        virtual_text = false,
-        virtual_lines = false,
-      },
-      ---@type lspconfig.options
-      servers = {
-        clangd = {},
-        cssls = {},
-        -- dartls = {}, -- replace with flutter-tools
-        tsserver = {},
-        svelte = {},
-        html = {},
-        gopls = {},
-        pyright = {},
-        rust_analyzer = {},
-        yamlls = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                unusedLocalExclude = { "_*" },
-              },
-              format = {
-                enable = false, -- use stylua istead
-              },
-            },
-          },
-        },
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
+      { "folke/neodev.nvim", opts = {} },
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        cond = function()
+          return require("utils").has_plugin("nvim-cmp")
+        end,
       },
     },
+    -- stylua: ignore
+    _keys = {
+      { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+      { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
+      { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Document", has = "documentFormatting" },
+      { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Range", mode = 'v', has = "documentRangeFormatting" },
+      { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
+      { "<leader>cr", "<plug>(lsp_rename)", desc = "Code Action", mode = { 'n', 'x' }, has = "rename" },
+      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
+      { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto T[y]pe Definition", has = "typeDefinition" },
+      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", has = "references" },
+      { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementations", has = "implementation" },
+      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
+      { "K", vim.lsp.buf.hover, desc = "Hover" },
+      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
+      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
+      { "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Next Error" },
+      { "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Prev Error" },
+      { "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, desc = "Next Warning" },
+      { "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, desc = "Prev Warning" },
+      { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
+    },
+    init = function()
+      -- `<plug>(...)` mappings would be mapped to alternative plugins if exist
+      vim.keymap.set({ "n", "x" }, "<plug>(lsp_rename)", vim.lsp.buf.rename, { desc = "Rename" })
+    end,
+    ---@class PluginLspOpts
+    opts = {
+      -- TODO: separate diagnostic setting to somewhere
+      diagnostics = {
+        underline = true,
+        update_in_insert = true,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          -- stylua: ignore
+          prefix = vim.fn.has("nvim-0.10.0") == 0 and "●" or function(diagnostic)
+            local icons = require("config.icons").diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
+              end
+            end
+          end,
+        },
+        virtual_lines = false,
+        severity_sort = true,
+      },
+      capabilities = {},
+      ---@type lspconfig.options
+      servers = require("plugins.lsp.servers"),
+      ---you can do any additional lsp server setup here
+      ---return true if you don't want this server to be setup with lspconfig
+      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      setup = {},
+    },
+    ---@param opts PluginLspOpts
+    config = function(plugin, opts)
+      utils.on_attach(function(client, buffer)
+        require("utils").attach_keymaps(buffer, plugin._keys, function(key)
+          local has = key.has
+          key.has = nil
+          return not (has and not client.server_capabilities[has .. "Provider"])
+        end)
+        require("plugins.lsp.format").on_attach(client, buffer)
+      end)
+
+      -- setup diagnostics
+      vim.diagnostic.config(opts.diagnostics)
+
+      local servers = opts.servers
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities(),
+        opts.capabilities or {}
+      )
+      local function setup(server)
+        local server_opts = vim.tbl_deep_extend("force", {
+          capabilities = vim.deepcopy(capabilities),
+        }, servers[server] or {})
+
+        if opts.setup[server] then
+          if opts.setup[server](server, server_opts) then
+            return
+          end
+        end
+        require("lspconfig")[server].setup(server_opts)
+      end
+
+      -- 👇 Huge mass of Mason stuffs...
+
+      -- get all the servers that are available through mason-lspconfig
+      local have_mason, mlsp = pcall(require, "mason-lspconfig")
+      local all_mlsp_servers = {}
+      if have_mason then
+        all_mlsp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+      end
+
+      local ensure_installed = {}
+      for server, server_opts in pairs(servers) do
+        if server_opts then
+          server_opts = server_opts == true and {} or server_opts
+          ---@diagnostic disable-next-line: undefined-field
+          if server_opts.mason == false or not vim.tbl_contains(all_mlsp_servers, server) then
+            setup(server)
+          else
+            ensure_installed[#ensure_installed + 1] = server
+          end
+        end
+      end
+
+      if have_mason then
+        mlsp.setup({ ensure_installed = ensure_installed })
+        mlsp.setup_handlers({ setup })
+      end
+    end,
   },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    event = "VeryLazy",
+    event = "LspAttach",
     -- TODO: PR: use config.virtual_lines.enable to use with one_current_line
     -- support API like `show_current_line()`
     config = true,
@@ -64,6 +153,11 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jay-babu/mason-null-ls.nvim",
+    },
+    event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local nls = require("null-ls")
       return {
@@ -72,44 +166,105 @@ return {
           nls.builtins.diagnostics.fish,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.flake8,
           nls.builtins.formatting.prettierd,
         },
       }
+    end,
+    config = function(_, opts)
+      require("null-ls").setup(opts)
+      require("mason-null-ls").setup({
+        automatic_installation = true,
+      })
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = {
+      { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
+    },
+    opts = {
+      -- TODO: replace this with mason-null-ls
+      ensure_installed = {
+        "stylua",
+        "shfmt",
+      },
+    },
+    config = function(_, opts)
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      local function ensure_installed()
+        for _, tool in ipairs(opts.ensure_installed) do
+          local p = mr.get_package(tool)
+          if not p:is_installed() then
+            p:install()
+          end
+        end
+      end
+      if mr.refresh then
+        mr.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
     end,
   },
   {
     "lvimuser/lsp-inlayhints.nvim",
     branch = "anticonceal",
-    event = { "BufReadPre", "BufNewFile" },
+    event = "LspAttach",
     config = function(_, opts)
-      if vim.has("nvim-0.10.0") == 1 then
+      if vim.fn.has("nvim-0.10.0") ~= 1 then
         vim.notify("anticonceal is only supported in nightly", vim.log.levels.WARN)
         return
       end
       require("lsp-inlayhints").setup(opts)
-      require("lazyvim.util").on_attach(function(client, buffer)
+      utils.on_attach(function(client, buffer)
         -- this checks inlayHintProvider capability automatically
         require("lsp-inlayhints").on_attach(client, buffer, false)
       end)
     end,
   },
-  { "VidocqH/lsp-lens.nvim", enabled = false },
+  {
+    "VidocqH/lsp-lens.nvim",
+    event = "LspAttach",
+    enabled = false,
+  },
   {
     "joechrisellis/lsp-format-modifications.nvim",
-    enabled = false,
+    event = "LspAttach",
     opts = {
       format_on_save = false,
     },
-    init = function(_, opts)
-      require("lazyvim.util").on_attach(function(client, buffer)
+    init = function()
+      vim.g.format_modi = false
+    end,
+    config = function(_, opts)
+      local local_opts = vim.deepcopy(opts)
+      utils.on_attach(function(client, buffer)
         if client.supports_method("textDocument/rangeFormatting") then
-          require("lsp-format-modifications").attach(client, buffer, opts)
+          if client.name == "lua_ls" then
+            local_opts.experimental_empty_line_handling = true
+          end
+          require("lsp-format-modifications").attach(client, buffer, local_opts)
+          vim.b._lsp_format_modi_attached = true
           -- TODO: setup modification format
         end
       end)
-      -- TODO: lsp-format-modi should also be attached in null-ls' on_attach functions
     end,
-    config = function() end,
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    event = "LspAttach",
+    dependencies = "stevearc/dressing.nvim",
+    opts = {
+      input_buffer_type = "dressing",
+    },
+    init = function()
+      vim.keymap.set({ "n", "x" }, "<plug>(lsp_rename)", function()
+        local inc_rename = require("inc_rename")
+        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
+      end, { expr = true, desc = "Rename" })
+    end,
+    config = true,
   },
 }

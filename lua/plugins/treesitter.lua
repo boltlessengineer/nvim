@@ -1,9 +1,12 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
+    version = false,
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    ---@type TSConfig
+    opts = {
+      ensure_installed = {
         "arduino",
         "astro",
         "bash",
@@ -41,7 +44,7 @@ return {
         "meson",
         "ninja",
         "nix",
-        "norg",
+        -- "norg",
         "org",
         "prisma",
         "pug",
@@ -65,10 +68,13 @@ return {
         "vue",
         "yaml",
         "zig",
-      })
-      opts.playground = {
-        enable = true,
-      }
+      },
+      highlight = { enable = true },
+      indent = { enable = true },
+      playground = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },

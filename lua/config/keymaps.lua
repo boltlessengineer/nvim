@@ -18,6 +18,7 @@ local nxo = { "n", "x", "o" } -- normal, visual, operator (for motion mappings)
 
 set(t, "<C-[>", [[<C-\><C-n>]])
 set(t, "<esc>", "<esc>")
+set(t, "<tab>", "<tab>")
 
 -- better up/down
 set(n, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -66,7 +67,7 @@ set(n, "<c-tab>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 set("", "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- toggle options
-set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
+-- set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
 
 -- helix-style mappings
 -- stylua: ignore start

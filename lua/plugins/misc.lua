@@ -1,6 +1,6 @@
 return {
   -- set buffer options automatically based on file contents
-  "tpope/vim-sleuth",
+  { "tpope/vim-sleuth", event = "VeryLazy" },
   "wintermute-cell/gitignore.nvim",
   {
     "dimaportenko/telescope-simulators.nvim",

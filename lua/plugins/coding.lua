@@ -2,8 +2,15 @@ return {
   -- nvim-autopairs
   {
     "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    opts = {},
+    event = "InsertEnter",
+    opts = {
+      check_ts = true,
+    },
+    config = function(_, opts)
+      local ap = require("nvim-autopairs")
+      -- TODO: add rust closure mappings (see: https://www.reddit.com/r/neovim/comments/13mwkij/comment/jkxidam/?utm_source=share&utm_medium=web2x&context=3)
+      ap.setup(opts)
+    end,
   },
   -- comment
   {

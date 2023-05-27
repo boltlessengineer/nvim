@@ -1,6 +1,7 @@
-local Util = require("lazyvim.util")
+-- local Util = require("lazyvim.util")
 return {
   "folke/which-key.nvim",
+  -- enabled = false,
   opts = {
     plugins = {
       marks = false,
@@ -31,9 +32,9 @@ return {
       ["<leader>x"] = { name = "+diagnostics/quickfix" },
       ["m"] = { name = "+match" },
     }
-    if Util.has("noice.nvim") then
-      keymaps["<leader>sn"] = { name = "+noice" }
-    end
+    -- if Util.has("noice.nvim") then
+    --   keymaps["<leader>sn"] = { name = "+noice" }
+    -- end
     wk.register(keymaps)
   end,
 }

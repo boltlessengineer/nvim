@@ -5,16 +5,6 @@ return {
   { "sainnhe/gruvbox-material", lazy = true },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
   {
-    "folke/tokyonight.nvim",
-    opts = {
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
-    },
-  },
-  {
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
@@ -52,13 +42,8 @@ return {
     config = function(_, opts)
       require("catppuccin").setup(opts)
       -- compile catppuccin theme to apply theme change every time
-      require("catppuccin").compile()
+      -- require("catppuccin").compile()
+      vim.cmd.colorscheme("catppuccin")
     end,
-  },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
   },
 }

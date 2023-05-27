@@ -33,6 +33,8 @@ return {
         local nv = { "n", "v" }
         local ox = { "o", "x" }
 
+        -- TODO: use require('utils').attach_keymaps
+
         -- stylua: ignore start
         map(ox, "ih", ":<C-U>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
         map(no, "]h", gs.next_hunk, "Next Hunk")

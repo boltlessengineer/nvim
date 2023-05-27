@@ -2,13 +2,17 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- lots of help from:
+-- - https://github.com/LazyVim/LazyVim
+-- - https://github.com/JoosepAlviste/dotfiles
+
 vim.cmd([[let $LANG='en_US.UTF-8']])
 
 vim.opt.diffopt:append({
   "linematch:60",
 })
 vim.o.clipboard = "unnamedplus"
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.colorcolumn = "80"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 0
@@ -22,7 +26,7 @@ vim.opt.fillchars = {
   foldsep   = " ",
 
   diff      = "╱",
-  eob       = " ",
+  eob       = "~",
 
   horiz     = ' ', -- '▁',
   horizup   = '│',
@@ -32,15 +36,20 @@ vim.opt.fillchars = {
   vertright = '│',
   verthoriz = '│',
 }
-vim.o.foldcolumn = "1" -- TODO: set this to 1
+vim.o.foldcolumn = "0" -- TODO: set this to 1
 vim.o.formatoptions = "jcrqlnt" -- TODO: add keymap to ignore 'r' option
-vim.o.grepprg = "rg --vimgrep" -- TODO: only when rg is installed
+vim.o.grepprg = "rg --vimgrep" -- TODO: only when ripgrep is installed
 vim.o.ignorecase = true
-vim.o.laststatus = 3
+vim.o.laststatus = 2
+-- TODO: turn this on in text files (md/org/gitcommit)
+-- vim.o.linebreak = true
 vim.o.list = true
 vim.opt.listchars = {
-  eol = "¬", -- '↵'
-  tab = "> ",
+  eol = "¬",
+  tab = "  ",
+  trail = "·", -- Dot Operator (U+22C5)
+  extends = "»", -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+  precedes = "«", -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
 }
 vim.o.mouse = "nv"
 vim.o.number = true
@@ -52,7 +61,15 @@ vim.o.scrolloff = 5
 vim.opt.sessionoptions = { "buffers", "curdir", "folds", "help", "tabpages", "winsize" }
 vim.o.shiftround = true
 vim.o.shiftwidth = 2
-vim.opt.shortmess:append({ W = true, c = true, C = true })
+vim.opt.shortmess:append({
+  W = true, -- No splash screen
+  I = true, -- Don't print "written" when editing
+  c = true, -- Don't show ins-completion-menu messages (match 1 of 2)
+  C = true, -- Don't show messages while scannign ins-completion items (scanning tags)
+  s = true, -- Don't show "Search hit BOTTOM" message
+})
+vim.o.showbreak = "↳ "
+vim.o.showmode = false
 vim.o.sidescrolloff = 12
 vim.o.signcolumn = "yes"
 vim.o.smartcase = true
