@@ -17,7 +17,7 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help" },
-      { "<leader><space>", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>f", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>F", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },

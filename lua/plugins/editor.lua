@@ -32,6 +32,15 @@ return {
       vim.keymap.del({ "x", "o" }, "X")
     end,
   },
+  {
+    "cbochs/grapple.nvim",
+    keys = {
+      { "<leader>h", desc = "Grapple" },
+      { "<leader><leader>", "<cmd>GrapplePopup tags<cr>", desc = "Grapple Tags" },
+      { "<leader>hs", "<cmd>GrapplePopup scopes<cr>", desc = "Popup scopes" },
+      { "<leader>hp", "<cmd>GrappleTag<cr>", desc = "Pin File" },
+    },
+  },
   -- highlight search only while n/N typed
   {
     "asiryk/auto-hlsearch.nvim",
