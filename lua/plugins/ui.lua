@@ -249,10 +249,6 @@ return {
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
-    dependencies = {
-      -- 'kevinhwang91/nvim-hlslens',
-      -- 'lewis6991/gitsigns.nvim',
-    },
     opts = {
       hide_if_all_visible = true,
       marks = {

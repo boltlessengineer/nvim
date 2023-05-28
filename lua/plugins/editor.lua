@@ -93,11 +93,10 @@ return {
   },
   {
     "folke/todo-comments.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
+    event = "BufReadPre",
     opts = {
       signs = false,
     },
-    config = function(_, opts)
-      require("todo-comments").setup(opts)
-    end,
   },
 }

@@ -1,7 +1,14 @@
 return {
   -- set buffer options automatically based on file contents
   { "tpope/vim-sleuth", event = "VeryLazy" },
-  "wintermute-cell/gitignore.nvim",
+  {
+    "wintermute-cell/gitignore.nvim",
+    cmd = "Gitignore",
+    keys = {
+      { "<leader>gi", "<cmd>Gitignore<cr>", desc = "Generate gitignore" },
+    },
+    dependencies = "nvim-telescope/telescope.nvim",
+  },
   {
     "dimaportenko/telescope-simulators.nvim",
     -- FIX: can't lazyload with sub-command `Telescope simulators run`

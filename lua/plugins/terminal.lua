@@ -8,7 +8,6 @@ return {
         buflisted = true,
       },
     },
-    event = "VeryLazy",
     keys = {
       { mode = "t", "<C-o>", "<cmd>BufTermPrev<CR>", desc = "Prev Terminal" },
       { mode = "t", "<C-i>", "<cmd>BufTermNext<CR>", desc = "Next Terminal" },

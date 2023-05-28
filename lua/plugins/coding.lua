@@ -85,6 +85,7 @@ return {
   -- surround
   {
     "kylechui/nvim-surround",
+    keys = { "ms", "mr", "md", { "ms", mode = "x" } },
     opts = {
       -- stylua: ignore
       keymaps = {

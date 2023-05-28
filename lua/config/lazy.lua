@@ -43,6 +43,7 @@ require("lazy").setup({
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
+        -- TODO: more from NcChad `lua/plugins/configs/lazy_nvim.lua`
         "gzip",
         "matchit",
         -- "matchparen",
