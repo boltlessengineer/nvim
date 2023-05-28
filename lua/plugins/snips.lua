@@ -1,3 +1,5 @@
+-- TODO: my own snippets
+-- see: https://github.com/max397574/ignis-nvim/blob/master/lua/ignis/modules/completion/snippets/init.lua
 return {
   {
     "L3MON4D3/LuaSnip",
@@ -34,6 +36,9 @@ return {
       vim.api.nvim_create_autocmd("ModeChanged", {
         pattern = { "i:*", "s:n" },
         callback = function(ev)
+          if not ls.get_active_snip() then
+            return
+          end
           if not ls.session.current_nodes[ev.bufnr] or ls.session.jump_active then
             ls.unlink_current()
           end

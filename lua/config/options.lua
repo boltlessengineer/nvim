@@ -43,7 +43,7 @@ if vim.v.shell_error == 0 then
   vim.o.grepprg = "rg --vimgrep"
 end
 vim.o.ignorecase = true
-vim.o.laststatus = 2
+vim.o.laststatus = 3
 vim.o.list = true
 vim.opt.listchars = {
   eol = "¬",
@@ -84,6 +84,7 @@ vim.o.timeoutlen = 200
 vim.o.undofile = true
 vim.o.undolevels = 10000
 vim.o.updatetime = 200
+vim.o.winbar = [[%f %h%w%m%r%=%-14.(%l,%c%V%) %P]]
 vim.o.winminwidth = 10
 vim.o.wrap = false
 

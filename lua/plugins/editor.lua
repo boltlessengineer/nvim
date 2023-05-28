@@ -44,6 +44,7 @@ return {
   -- highlight search only while n/N typed
   {
     "asiryk/auto-hlsearch.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       remap_keys = { "/", "?", "*", "#", "n", "N" },

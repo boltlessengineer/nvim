@@ -17,7 +17,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    enabled = false,
+    -- enabled = false,
     keys = {
       {
         "<leader>un",
@@ -39,13 +39,27 @@ return {
       on_open = function(win)
         vim.api.nvim_win_set_config(win, { focusable = false })
       end,
-      render = "minimal",
+      -- render = "minimal",
     },
     config = function(_, opts)
       local notify = require("notify")
       notify.setup(opts)
       vim.notify = notify
     end,
+  },
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    enabled = true,
+    opts = {
+      text = {
+        spinner = "arc",
+      },
+      window = {
+        relative = "editor",
+        blend = 0,
+      },
+    },
   },
   -- automatic window resizing
   {
