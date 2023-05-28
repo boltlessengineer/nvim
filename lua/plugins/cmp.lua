@@ -17,7 +17,7 @@ return {
       return {
         snippet = {
           expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            require("luasnip").lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -26,7 +26,9 @@ return {
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-e>"] = cmp.mapping.abort(),
+          ["<C-c>"] = cmp.mapping.close(),
           ["<C-l>"] = cmp.mapping.complete(), -- show menu
+          ["<c-y>"] = cmp.mapping.confirm({ select = false }),
           ["<cr>"] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
