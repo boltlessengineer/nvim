@@ -1,14 +1,12 @@
--- local Util = require("lazyvim.util")
 return {
   "folke/which-key.nvim",
-  -- enabled = false,
   opts = {
     plugins = {
       marks = false,
       registers = true,
       spelling = false,
       presets = {
-        operators = false,
+        operators = true,
         motions = false,
         text_objects = false,
         windows = false,
@@ -21,7 +19,7 @@ return {
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
-    local keymaps = {
+    wk.register({
       mode = { "n" },
       ["<leader>c"] = { name = "+code" },
       ["<leader>g"] = { name = "+git" },
@@ -30,11 +28,9 @@ return {
       ["<leader>u"] = { name = "+ui" },
       ["<leader>o"] = { name = "+options" },
       ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      ["]"] = { name = "+next" },
+      ["["] = { name = "+prev" },
       ["m"] = { name = "+match" },
-    }
-    -- if Util.has("noice.nvim") then
-    --   keymaps["<leader>sn"] = { name = "+noice" }
-    -- end
-    wk.register(keymaps)
+    })
   end,
 }
