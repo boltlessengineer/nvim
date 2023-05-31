@@ -107,7 +107,20 @@ return {
   },
   {
     "stevearc/aerial.nvim",
-    dependencies = "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      opts = function(_, opts)
+        opts.extensions = opts.extensions or {}
+        opts.extensions.aerial = {
+          show_nesting = {
+            ["_"] = false,
+            json = true,
+            yaml = true,
+            toml = true,
+          },
+        }
+      end,
+    },
     keys = {
       { "<leader>co", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
       { "}", "<cmd>AerialNext<cr>", "Next kind" },

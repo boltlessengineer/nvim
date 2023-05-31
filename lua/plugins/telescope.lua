@@ -68,34 +68,33 @@ return {
         desc = "Goto Symbol (Workspace)",
       },
     },
-    opts = function()
+    opts = function(_, opts)
       local actions = require("telescope.actions")
-      return {
-        defaults = {
-          prompt_prefix = " ",
-          selection_caret = " ",
-          mappings = {
-            i = {
-              ["<c-s>"] = actions.select_horizontal,
-              ["<c-t>"] = actions.select_tab,
-              ["<c-q>"] = actions.send_selected_to_qflist,
-              ["<ESC>"] = actions.close,
-              ["<c-c>"] = actions.close,
-            },
-            n = {
-              ["q"] = actions.close,
-            },
+      opts.defaults = {
+        prompt_prefix = " ",
+        selection_caret = " ",
+        mappings = {
+          i = {
+            ["<c-s>"] = actions.select_horizontal,
+            ["<c-t>"] = actions.select_tab,
+            ["<c-q>"] = actions.send_selected_to_qflist,
+            ["<ESC>"] = actions.close,
+            ["<c-c>"] = actions.close,
           },
-        },
-        pickers = {
-          find_files = {
-            hidden = true,
-          },
-          git_files = {
-            show_untracked = true,
+          n = {
+            ["q"] = actions.close,
           },
         },
       }
+      opts.pickers = {
+        find_files = {
+          hidden = true,
+        },
+        git_files = {
+          show_untracked = true,
+        },
+      }
+      return opts
     end,
   },
 }
