@@ -93,7 +93,24 @@ return {
     },
   },
   {
-    "folke/todo-comments.nvim",
+    -- Hack to lazy-load telescope than todo-comments
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "folke/todo-comments.nvim",
+      event = "BufReadPost",
+      opts = {
+        signs = false,
+      },
+      -- stylua: ignore
+      keys = {
+        { ']t', function () require('todo-comments').jump_next() end, desc = "Next Todo" },
+        { '[t', function () require('todo-comments').jump_prev() end, desc = "Prev Todo" },
+      },
+    },
+    keys = {
+      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "ToDo" },
+    },
+  },
     dependencies = "nvim-telescope/telescope.nvim",
     event = "BufReadPre",
     opts = {
