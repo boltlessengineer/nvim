@@ -105,10 +105,27 @@ return {
       { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "ToDo" },
     },
   },
+  {
+    "stevearc/aerial.nvim",
     dependencies = "nvim-telescope/telescope.nvim",
-    event = "BufReadPre",
-    opts = {
-      signs = false,
+    keys = {
+      { "<leader>co", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
+      { "}", "<cmd>AerialNext<cr>", "Next kind" },
+      { "{", "<cmd>AerialPrev<cr>", "Prev kind" },
     },
+    opts = function(plugin, _)
+      return {
+        on_attach = function(bufnr)
+          require("utils").attach_keymaps(bufnr, plugin.keys)
+        end,
+      }
+    end,
+    config = function(_, opts)
+      local ok, telescope = pcall(require, "telescope")
+      if ok then
+        telescope.load_extension("aerial")
+      end
+      require("aerial").setup(opts)
+    end,
   },
 }
