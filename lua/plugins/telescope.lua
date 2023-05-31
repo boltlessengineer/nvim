@@ -15,6 +15,7 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
     keys = {
       { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help" },
       { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
