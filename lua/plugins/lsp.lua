@@ -20,6 +20,8 @@ return {
     -- stylua: ignore
     _keys = {
       { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+      -- TODO: toggle inlay hints
+      { "<leader>ci", desc = "Toggle inlay-hints" },
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Document", has = "documentFormatting" },
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Range", mode = 'v', has = "documentRangeFormatting" },

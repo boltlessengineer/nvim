@@ -63,9 +63,6 @@ set(n, "<c-n>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 set(n, "<cs-tab>", "<cmd>tabprev<cr>", { desc = "Prev tab" })
 set(n, "<c-tab>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
--- save file
-set("", "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
-
 -- toggle options
 -- set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
 

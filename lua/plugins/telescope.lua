@@ -68,6 +68,8 @@ return {
         desc = "Goto Symbol (Workspace)",
       },
     },
+    -- TODO: show linenumber in telescope preview window
+    -- also, telescope window will be almost full screen (auto-resize on VimResized)
     opts = function(_, opts)
       local actions = require("telescope.actions")
       opts.defaults = {

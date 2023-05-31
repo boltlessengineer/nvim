@@ -4,6 +4,9 @@ return {
   { "kvrohit/mellow.nvim", lazy = true },
   { "sainnhe/gruvbox-material", lazy = true },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
+  -- oh-lucy.nvim
+  -- nvim-tundra
+  -- oxocarbon.nvim
   {
     "catppuccin/nvim",
     name = "catppuccin",

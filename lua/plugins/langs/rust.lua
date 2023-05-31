@@ -3,6 +3,7 @@ return {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     dependencies = { "nvim-lua/plenary.nvim" },
+    -- TODO: cargo-update command (<leader>cu)
     config = true,
   },
   {

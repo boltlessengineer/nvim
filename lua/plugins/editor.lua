@@ -42,9 +42,10 @@ return {
     },
   },
   -- highlight search only while n/N typed
+  -- TODO: move to ui.lua
   {
+    -- TODO: also diable highlights on CmdLineLeave for search-replace situation
     "asiryk/auto-hlsearch.nvim",
-    enabled = false,
     event = "VeryLazy",
     opts = {
       remap_keys = { "/", "?", "*", "#", "n", "N" },

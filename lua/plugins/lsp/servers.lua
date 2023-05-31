@@ -13,7 +13,15 @@ return {
   lua_ls = {
     settings = {
       Lua = {
+        hint = {
+          enable = true,
+          arrayIndex = "Disable",
+          setType = true,
+          -- paramName = "Disable",
+        },
         completion = {
+          -- TODO: check what "Replace" means
+          keywordSnippet = "Replace",
           callSnippet = "Replace",
         },
         diagnostics = {
