@@ -17,6 +17,10 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     keys = {
+      { "<plug>(lsp_definitions)", "<cmd>Telescope lsp_definitions<cr>" },
+      { "<plug>(lsp_type_definitions)", "<cmd>Telescope lsp_type_definitions<cr>" },
+      { "<plug>(lsp_references)", "<cmd>Telescope lsp_references<cr>" },
+      { "<plug>(lsp_implementations)", "<cmd>Telescope lsp_implementations<cr>" },
       { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help" },
       { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>f", telescope("find_files"), desc = "Find files (root dir)" },

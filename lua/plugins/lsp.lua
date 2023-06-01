@@ -28,10 +28,10 @@ return {
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Range", mode = 'v', has = "documentRangeFormatting" },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
       { "<leader>cr", "<plug>(lsp_rename)", desc = "Rename", mode = { 'n', 'x' }, has = "rename" },
-      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
-      { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto T[y]pe Definition", has = "typeDefinition" },
-      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", has = "references" },
-      { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementations", has = "implementation" },
+      { "gd", "<plug>(lsp_definitions)", desc = "Goto Definition", has = "definition" },
+      { "gy", "<plug>(lsp_type_definitions)", desc = "Goto T[y]pe Definition", has = "typeDefinition" },
+      { "gr", "<plug>(lsp_references)", desc = "References", has = "references" },
+      { "gi", "<plug>(lsp_implementations)", desc = "Goto Implementations", has = "implementation" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
       { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
       { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
@@ -44,10 +44,14 @@ return {
     init = function()
       -- these are initially mapped default functions
       -- and can be replaced to alternative lazy-loaded plugins
-      local function map_default(name, default)
-        vim.keymap.set("", "<plug>(" .. name .. ")", default)
+      local function default(name, cmd)
+        vim.keymap.set("", "<plug>(" .. name .. ")", cmd)
       end
-      vim.keymap.set("", "<plug>(lsp_rename)", vim.lsp.buf.rename)
+      default("lsp_rename", vim.lsp.buf.rename)
+      default("lsp_definitions", vim.lsp.buf.definition)
+      default("lsp_type_definitions", vim.lsp.buf.type_definition)
+      default("lsp_references", vim.lsp.buf.references)
+      default("lsp_implementations", vim.lsp.buf.implementation)
     end,
     ---@class PluginLspOpts
     opts = {
