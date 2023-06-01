@@ -6,7 +6,7 @@ return {
       registers = true,
       spelling = false,
       presets = {
-        operators = true,
+        operators = false,
         motions = false,
         text_objects = false,
         windows = false,
