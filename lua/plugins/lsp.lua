@@ -16,6 +16,7 @@ return {
           return require("utils").has_plugin("nvim-cmp")
         end,
       },
+      { "b0o/SchemaStore.nvim", version = false, lazy = true },
     },
     -- stylua: ignore
     _keys = {
