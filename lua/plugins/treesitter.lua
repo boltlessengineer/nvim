@@ -4,6 +4,24 @@ return {
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        opts = {
+          enable = true,
+          max_lines = 3,
+          trim_scope = "inner",
+          min_window_height = 20,
+          patterns = {
+            lua = {
+              "table_constructor",
+            },
+          },
+          zindex = 20,
+          mode = "cursor",
+        },
+      },
+    },
     ---@type TSConfig
     opts = {
       ensure_installed = {
@@ -81,21 +99,4 @@ return {
     end,
   },
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = "BufReadPre",
-    opts = {
-      enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-      max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
-      trim_scope = "inner", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-      min_window_height = 20, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-      patterns = {
-        lua = {
-          "table_constructor",
-        },
-      },
-      zindex = 20, -- The Z-index of the context window
-      mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
-    },
-  },
 }
