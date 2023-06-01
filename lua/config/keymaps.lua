@@ -14,11 +14,15 @@ local c = "c" -- command
 local t = "t" -- terminal
 
 local nxo = { "n", "x", "o" } -- normal, visual, operator (for motion mappings)
+local nx = { "n", "x" } -- normal, visual
 -- local xo = { "x", "o" } -- visual, operator
 
 set(t, "<C-[>", [[<C-\><C-n>]])
 set(t, "<esc>", "<esc>")
 set(t, "<tab>", "<tab>")
+
+-- fix some default behaviors
+set(nx, "K", vim.lsp.buf.hover)
 
 -- better up/down
 set(n, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

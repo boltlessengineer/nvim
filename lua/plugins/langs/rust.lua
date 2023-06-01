@@ -3,7 +3,23 @@ return {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     dependencies = { "nvim-lua/plenary.nvim" },
-    -- TODO: cargo-update command (<leader>cu)
+    opts = {
+      on_attach = function(bufnr)
+        local crates = require("crates")
+        -- overwrite `K` mapping
+        vim.keymap.set({ "n", "x" }, "K", function()
+          if crates.popup_available() then
+            crates.show_crate_popup()
+          else
+            vim.lsp.buf.hover()
+          end
+        end, {
+          desc = "Hover",
+          buffer = bufnr,
+          silent = true,
+        })
+      end,
+    },
     config = true,
   },
   {

@@ -21,18 +21,17 @@ return {
     _keys = {
       { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
       -- TODO: toggle inlay hints
-      { "<leader>ci", desc = "Toggle inlay-hints" },
+      -- { "<leader>ci", desc = "Toggle inlay-hints" },
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Document", has = "documentFormatting" },
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Range", mode = 'v', has = "documentRangeFormatting" },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
-      { "<leader>cr", "<plug>(lsp_rename)", desc = "Code Action", mode = { 'n', 'x' }, has = "rename" },
+      { "<leader>cr", "<plug>(lsp_rename)", desc = "Rename", mode = { 'n', 'x' }, has = "rename" },
       { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
       { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto T[y]pe Definition", has = "typeDefinition" },
       { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References", has = "references" },
       { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementations", has = "implementation" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
-      { "K", vim.lsp.buf.hover, desc = "Hover" },
       { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
       { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
       { "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Next Error" },
@@ -42,8 +41,12 @@ return {
       { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
     },
     init = function()
-      -- `<plug>(...)` mappings would be mapped to alternative plugins if exist
-      vim.keymap.set({ "n", "x" }, "<plug>(lsp_rename)", vim.lsp.buf.rename, { desc = "Rename" })
+      -- these are initially mapped default functions
+      -- and can be replaced to alternative lazy-loaded plugins
+      local function map_default(name, default)
+        vim.keymap.set("", "<plug>(" .. name .. ")", default)
+      end
+      vim.keymap.set("", "<plug>(lsp_rename)", vim.lsp.buf.rename)
     end,
     ---@class PluginLspOpts
     opts = {
