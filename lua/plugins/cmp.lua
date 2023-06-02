@@ -7,7 +7,9 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-emoji",
       "saadparwaiz1/cmp_luasnip",
+      "doxnit/cmp-luasnip-choice",
       "lukas-reineke/cmp-under-comparator",
     },
     opts = function()
@@ -42,12 +44,37 @@ return {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
+            cmp.config.compare.recently_used,
             require("cmp-under-comparator").under,
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,
             cmp.config.compare.order,
           },
+        },
+        formatting = {
+          fields = { "abbr", "kind", "menu" },
+          format = function(entry, item)
+            local icons = require("config.icons").kinds
+            if icons[item.kind] then
+              item.kind = icons[item.kind] .. item.kind
+            end
+            -- stylua: ignore
+            item.menu = ({
+              nvim_lsp       = "[LSP]",
+              luasnip        = "[SNIP]",
+              luasnip_choice = "[SNIP]",
+              buffer         = "[BUF]",
+              path           = "[PATH]",
+              emoji          = "[EMOJI]",
+              crates         = "[CRATES]",
+              npm            = "[NPM]",
+              neorg          = "[NEORG]",
+              orgmode        = "[ORG]",
+              git            = "[GIT]",
+            })[entry.source.name]
+            return item
+          end,
         },
         experimental = {
           ghost_text = false,

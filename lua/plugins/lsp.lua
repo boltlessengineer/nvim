@@ -26,6 +26,7 @@ return {
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Document", has = "documentFormatting" },
       { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Range", mode = 'v', has = "documentRangeFormatting" },
+      { "<leader>of", require('plugins.lsp.format').toggle, desc = "Toggle Auto Format" },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
       { "<leader>cr", "<plug>(lsp_rename)", desc = "Rename", mode = { 'n', 'x' }, has = "rename" },
       { "gd", "<plug>(lsp_definitions)", desc = "Goto Definition", has = "definition" },

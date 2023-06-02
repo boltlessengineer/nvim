@@ -28,6 +28,7 @@ return {
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
       { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
       { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+      { "<leader>sf", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>sw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
       { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
       { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },

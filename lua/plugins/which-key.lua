@@ -1,5 +1,6 @@
 return {
   "folke/which-key.nvim",
+  keys = { "<leader>", "]", "[", "m" },
   opts = {
     plugins = {
       marks = false,
@@ -20,7 +21,7 @@ return {
     local wk = require("which-key")
     wk.setup(opts)
     wk.register({
-      mode = { "n" },
+      mode = { "n", "v" },
       ["<leader>c"] = { name = "+code" },
       ["<leader>g"] = { name = "+git" },
       ["<leader>q"] = { name = "+quit/session" },

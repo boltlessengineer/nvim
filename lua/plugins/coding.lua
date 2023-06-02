@@ -106,6 +106,7 @@ return {
   {
     "junegunn/vim-easy-align",
     keys = {
+      -- FIX: not working well with Noice
       { mode = "x", "ga", "<plug>(EasyAlign)", desc = "Align selection" },
     },
   },

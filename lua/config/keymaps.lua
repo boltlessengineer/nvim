@@ -24,6 +24,18 @@ set(t, "<tab>", "<tab>")
 -- fix some default behaviors
 set(nx, "K", vim.lsp.buf.hover)
 
+-- auto correct typo on command line
+vim.cmd.cabbrev("w'", "w")
+
+-- auto indent on insert mode
+set(n, "i", function()
+  if #vim.fn.getline(".") == 0 then
+    return [["_cc]]
+  else
+    return "i"
+  end
+end, { expr = true })
+
 -- better up/down
 set(n, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 set(n, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -50,6 +62,7 @@ set(i, ";", ";<c-g>u")
 set(n, "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- cycle through command history without arrow keys
+-- TODO: only when cmp is not visible
 set(c, "<c-n>", "<down>")
 set(c, "<c-p>", "<up>")
 
@@ -89,9 +102,7 @@ set(n, "<", "<<")
 set(x, "<", "<gv")
 set(n, ">", ">>")
 set(x, ">", ">gv")
--- TODO: more helix style mappings
--- o   - im : closest surround pair
--- + matching using treesitter (or maybe matchup-vim?)
+-- TODO: matching using treesitter (or maybe matchup-vim?)
 set(nxo, "mm", "%", { desc = "Go to matching" })
 
 set(n, "q", "<cmd>close<cr>", { desc = "Close window" })

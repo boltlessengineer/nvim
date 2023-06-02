@@ -4,8 +4,9 @@ return {
   "folke/noice.nvim",
   event = "VeryLazy",
   dependencies = {
+    "MunifTanjim/nui.nvim",
     "smjonas/inc-rename.nvim",
-    { "rcarriga/nvim-notify", lazy = true },
+    -- { "rcarriga/nvim-notify", lazy = true },
   },
   cond = function()
     return not vim.g.neovide
@@ -35,13 +36,13 @@ return {
     },
     messages = {
       enabled = enable_ext_mess,
-      view = "notify",
+      view = "mini",
       view_error = "split",
-      view_warn = "notify",
+      view_warn = "mini",
       view_history = "messages",
       view_search = "virtualtext",
     },
-    popupmenu = { enabled = true },
+    popupmenu = { enabled = enable_ext_mess },
     redirect = {},
     commands = {
       all = {
@@ -50,7 +51,7 @@ return {
         filter = {},
       },
     },
-    notify = { enabled = true },
+    notify = { enabled = false },
     lsp = {
       progress = {
         enabled = false,
@@ -134,22 +135,28 @@ return {
           any = {
             { find = "%d+L, %d+B" },
             { find = "%d+ lines yanked" },
-            { find = "%d+ fewer lines?" },
-            { find = "%d+ more lines?" },
+            { find = "%d+ fewer line" },
+            { find = "%d+ more line" },
+            { find = "%d+ line" },
             { find = '".+" %d+l, %d+b' },
-            { find = "%d+ lines? [<>]ed %d+ times?" },
             { find = " #%d+%s+%d+ seconds? ago" },
+            { find = "; after #%d+%s+" },
+            { find = "; before #%d+%s+" },
+            { find = "--No lines in buffer--" },
+            { find = "%d+ substitutions on %d+ line" },
           },
         },
         view = "mini",
+        opts = { replace = true },
       },
       {
         filter = {
           any = {
-            { event = "msg_show", find = "Hunk %d+ of %d+" },
+            { event = "msg_show", find = "^Hunk %d+ of %d+" },
           },
         },
-        view = "virtualtext",
+        -- HACK: virtualtext is buggy (can't remove automatically)
+        view = "mini",
       },
     },
   },

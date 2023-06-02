@@ -87,6 +87,7 @@ return {
   -- indent
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPost",
     opts = {
       char = "▏",
       context_char = "▏",
@@ -263,6 +264,7 @@ return {
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
+    event = "BufReadPost",
     opts = {
       hide_if_all_visible = true,
       marks = {
