@@ -7,6 +7,31 @@ function M.has_plugin(plugin)
   return require("lazy.core.config").plugins[plugin] ~= nil
 end
 
+--- source: https://github.com/tjdevries/lazy-require.nvim
+--- (yanked from akinsho's dotfiles)
+
+--- Require on index.
+---
+--- Will only require the module after the first index of a module.
+--- Only works for modules that export a table.
+---
+--- ```lua
+--- -- This is not loaded yet
+--- local lazy_mod = reqidx("my_module")
+---
+--- -- ... some time later
+--- lazy_mod.some_var -- <- Only loads the module now
+--- ```
+---@param path string
+---@return table
+function M.reqidx(path)
+  -- stylua: ignore
+  return setmetatable({}, {
+    __index = function(_, key) return require(path)[key] end,
+    __newindex = function(_, key, value) require(path)[key] = value end,
+  })
+end
+
 M.root_patterns = { ".git" }
 
 ---returns the root directory based on:
