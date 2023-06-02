@@ -25,10 +25,10 @@ return {
       { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>f", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>F", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
-      { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
       { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
       { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
       { "<leader>sf", telescope("find_files"), desc = "Find files (root dir)" },
+      { "<leader>sR", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
       { "<leader>sw", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
       { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
       { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
@@ -81,6 +81,7 @@ return {
         prompt_prefix = " ",
         selection_caret = " ",
         mappings = {
+          -- TODO: remove unused Telescope-local keymaps
           i = {
             ["<c-s>"] = actions.select_horizontal,
             ["<c-t>"] = actions.select_tab,

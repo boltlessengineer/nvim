@@ -4,14 +4,16 @@ return {
   {
     "stevearc/oil.nvim",
     opts = {
+      -- stylua: ignore
       keymaps = {
-        ["g?"] = false,
+        -- TODO: put a small note that I can use `g?` for help
         ["<C-/>"] = "actions.show_help",
         ["<C-s>"] = "actions.select_split",
         ["<C-v>"] = "actions.select_vsplit",
-        ["<C-r>"] = false,
+        ["K"]     = "actions.preview",
         ["<C-l>"] = "actions.refresh",
         ["<C-.>"] = "actions.toggle_hidden",
+        ["<c-h>"] = false,
       },
     },
   },
