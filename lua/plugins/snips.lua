@@ -1,5 +1,5 @@
--- TODO: my own snippets
--- see: https://github.com/max397574/ignis-nvim/blob/master/lua/ignis/modules/completion/snippets/init.lua
+local ls = require("utils").reqidx("luasnip")
+
 return {
   {
     "L3MON4D3/LuaSnip",
@@ -22,15 +22,14 @@ return {
       {
         "<tab>",
         function()
-          return require("luasnip").jumpable(1) and "<plug>luasnip-jump-next" or "<tab>"
+          return ls.jumpable(1) and "<plug>luasnip-jump-next" or "<tab>"
         end,
         expr = true, silent = true, mode = "i",
       },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+      { "<tab>", function() ls.jump(1) end, mode = "s" },
+      { "<s-tab>", function() ls.jump(-1) end, mode = { "i", "s" } },
     },
     config = function(_, opts)
-      local ls = require("luasnip")
       ls.filetype_extend("dart", { "flutter" })
       ls.filetype_extend("NeogitCommitMessage", { "gitcommit" })
       vim.api.nvim_create_autocmd("ModeChanged", {

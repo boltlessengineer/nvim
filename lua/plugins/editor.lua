@@ -64,16 +64,16 @@ return {
   },
   -- immediate visual feedback for `:norm` command
   {
+    -- TODO: affraid I'll forget this useful command
+    -- I can use `:[range]Norm` for immediate feedbacks
     "smjonas/live-command.nvim",
-    event = "VeryLazy",
+    event = "CmdLineEnter",
+    main = "live-command", -- remove annoying "name depreciated" message
     opts = {
       commands = {
         Norm = { cmd = "norm" },
       },
     },
-    config = function(_, opts)
-      require("live-command").setup(opts)
-    end,
   },
   -- smart split/join codes based on tree-sitter
   {

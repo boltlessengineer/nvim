@@ -29,7 +29,7 @@ See the solution [in wezterm documentation](https://wezfurlong.org/wezterm/faq.h
   Discord mate's config
 - [max397574/ignis-nvim](https://github.com/max397574/ignis-nvim)
   Neorg contributer's config
-  Great tree-sitter queries examples
+  Great tree-sitter queries examples & some snippet examples (see: `modules/completion/snippets/init.lua`)
 - [JoosepAlviste/dotfiles](https://github.com/JoosepAlviste/dotfiles/blob/master/config/nvim)
   Author of palenightfall theme
 - [folke/dot](https://github.com/folke/dot/tree/master/nvim)

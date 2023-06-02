@@ -22,6 +22,7 @@ return {
         },
       },
     },
+    main = "nvim-treesitter.configs",
     ---@type TSConfig
     opts = {
       ensure_installed = {
@@ -94,9 +95,6 @@ return {
       indent = { enable = true },
       playground = { enable = true },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
   },
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 }

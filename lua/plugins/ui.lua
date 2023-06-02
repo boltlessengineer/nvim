@@ -83,7 +83,7 @@ return {
     },
   },
   -- smart colorcolumn
-  "m4xshen/smartcolumn.nvim",
+  { "m4xshen/smartcolumn.nvim", event = "BufReadPost" },
   -- indent
   {
     "lukas-reineke/indent-blankline.nvim",

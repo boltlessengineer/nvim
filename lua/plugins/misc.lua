@@ -13,13 +13,11 @@ return {
     "dimaportenko/telescope-simulators.nvim",
     -- FIX: can't lazyload with sub-command `Telescope simulators run`
     enabled = false,
+    main = "simulators",
     opts = {
       android_emulator = false,
       apple_simulator = true,
     },
-    config = function(_, opts)
-      require("simulators").setup(opts)
-    end,
   },
   -- colorizer
   {

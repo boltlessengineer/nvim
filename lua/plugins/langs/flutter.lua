@@ -12,9 +12,6 @@ return {
         enabled = true,
       },
     },
-    config = function(_, opts)
-      require("flutter-tools").setup(opts)
-    end,
   },
   -- TODO: flutter snippets
   { "Neevash/awesome-flutter-snippets", enabled = false },
