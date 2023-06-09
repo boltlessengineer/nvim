@@ -32,17 +32,6 @@ return {
     config = function(_, opts)
       ls.filetype_extend("dart", { "flutter" })
       ls.filetype_extend("NeogitCommitMessage", { "gitcommit" })
-      vim.api.nvim_create_autocmd("ModeChanged", {
-        pattern = { "i:*", "s:n" },
-        callback = function(ev)
-          if not ls.get_active_snip() then
-            return
-          end
-          if not ls.session.current_nodes[ev.bufnr] or ls.session.jump_active then
-            ls.unlink_current()
-          end
-        end,
-      })
       ls.setup(opts)
     end,
   },
