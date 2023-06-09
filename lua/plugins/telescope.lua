@@ -81,16 +81,19 @@ return {
         prompt_prefix = " ",
         selection_caret = " ",
         mappings = {
-          -- TODO: remove unused Telescope-local keymaps
           i = {
-            ["<c-s>"] = actions.select_horizontal,
-            ["<c-t>"] = actions.select_tab,
-            ["<c-q>"] = actions.send_selected_to_qflist,
-            ["<ESC>"] = actions.close,
-            ["<c-c>"] = actions.close,
+            ["<c-s>"] = "select_horizontal",
+            ["<c-t>"] = "select_tab",
+            ["<c-q>"] = "send_selected_to_qflist",
+            ["<ESC>"] = "close",
+            ["<Up>"] = false,
+            ["<Down>"] = false,
+            ["<PageUp>"] = false,
+            ["<PageDown>"] = false,
+            ["<C-X>"] = false,
           },
           n = {
-            ["q"] = actions.close,
+            ["q"] = "close",
           },
         },
       }
