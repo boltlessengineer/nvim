@@ -85,6 +85,9 @@ return {
     },
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
+      -- setup diagnostics
+      vim.diagnostic.config(opts.diagnostics)
+
       utils.on_attach(function(client, buffer)
         require("utils").attach_keymaps(buffer, plugin._keys, function(key)
           local has = key.has
@@ -93,9 +96,6 @@ return {
         end)
         require("plugins.lsp.format").on_attach(client, buffer)
       end)
-
-      -- setup diagnostics
-      vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
       local capabilities = vim.tbl_deep_extend(
@@ -219,6 +219,7 @@ return {
   },
   {
     "lvimuser/lsp-inlayhints.nvim",
+    enabled = false,
     branch = "anticonceal",
     event = "LspAttach",
     config = function(_, opts)

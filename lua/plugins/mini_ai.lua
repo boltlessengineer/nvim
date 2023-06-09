@@ -26,6 +26,8 @@ return {
         ["}"] = { "%b{}", "^.%s*().-()%s*.$" },
         ["<"] = { "%b<>", "^.().*().$" },
         [">"] = { "%b<>", "^.%s*().-()%s*.$" },
+        -- TODO: support im, am for any kinds of closest match
+
         -- remove unused default mappings
         ["?"] = false,
         -- custom mappings
