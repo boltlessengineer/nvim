@@ -30,6 +30,7 @@ See the solution [in wezterm documentation](https://wezfurlong.org/wezterm/faq.h
 - [max397574/ignis-nvim](https://github.com/max397574/ignis-nvim)
   Neorg contributer's config
   Great tree-sitter queries examples & some snippet examples (see: `modules/completion/snippets/init.lua`)
+  Also, very well-done custom telescope layout
 - [JoosepAlviste/dotfiles](https://github.com/JoosepAlviste/dotfiles/blob/master/config/nvim)
   Author of palenightfall theme
 - [folke/dot](https://github.com/folke/dot/tree/master/nvim)
