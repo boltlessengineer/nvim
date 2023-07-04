@@ -1,7 +1,8 @@
 return {
   {
     "nvim-neorg/neorg",
-    enabled = false,
+    ft = "norg",
+    cmd = "Neorg",
     config = function(_, opts)
       require("nvim-treesitter.install").prefer_git = true
       local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
@@ -17,6 +18,22 @@ return {
     opts = {
       load = {
         ["core.defaults"] = {},
+        -- ["core.concealer"] = {},
+        ["core.dirman"] = {
+          config = {
+            workspaces = {
+              notes = "~/notes",
+            },
+            default_workspace = "notes",
+          },
+        },
+        ["core.keybinds"] = {
+          config = {
+            hook = function(keybinds)
+              keybinds.remap_key("norg", "i", "<M-CR>", "<S-CR>")
+            end,
+          },
+        },
       },
     },
     dependencies = {
