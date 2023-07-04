@@ -84,7 +84,7 @@ vim.o.timeoutlen = 200
 vim.o.undofile = true
 vim.o.undolevels = 10000
 vim.o.updatetime = 200
-vim.o.winbar = [[%f %h%w%m%r%=%-14.(%l,%c%V%) %P]]
+-- vim.o.winbar = [[%f %h%w%m%r%=%-14.(%l,%c%V%) %P]]
 vim.o.winminwidth = 10
 vim.o.wrap = false
 

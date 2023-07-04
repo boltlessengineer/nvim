@@ -2,12 +2,70 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+local M = {}
+
 local aug = function(group_name, clear)
   clear = vim.F.if_nil(clear, true)
   return vim.api.nvim_create_augroup(group_name, { clear = clear })
 end
 
 local au = vim.api.nvim_create_autocmd
+
+---@class local.AutocmdArgs
+---@field id number
+---@field event string
+---@field group string?
+---@field buf number
+---@field file string
+---@field match string | number
+---@field data any
+
+---@class local.Autocommand
+---@field desc string
+---@field event string | string[]
+---@field pattern string | string[]
+---@field command string
+---@field callback fun(args: local.AutocmdArgs): boolean?
+---@field once boolean
+---@field nested boolean
+---@field buffer number
+
+---Create an autocommands
+---returns the group ID
+---@param name string
+---@param ... local.Autocommand
+---@return number
+function M.augroup(name, ...)
+  local commands = { ... }
+  local group = vim.api.nvim_create_augroup(name, { clear = true })
+  for _, autocmd in ipairs(commands) do
+    vim.api.nvim_create_autocmd(autocmd.event, {
+      group = group,
+      pattern = autocmd.pattern,
+      desc = autocmd.desc,
+      callback = autocmd.callback,
+      command = autocmd.command,
+      once = autocmd.once,
+      nested = autocmd.nested,
+      buffer = autocmd.buffer,
+    })
+  end
+  return group
+end
+
+M.augroup("TelescopeOverride", {
+  event = "User",
+  pattern = "TelescopePreviewerLoaded",
+  callback = function(args)
+    -- NOTE: see telescope's README for more information
+    if args.data.filetype ~= "help" then
+      vim.wo.number = true
+    end
+    if args.data.bufname:match("*.csv") then
+      vim.wo.wrap = false
+    end
+  end,
+})
 
 -- disable default autocmds
 aug("lazyvim_close_with_q") -- enabled globally
@@ -97,3 +155,5 @@ au("BufWinEnter", {
     vim.wo.statuscolumn = ""
   end,
 })
+
+return M

@@ -17,10 +17,11 @@ return {
           local winsep = c.crust
           return {
             NonText = { fg = c.surface0 },
-            TabLineFill = { fg = c.overlay2 },
+            TabLineFill = { fg = c.overlay2, bg = c.crust },
             VertSplit = { fg = winsep },
-            WinBar = { fg = c.text, bg = c.surface0 },
-            WinBarNC = { fg = c.overlay1, bg = c.mantle },
+            StatusLine = { bg = c.surface0 },
+            WinBar = { fg = c.text, bg = c.mantle },
+            WinBarNC = { fg = c.surface1, bg = c.mantle },
             CursorColumn = { link = "CursorLine" },
             EndOfBuffer = { fg = c.surface0 },
             Folded = { bg = c.base },
@@ -32,6 +33,8 @@ return {
             DiagnosticUnderlineOk = { style = { "undercurl" } },
             DiagnosticUnderlineWarn = { style = { "undercurl" } },
             GitSignsChangedelete = { fg = c.blue, style = { "underline" }, sp = c.red },
+            ["@text.emphasis"] = { fg = c.text },
+            ["@text.strong"] = { fg = c.text },
           }
         end,
       },
