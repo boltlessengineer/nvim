@@ -17,6 +17,7 @@ return {
       },
     },
   },
+  "nacro90/numb.nvim",
   {
     "ggandor/leap.nvim",
     keys = {

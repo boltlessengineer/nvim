@@ -3,6 +3,15 @@ local M = {
   clangd = {},
   cssls = {},
   dartls = {},
+  hls = {
+    mason = false,
+    settings = {
+      haskell = {
+        formattingProvider = "ormolu",
+        checkProject = true,
+      },
+    },
+  },
   jsonls = {
     on_new_config = function(new_config)
       if require("utils").has_plugin("SchemaStore.nvim") then
@@ -48,6 +57,7 @@ local M = {
   html = {},
   gopls = {},
   pyright = {},
+  ruff_lsp = {},
   rust_analyzer = {},
   lua_ls = {
     settings = {

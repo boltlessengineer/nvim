@@ -1,6 +1,8 @@
 return {
   -- set buffer options automatically based on file contents
+  -- TODO: guess-indent.nvim for similar feature?
   { "tpope/vim-sleuth", event = "VeryLazy" },
+  { "johngrib/vim-f-hangul", keys = { "f", "t", "F", "T", ";", "," } },
   {
     "wintermute-cell/gitignore.nvim",
     cmd = "Gitignore",
