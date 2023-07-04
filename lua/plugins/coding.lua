@@ -14,7 +14,7 @@ return {
       ap.setup(opts)
 
       -- add spaces between brackets
-      local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" } }
+      local brackets = { { "(", ")" }, { "{", "}" } }
       local brackets_str = {}
       local brackets_str_space = {}
       for _, bracket in ipairs(brackets) do
@@ -23,7 +23,7 @@ return {
       end
       -- stylua: ignore
       ap.add_rule(
-        Rule(" ", " ")
+        Rule(" ", " ", "-norg")
           :with_pair(function(o)
             local pair = o.line:sub(o.col - 1, o.col)
             return vim.tbl_contains(brackets_str, pair)
@@ -37,7 +37,7 @@ return {
           end)
       )
       for _, bracket in ipairs(brackets) do
-        ap.add_rule(Rule("", " " .. bracket[2])
+        ap.add_rule(Rule("", " " .. bracket[2], "-norg")
           :with_pair(cond.none())
           :with_move(function(o)
             return o.char == bracket[2]
@@ -68,9 +68,9 @@ return {
     keys = {
       { "g/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
       { "<C-/>", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
-      { "<C-?>", "<Plug>(comment_toggle_blockwise_current)", desc = "Comment Blockwise" },
+      { "<C-\\>", "<Plug>(comment_toggle_blockwise_current)", desc = "Comment Blockwise" },
       { mode = "x", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
-      { mode = "x", "<C-?>", "<Plug>(comment_toggle_blockwise_visual)", desc = "Comment Blockwise" },
+      { mode = "x", "<C-\\>", "<Plug>(comment_toggle_blockwise_visual)", desc = "Comment Blockwise" },
     },
     opts = function()
       return {

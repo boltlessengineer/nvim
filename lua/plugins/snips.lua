@@ -22,7 +22,11 @@ return {
       {
         "<tab>",
         function()
-          return ls.jumpable(1) and "<plug>luasnip-jump-next" or "<tab>"
+          if ls.expand_or_locally_jumpable() then
+            return "<plug>luasnip-expand-or-jump"
+          else
+            return "<tab>"
+          end
         end,
         expr = true, silent = true, mode = "i",
       },
