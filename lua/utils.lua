@@ -4,7 +4,7 @@ local M = {}
 ---@param plugin string
 ---@return boolean
 function M.has_plugin(plugin)
-  return require("lazy.core.config").plugins[plugin] ~= nil
+  return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
 --- source: https://github.com/tjdevries/lazy-require.nvim

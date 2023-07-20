@@ -47,8 +47,11 @@ return {
       vim.notify = notify
     end,
   },
+  -- better EOF scrolling
+  { "Aasim-A/scrollEOF.nvim", config = true },
   {
     "j-hui/fidget.nvim",
+    branch = "legacy",
     event = "LspAttach",
     enabled = true,
     opts = {
@@ -93,6 +96,7 @@ return {
       context_char = "▏",
       show_current_context = true,
       show_current_context_start = true,
+      show_end_of_line = true,
       context_start_priority = 50, -- set this low to not cover diagnostic underlines
     },
   },

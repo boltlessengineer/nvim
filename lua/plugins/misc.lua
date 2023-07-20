@@ -27,7 +27,7 @@ return {
     event = "BufReadPre",
     opts = {
       filetypes = { "*", "!lazy" },
-      buftypes = { "*", "!prompt", "!nofile" },
+      buftypes = { "*", "!prompt", "!nofile", "!terminal" },
       user_default_options = {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes

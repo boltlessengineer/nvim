@@ -218,23 +218,6 @@ return {
     end,
   },
   {
-    "lvimuser/lsp-inlayhints.nvim",
-    enabled = false,
-    branch = "anticonceal",
-    event = "LspAttach",
-    config = function(_, opts)
-      if vim.fn.has("nvim-0.10.0") ~= 1 then
-        vim.notify("anticonceal is only supported in nightly", vim.log.levels.WARN)
-        return
-      end
-      require("lsp-inlayhints").setup(opts)
-      utils.on_attach(function(client, buffer)
-        -- this checks inlayHintProvider capability automatically
-        require("lsp-inlayhints").on_attach(client, buffer, false)
-      end)
-    end,
-  },
-  {
     "VidocqH/lsp-lens.nvim",
     event = "LspAttach",
     enabled = false,

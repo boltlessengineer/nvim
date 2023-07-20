@@ -60,7 +60,7 @@ vim.o.relativenumber = true
 vim.o.scrolloff = 5
 vim.opt.sessionoptions = { "buffers", "curdir", "folds", "help", "tabpages", "winsize" }
 vim.o.shiftround = true
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 vim.opt.shortmess:append({
   W = true, -- Don't print "written" when editing
   I = true, -- No splash screen
@@ -78,7 +78,7 @@ vim.o.spelllang = "en,cjk"
 vim.o.splitkeep = "screen"
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.timeoutlen = 200
 vim.o.undofile = true
