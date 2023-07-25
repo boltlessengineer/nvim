@@ -1,6 +1,30 @@
 return {
   { "ellisonleao/gruvbox.nvim", lazy = true },
-  { "rebelot/kanagawa.nvim", lazy = true },
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
+    opts = {
+      compile = true,
+      dimInactive = false,
+      terminalColors = true,
+      overrides = function(colors)
+        local theme = colors.theme
+        -- FIX: why this isn't working
+        return {
+          WinBar = { bg = "white" },
+          -- ["@lsp.type.string"] = { link = "@string" },
+        }
+      end,
+      background = {
+        dark = "wave",
+        light = "lotus",
+      },
+    },
+    config = function(opts)
+      require("kanagawa").setup(opts)
+      vim.cmd.colorscheme("kanagawa")
+    end,
+  },
   { "kvrohit/mellow.nvim", lazy = true },
   { "sainnhe/gruvbox-material", lazy = true },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
@@ -10,6 +34,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    -- lazy = true,
     opts = {
       term_colors = true,
       highlight_overrides = {

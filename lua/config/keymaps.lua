@@ -27,18 +27,15 @@ set(nx, "K", vim.lsp.buf.hover)
 -- auto correct typo on command line
 vim.cmd.cabbrev("w'", "w")
 
--- auto indent on insert mode
-set(n, "i", function()
-  if #vim.fn.getline(".") == 0 then
-    return [["_cc]]
-  else
-    return "i"
-  end
-end, { expr = true })
+-- paste shortcut for insert mode (paste last yank, not from clipboard)
+set(i, "<c-v>", "<c-r>0")
+
+-- command-line remap that feals *right*
+set(c, "<c-l>", "<c-d>")
 
 -- better up/down
-set(n, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-set(n, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+set(nxo, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+set(nxo, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua

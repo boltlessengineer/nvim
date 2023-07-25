@@ -56,7 +56,6 @@ local M = {
   svelte = {},
   html = {},
   gopls = {},
-  pyright = {},
   ruff_lsp = {},
   rust_analyzer = {},
   lua_ls = {
@@ -83,5 +82,22 @@ local M = {
       },
     },
   },
+  -- yamlls = {
+  --   enable = false,
+  --   mason = false,
+  --   settings = {
+  --     yaml = {
+  --       on_new_config = function(new_config)
+  --         if require("utils").has_plugin("SchemaStore.nvim") then
+  --           new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+  --           vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+  --         end
+  --       end,
+  --       schemaStore = {
+  --         enable = false,
+  --       },
+  --     },
+  --   },
+  -- },
 }
 return M

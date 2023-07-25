@@ -18,6 +18,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 0
 vim.o.confirm = true
 vim.o.cursorline = true
+vim.o.expandtab = true
 -- stylua: ignore
 vim.opt.fillchars = {
   foldopen  = "",

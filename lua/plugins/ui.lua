@@ -1,5 +1,16 @@
 return {
   {
+    "levouh/tint.nvim",
+    event = "User InitDone",
+    -- FIX: doesn't work well with my WinbarNC highlights
+    enabled = false,
+    opts = {
+      tint = -45,
+      saturation = 0.6,
+      highlight_ignore_patterns = { "LineNr", "Winbar*", "IndentBlankline*" },
+    },
+  },
+  {
     "stevearc/dressing.nvim",
     lazy = true,
     init = function()

@@ -13,6 +13,7 @@ return {
         ["K"]     = "actions.preview",
         ["<C-l>"] = "actions.refresh",
         ["<C-.>"] = "actions.toggle_hidden",
+        ["-"] = "actions.parent",
         ["<c-h>"] = false,
       },
     },
@@ -81,6 +82,7 @@ return {
     -- TODO: need way to split empty function in lua
     -- e.g. `function() end`.
     -- `function_definition` capture group
+    -- TODO: abbrev
     "Wansmer/treesj",
     keys = {
       { "<leader>j", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },

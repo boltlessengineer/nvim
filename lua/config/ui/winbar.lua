@@ -56,7 +56,7 @@ local function set_colors()
   if ok then
     -- map[hls.mode_normal].bg = lualine.normal.a.bg
     map[hls.mode_insert].bg = lualine.insert.a.bg
-    map[hls.mode_terminal].bg = lualine.terminal.a.bg
+    map[hls.mode_terminal].bg = (lualine.terminal or lualine.insert).a.bg
     map[hls.mode_replace].bg = lualine.replace.a.bg
     map[hls.mode_select].bg = lualine.insert.a.bg
     map[hls.mode_visual].bg = lualine.visual.a.bg

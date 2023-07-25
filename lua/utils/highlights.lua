@@ -130,6 +130,7 @@ local function resolve_from_attr(hl, attr)
     return hl
   end
   local color = M.get(hl.from, hl.attr or attr)
+  color = color == "NONE" and M.get("Normal", hl.attr or attr) or color
   -- TODO: tint color
   return color
 end

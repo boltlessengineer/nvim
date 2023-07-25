@@ -132,6 +132,7 @@ au({ "TermOpen", "BufWinEnter" }, {
       setlocal statuscolumn=
       setlocal nocursorline
       setlocal scrolloff=0
+      setlocal sidescrolloff=0
     ]])
   end,
 })
