@@ -8,7 +8,8 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
-    -- import/override with your plugins
+    -- library used by other plugins
+    { "nvim-lua/plenary.nvim", lazy = true },
     { import = "plugins" },
     -- { import = "plugins.extras.lang.rust" },
     -- { import = "plugins.extras.lang.flutter" },

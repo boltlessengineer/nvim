@@ -72,6 +72,7 @@ return {
             end
           end,
         },
+        -- virtual_text = false,
         virtual_lines = false,
         severity_sort = true,
       },

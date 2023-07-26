@@ -1,7 +1,10 @@
 return {
   -- set buffer options automatically based on file contents
   -- TODO: guess-indent.nvim for similar feature?
+  -- is this even working????
   { "tpope/vim-sleuth", event = "VeryLazy" },
+  -- makes some plugins dot-repeatable like leap
+  { "tpope/vim-repeat", event = "VeryLazy" },
   { "johngrib/vim-f-hangul", keys = { "f", "t", "F", "T", ";", "," } },
   {
     "wintermute-cell/gitignore.nvim",
@@ -82,4 +85,14 @@ return {
     dependencies = { "edluffy/hologram.nvim", "MunifTanjim/nui.nvim" },
     config = true,
   },
+  -- measure startuptime
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    config = function()
+      vim.g.startuptime_tries = 10
+    end,
+  },
+  -- cool neovim startup profile with GUI
+  { "stevearc/profile.nvim", enabled = false },
 }
