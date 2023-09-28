@@ -1,4 +1,4 @@
-local enable_ext_mess = true
+local enable_ext_mess = false
 
 return {
   "folke/noice.nvim",
@@ -6,7 +6,7 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim",
     "smjonas/inc-rename.nvim",
-    -- { "rcarriga/nvim-notify", lazy = true },
+    { "rcarriga/nvim-notify", lazy = true },
   },
   cond = function()
     return not vim.g.neovide
@@ -37,7 +37,7 @@ return {
     messages = {
       enabled = enable_ext_mess,
       view = "mini",
-      view_error = "split",
+      view_error = "mini",
       view_warn = "mini",
       view_history = "messages",
       view_search = "virtualtext",
@@ -51,7 +51,7 @@ return {
         filter = {},
       },
     },
-    notify = { enabled = false },
+    notify = { enabled = true },
     lsp = {
       progress = {
         enabled = false,
@@ -117,7 +117,15 @@ return {
           min_height = 2,
           ["not"] = { kind = { "confirm", "confirm_sub" } },
         },
-        view = "cmdline_output",
+        view = "split",
+      },
+      { -- long messages to split
+        filter = {
+          event = "msg_show",
+          max_height = 1,
+          ["not"] = { kind = { "confirm", "confirm_sub" } },
+        },
+        opts = { replace = true },
       },
       { -- skip search messages
         filter = {
@@ -144,6 +152,8 @@ return {
             { find = "; before #%d+%s+" },
             { find = "--No lines in buffer--" },
             { find = "%d+ substitutions on %d+ line" },
+            { find = "Already at newest change" },
+            { find = "^E486:" },
           },
         },
         view = "mini",

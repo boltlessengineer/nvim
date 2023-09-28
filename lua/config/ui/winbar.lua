@@ -1,6 +1,10 @@
 local util_hl = require("utils.highlights")
 local ui = require("config.ui")
 
+vim.fs.joinpath = vim.fs.joinpath or function(...)
+  return table.concat({ ... }, "/")
+end
+
 local hls = {
   mode_normal = "ViModeNormal",
   mode_insert = "ViModeInsert",
@@ -148,14 +152,13 @@ local function vi_mode()
 end
 
 local function file_name()
-  local j = vim.fs.joinpath
   -- stylua: ignore
   local path = vim.fn.expand("%:p:h")
-    :gsub(vim.pesc(j(vim.loop.cwd(), "")), "")
+    :gsub(vim.pesc(vim.fs.joinpath(vim.loop.cwd(), "")), "")
   if path == vim.loop.cwd() then
     path = ""
   else
-    path = j(path, "")
+    path = vim.fs.joinpath(path, "")
   end
 
   local name = vim.fn.expand("%:p:t")
@@ -370,6 +373,12 @@ function _G.winbar()
     modules = {
       vi_mode(),
       "%=Oil%=",
+      vi_mode_placer,
+    }
+  elseif filetype == "NeogitStatus" then
+    modules = {
+      vi_mode(),
+      "%=Neogit%=",
       vi_mode_placer,
     }
   elseif filetype == "neotest-summary" then
