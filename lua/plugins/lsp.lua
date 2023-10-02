@@ -187,6 +187,7 @@ return {
     config = function(_, opts)
       require("null-ls").setup(opts)
       require("mason-null-ls").setup({
+        ensure_installed = {},
         automatic_installation = true,
       })
     end,

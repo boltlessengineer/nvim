@@ -24,6 +24,7 @@ return {
     },
     main = "nvim-treesitter.configs",
     ---@type TSConfig
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
       ensure_installed = {
         "arduino",
@@ -94,6 +95,14 @@ return {
       },
       indent = { enable = true },
       playground = { enable = true },
+      incremental_selection = {
+        enable = false,
+        keymaps = {
+          node_incremental = "v",
+          -- FIXME: can't use `V` here, it will block entering Visual-line mode
+          node_decremental = "V",
+        },
+      },
     },
   },
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
