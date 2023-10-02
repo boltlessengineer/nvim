@@ -1,7 +1,6 @@
 return {
   {
     "boltlessengineer/bufterm.nvim",
-    dev = true,
     opts = {
       debug = false,
       terminal = {

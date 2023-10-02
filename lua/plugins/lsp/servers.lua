@@ -1,6 +1,5 @@
----@type lspconfig.options
 local M = {
-  clangd = {},
+  clangd = { mason = false },
   cssls = {},
   dartls = {},
   hls = {
