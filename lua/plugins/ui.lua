@@ -104,18 +104,16 @@ return {
     main = "ibl",
     event = "BufReadPost",
     opts = {
-      char = "▏",
-      context_char = "▏",
-      show_current_context = true,
-      show_current_context_start = true,
-      show_end_of_line = true,
-      context_start_priority = 50, -- set this low to not cover diagnostic underlines
+      indent = { char = "▏" },
+      whitespace = { remove_blankline_trail = true },
+      scope = { enabled = false },
     },
   },
   -- better fold
   {
     "kevinhwang91/nvim-ufo",
     event = "BufReadPost",
+    enabled = false,
     dependencies = {
       "kevinhwang91/promise-async",
       {

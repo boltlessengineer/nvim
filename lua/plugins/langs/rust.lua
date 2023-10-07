@@ -4,6 +4,7 @@ return {
     event = { "BufRead Cargo.toml" },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
+      src = { cmp = { enabled = true } },
       on_attach = function(bufnr)
         local crates = require("crates")
         -- overwrite `K` mapping
