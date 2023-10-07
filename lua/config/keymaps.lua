@@ -21,6 +21,9 @@ set(t, "<C-[>", [[<C-\><C-n>]])
 set(t, "<esc>", "<esc>")
 set(t, "<tab>", "<tab>")
 
+-- detect CTRL-/ in any terimnals
+set(nxo, "<c-_>", "<c-/>", { remap = true })
+
 -- fix some default behaviors
 set(nx, "K", vim.lsp.buf.hover)
 
