@@ -56,6 +56,7 @@ return {
     end,
     ---@class PluginLspOpts
     opts = {
+      auto_install = false,
       diagnostics = {
         underline = true,
         update_in_insert = false,
@@ -118,7 +119,7 @@ return {
         require("lspconfig")[server].setup(server_opts)
       end
 
-      -- 👇 Huge mass of Mason stuffs...
+      -- 👇 Huge mess of Mason stuffs...
 
       -- get all the servers that are available through mason-lspconfig
       local have_mason, mlsp = pcall(require, "mason-lspconfig")
@@ -132,7 +133,11 @@ return {
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
           ---@diagnostic disable-next-line: undefined-field
-          if server_opts.mason == false or not vim.tbl_contains(all_mlsp_servers, server) then
+          if
+            opts.auto_install == false
+            or server_opts.mason == false
+            or not vim.tbl_contains(all_mlsp_servers, server)
+          then
             setup(server)
           else
             ensure_installed[#ensure_installed + 1] = server
