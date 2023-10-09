@@ -82,23 +82,15 @@ end
 ---@param filter? fun(LazyKeys):boolean
 function M.attach_keymaps(buffer, mappings, filter)
   local Keys = require("lazy.core.handler.keys")
-  local keymaps = {} ---@type table<string,LazyKeys>
-
-  for _, value in ipairs(mappings) do
-    local key = Keys.parse(value)
-    if key[2] == vim.NIL or key[2] == false then
-      keymaps[key.id] = nil
-    else
-      keymaps[key.id] = key
-    end
-  end
+  local keymaps = Keys.resolve(mappings)
 
   for _, key in pairs(keymaps) do
     if not filter or filter(key) then
       local opts = Keys.opts(key)
+      opts.has = nil
       opts.silent = opts.silent ~= false
       opts.buffer = buffer
-      vim.keymap.set(key.mode or "n", key[1], key[2], opts)
+      vim.keymap.set(key.mode or "n", key.lhs, key.rhs, opts)
     end
   end
 end

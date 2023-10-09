@@ -94,7 +94,7 @@ return {
         require("utils").attach_keymaps(buffer, plugin._keys, function(key)
           local has = key.has
           key.has = nil
-          return not (has and not client.server_capabilities[has .. "Provider"])
+          return (not has) or client.server_capabilities[has .. "Provider"]
         end)
         require("plugins.lsp.format").on_attach(client, buffer)
       end)
