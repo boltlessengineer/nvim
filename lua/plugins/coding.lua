@@ -69,6 +69,7 @@ return {
       { "g/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
       { "<C-/>", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
       { "<C-\\>", "<Plug>(comment_toggle_blockwise_current)", desc = "Comment Blockwise" },
+      { mode = "x", "g/", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
       { mode = "x", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
       { mode = "x", "<C-\\>", "<Plug>(comment_toggle_blockwise_visual)", desc = "Comment Blockwise" },
     },
