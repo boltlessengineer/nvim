@@ -20,18 +20,16 @@ return {
     -- stylua: ignore
     keys = {
       {
-        "<tab>",
+        "<c-l>",
         function()
-          if ls.expand_or_locally_jumpable() then
-            return "<plug>luasnip-expand-or-jump"
-          else
-            return "<tab>"
+          if ls.locally_jumpable() then
+            ls.jump(1)
           end
         end,
-        expr = true, silent = true, mode = "i",
+        mode = "i",
       },
-      { "<tab>", function() ls.jump(1) end, mode = "s" },
-      { "<s-tab>", function() ls.jump(-1) end, mode = { "i", "s" } },
+      { "<c-l>", function() ls.jump(1) end, mode = "s" },
+      { "<c-h>", function() ls.jump(-1) end, mode = { "i", "s" } },
     },
     config = function(_, opts)
       ls.filetype_extend("dart", { "flutter" })

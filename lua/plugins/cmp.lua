@@ -16,6 +16,7 @@ return {
       local cmp = require("cmp")
 
       ---@type cmp.ConfigSchema
+      ---@diagnostic disable-next-line: missing-fields
       return {
         snippet = {
           expand = function(args)
@@ -29,7 +30,7 @@ return {
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-c>"] = cmp.mapping.close(),
-          ["<C-l>"] = cmp.mapping.complete(), -- show menu
+          ["<C-m>"] = cmp.mapping.complete(), -- show menu
           ["<c-y>"] = cmp.mapping.confirm({ select = false }),
           ["<cr>"] = cmp.mapping.confirm({ select = false }),
         }),

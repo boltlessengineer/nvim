@@ -48,6 +48,12 @@ return {
       end
     end,
   },
+  {
+    "boltlessengineer/smart-tab.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    keys = { { mode = "i", "<tab>" } },
+    config = true,
+  },
   -- comment
   {
     "numToStr/Comment.nvim",
