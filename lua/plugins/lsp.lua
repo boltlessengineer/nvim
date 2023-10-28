@@ -185,7 +185,11 @@ return {
           nls.builtins.diagnostics.fish,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.prettierd.with({
+            env = {
+              PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json"),
+            },
+          }),
         },
       }
     end,
