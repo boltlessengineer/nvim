@@ -36,6 +36,7 @@ return {
     name = "catppuccin",
     -- lazy = true,
     opts = {
+      transparent_background = true,
       term_colors = true,
       highlight_overrides = {
         all = function(c)
