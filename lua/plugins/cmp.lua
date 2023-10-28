@@ -30,7 +30,7 @@ return {
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-c>"] = cmp.mapping.close(),
-          ["<C-m>"] = cmp.mapping.complete(), -- show menu
+          ["<C-j>"] = cmp.mapping.complete(), -- show menu
           ["<c-y>"] = cmp.mapping.confirm({ select = false }),
           ["<cr>"] = cmp.mapping.confirm({ select = false }),
         }),
