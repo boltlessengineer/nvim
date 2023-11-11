@@ -14,6 +14,8 @@ return {
           return Util.plugin.has("nvim-cmp")
         end,
       },
+      -- NOTE: mason dependency is needed to use mason-installed servers
+      "williamboman/mason.nvim",
       { "b0o/SchemaStore.nvim", version = false, lazy = true },
     },
     -- stylua: ignore
