@@ -1,4 +1,4 @@
-local refactoring = require("utils").reqidx("refactoring")
+local refactoring = require("utils").require.on_exported_call("refactoring")
 
 return {
   {

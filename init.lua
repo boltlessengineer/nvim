@@ -1,3 +1,6 @@
+local Util = require("utils")
+Util.format.setup()
+Util.root.setup()
 require("config.options")
 require("config.keymaps")
 require("config.abbrevs")

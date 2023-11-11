@@ -1,4 +1,4 @@
-local utils = require("plugins.lsp.utils")
+local Util = require("utils")
 
 ---@type LazyPluginSpec[]
 return {
@@ -13,7 +13,7 @@ return {
       {
         "hrsh7th/cmp-nvim-lsp",
         cond = function()
-          return require("utils").has_plugin("nvim-cmp")
+          return Util.plugin.has("nvim-cmp")
         end,
       },
       { "b0o/SchemaStore.nvim", version = false, lazy = true },
@@ -24,9 +24,6 @@ return {
       -- TODO: toggle inlay hints
       -- { "<leader>ci", desc = "Toggle inlay-hints" },
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-      { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Document", has = "documentFormatting" },
-      { "<leader>cf", require('plugins.lsp.format').format, desc = "Format Range", mode = 'x', has = "documentRangeFormatting" },
-      { "<leader>of", require('plugins.lsp.format').toggle, desc = "Toggle Auto Format" },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { 'n', 'x' }, has = "codeAction" },
       { "<leader>cr", "<plug>(lsp_rename)", desc = "Rename", mode = { 'n', 'x' }, has = "rename" },
       { "gd", "<plug>(lsp_definitions)", desc = "Goto Definition", has = "definition" },
@@ -34,12 +31,12 @@ return {
       { "gr", "<plug>(lsp_references)", desc = "References", has = "references" },
       { "gi", "<plug>(lsp_implementations)", desc = "Goto Implementations", has = "implementation" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
-      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
-      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
-      { "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Next Error" },
-      { "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Prev Error" },
-      { "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, desc = "Next Warning" },
-      { "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, desc = "Prev Warning" },
+      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic", mode = { 'n', 'x' } },
+      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic", mode = { 'n', 'x' } },
+      { "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Next Error", mode = { 'n', 'x' } },
+      { "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Prev Error", mode = { 'n', 'x' } },
+      { "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, desc = "Next Warning", mode = { 'n', 'x' } },
+      { "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, desc = "Prev Warning", mode = { 'n', 'x' } },
       { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
     },
     init = function()
@@ -85,34 +82,48 @@ return {
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {},
     },
+    ---@param plugin PluginLspOpts|table<string,table>
     ---@param opts PluginLspOpts
     config = function(plugin, opts)
       -- setup diagnostics
       vim.diagnostic.config(opts.diagnostics)
 
-      utils.on_attach(function(client, buffer)
-        require("utils").attach_keymaps(buffer, plugin._keys, function(key)
+      -- attach keymaps
+      Util.lsp.on_attach(function(client, buffer)
+        Util.attach_keymaps(buffer, plugin._keys, function(key)
           local has = key.has
           key.has = nil
           return (not has) or client.server_capabilities[has .. "Provider"]
         end)
-        require("plugins.lsp.format").on_attach(client, buffer)
       end)
 
+      -- register lsp formatter
+      Util.format.register(Util.lsp.formatter())
+
       local servers = opts.servers
+      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+
+      -- HACK: if there are type errors with capabilities/server_opts,
+      -- that maybe from catppuccin's `vim.tbl_deep_extend` overwrite
+      -- dirty fix:
+      --
+      ---@diagnostic disable: param-type-mismatch
       local capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities(),
+        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
         opts.capabilities or {}
       )
       local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
-        }, servers[server] or {})
+        local server_opts =
+          vim.tbl_deep_extend("force", { capabilities = vim.deepcopy(capabilities) }, servers[server] or {})
 
         if opts.setup[server] then
           if opts.setup[server](server, server_opts) then
+            return
+          end
+        elseif opts.setup["*"] then
+          if opts.setup["*"](server, server_opts) then
             return
           end
         end
@@ -171,37 +182,6 @@ return {
     config = true,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "jay-babu/mason-null-ls.nvim",
-    },
-    event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      local nls = require("null-ls")
-      return {
-        sources = {
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.diagnostics.fish,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.prettierd.with({
-            env = {
-              PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json"),
-            },
-          }),
-        },
-      }
-    end,
-    config = function(_, opts)
-      require("null-ls").setup(opts)
-      require("mason-null-ls").setup({
-        ensure_installed = {},
-        automatic_installation = true,
-      })
-    end,
-  },
-  {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = {
@@ -245,7 +225,7 @@ return {
     end,
     config = function(_, opts)
       local local_opts = vim.deepcopy(opts)
-      utils.on_attach(function(client, buffer)
+      Util.lsp.on_attach(function(client, buffer)
         if client.supports_method("textDocument/rangeFormatting") then
           if client.name == "lua_ls" then
             local_opts.experimental_empty_line_handling = true

@@ -13,7 +13,7 @@ local M = {
   },
   jsonls = {
     on_new_config = function(new_config)
-      if require("utils").has_plugin("SchemaStore.nvim") then
+      if require("utils").plugin.has("SchemaStore.nvim") then
         new_config.settings.json.schemas = new_config.settings.json.schemas or {}
         vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
       end
@@ -87,7 +87,7 @@ local M = {
   --   settings = {
   --     yaml = {
   --       on_new_config = function(new_config)
-  --         if require("utils").has_plugin("SchemaStore.nvim") then
+  --         if require("utils").plugin.has("SchemaStore.nvim") then
   --           new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
   --           vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
   --         end

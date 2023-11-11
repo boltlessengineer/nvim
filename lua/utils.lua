@@ -1,79 +1,47 @@
+---@class bt.util
+---@field lsp bt.util.lsp
+---@field root bt.util.root
+---@field format bt.util.format
+---@field plugin bt.util.plugin
+---@field notify bt.util.notify
+---@field require bt.util.require
 local M = {}
+setmetatable(M, {
+  __index = function (t, k)
+    t[k] = require("utils." .. k)
+    return t[k]
+  end,
+})
 
----check if plugin is installed
----@param plugin string
----@return boolean
-function M.has_plugin(plugin)
-  return require("lazy.core.config").spec.plugins[plugin] ~= nil
-end
+-- HACK: have no idea how to copy this
+local pretty_trace = M.require.on_exported_call("lazy.core.util").pretty_trace
+-- HACK: too lazy to copy-paste this
+M.merge = M.require.on_exported_call("lazy.core.util").merge
 
---- source: https://github.com/tjdevries/lazy-require.nvim
---- (yanked from akinsho's dotfiles)
-
---- Require on index.
----
---- Will only require the module after the first index of a module.
---- Only works for modules that export a table.
----
---- ```lua
---- -- This is not loaded yet
---- local lazy_mod = reqidx("my_module")
----
---- -- ... some time later
---- lazy_mod.some_var -- <- Only loads the module now
---- ```
----@param path string
----@return table
-function M.reqidx(path)
-  -- stylua: ignore
-  return setmetatable({}, {
-    __index = function(_, key) return require(path)[key] end,
-    __newindex = function(_, key, value) require(path)[key] = value end,
-  })
-end
-
-M.root_patterns = { ".git" }
-
----returns the root directory based on:
----* lsp workspace folders
----* lsp root_dir
----* root pattern of filename of the current buffer
----* root pattern of cwd
----@return string
-function M.get_root()
-  ---@type string?
-  local path = vim.api.nvim_buf_get_name(0)
-  path = path ~= "" and vim.loop.fs_realpath(path) or nil
-  ---@type string[]
-  local roots = {}
-  if path then
-    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
-      local workspace = client.config.workspace_folders
-      local paths = workspace and vim.tbl_map(function(ws)
-        return vim.uri_to_fname(ws.uri)
-      end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
-      for _, p in ipairs(paths) do
-        local r = vim.loop.fs_realpath(p)
-        ---@cast r string
-        if path:find(r, 1, true) then
-          roots[#roots + 1] = r
-        end
-      end
+---@param opts? string|{msg:string, on_error:fun(msg)}
+function M.try(fn, opts)
+  opts = type(opts) == "string" and { msg = opts } or opts or {}
+  local msg = opts.msg
+  -- error handler
+  local error_handler = function(err)
+    msg = (msg and (msg .. "\n\n") or "") .. err .. pretty_trace()
+    if opts.on_error then
+      opts.on_error(msg)
+    else
+      vim.schedule(function()
+        M.notify.error(msg)
+      end)
     end
+    return err
   end
-  table.sort(roots, function(a, b)
-    return #a > #b
-  end)
-  ---@type string?
-  local root = roots[1]
-  if not root then
-    path = path and vim.fs.dirname(path) or vim.loop.cwd()
-    ---@type string?
-    root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
-    root = root and vim.fs.dirname(root) or vim.loop.cwd()
-  end
-  ---@cast root string
-  return root
+
+  ---@type boolean, any
+  local ok, result = xpcall(fn, error_handler)
+  return ok and result or nil
+end
+
+function M.is_win()
+  return vim.loop.os_uname().sysname:find("Windows") ~= nil
 end
 
 ---attach keymaps in specific situation
@@ -87,8 +55,11 @@ function M.attach_keymaps(buffer, mappings, filter)
   for _, key in pairs(keymaps) do
     if not filter or filter(key) then
       local opts = Keys.opts(key)
+      ---@diagnostic disable-next-line: inject-field
       opts.has = nil
+      ---@diagnostic disable-next-line: inject-field
       opts.silent = opts.silent ~= false
+      ---@diagnostic disable-next-line: inject-field
       opts.buffer = buffer
       vim.keymap.set(key.mode or "n", key.lhs, key.rhs, opts)
     end

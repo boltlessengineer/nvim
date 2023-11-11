@@ -1,4 +1,4 @@
-local ls = require("utils").reqidx("luasnip")
+local ls = require("utils").require.on_index("luasnip")
 
 return {
   {

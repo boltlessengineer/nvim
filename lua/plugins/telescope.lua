@@ -1,13 +1,13 @@
 local Utils = require("utils")
 
 ---this will return a function that calls telescope
----cwd will default to utils.get_root
+---cwd will default to util.root()
 ---@param builtin string
 ---@param opts? any
 ---@return function
 local function telescope(builtin, opts)
   return function()
-    opts = vim.tbl_deep_extend("force", { cwd = Utils.get_root() }, opts or {})
+    opts = vim.tbl_deep_extend("force", { cwd = Utils.root.get() }, opts or {})
     require("telescope.builtin")[builtin](opts)
   end
 end
@@ -85,10 +85,11 @@ return {
           i = {
             ["<c-s>"] = "select_horizontal",
             ["<c-t>"] = "select_tab",
-            ["<c-q>"] = "send_selected_to_qflist",
-            ["<ESC>"] = "close",
-            ["<Up>"] = false,
-            ["<Down>"] = false,
+            ["<c-a>"] = "select_all",
+            -- TODO: should I "add" instead of "send"?
+            ["<c-q>"] = "send_to_qflist",
+            ["<cs-q>"] = "send_selected_to_qflist",
+            -- ["<ESC>"] = "close",
             ["<PageUp>"] = false,
             ["<PageDown>"] = false,
             ["<C-X>"] = false,
