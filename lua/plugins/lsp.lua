@@ -8,8 +8,6 @@ return {
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "folke/neodev.nvim", opts = {} },
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
       {
         "hrsh7th/cmp-nvim-lsp",
         cond = function()
@@ -130,35 +128,8 @@ return {
         require("lspconfig")[server].setup(server_opts)
       end
 
-      -- 👇 Huge mess of Mason stuffs...
-
-      -- get all the servers that are available through mason-lspconfig
-      local have_mason, mlsp = pcall(require, "mason-lspconfig")
-      local all_mlsp_servers = {}
-      if have_mason then
-        all_mlsp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-      end
-
-      local ensure_installed = {}
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          server_opts = server_opts == true and {} or server_opts
-          ---@diagnostic disable-next-line: undefined-field
-          if
-            opts.auto_install == false
-            or server_opts.mason == false
-            or not vim.tbl_contains(all_mlsp_servers, server)
-          then
-            setup(server)
-          else
-            ensure_installed[#ensure_installed + 1] = server
-          end
-        end
-      end
-
-      if have_mason then
-        mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup_handlers({ setup })
+      for server, _ in pairs(servers) do
+        setup(server)
       end
     end,
   },

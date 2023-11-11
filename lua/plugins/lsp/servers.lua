@@ -1,9 +1,8 @@
 local M = {
-  clangd = { mason = false },
+  clangd = {},
   cssls = {},
   dartls = {},
   hls = {
-    mason = false,
     settings = {
       haskell = {
         formattingProvider = "ormolu",
@@ -83,7 +82,6 @@ local M = {
   },
   -- yamlls = {
   --   enable = false,
-  --   mason = false,
   --   settings = {
   --     yaml = {
   --       on_new_config = function(new_config)
