@@ -76,7 +76,7 @@ local M = {
           enable = false, -- use stylua istead
         },
         workspace = {
-          checkThirdParty = false,
+          checkThirdParty = "Disable",
         },
       },
     },
