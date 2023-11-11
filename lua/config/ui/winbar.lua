@@ -161,17 +161,6 @@ local function file_name()
   local name = vim.fn.expand("%:p:t")--[[@as string]]
 
   local hi = is_win_current() and hls.bold or hls.nc_bold
-  -- TODO: make filename shorter using like $DOTFILES, $HOME
-  local xdg_config = vim.env.XDG_CONFIG or vim.fs.joinpath(vim.env.HOME, ".config")
-  local vim_dotfiles = vim.fs.joinpath(xdg_config, vim.env.NVIM_APPNAME or "nvim", "")
-  -- TODO: if target path is symlink, also check if current path is origin path
-  local paths = {
-    [vim.env.VIMRUNTIME] = "$VIMRUNTIME",
-    [vim_dotfiles] = "$VIM_DOTFILES",
-    [xdg_config] = "$DOTFILES",
-    [vim.fs.joinpath(vim.env.HOME, "Projects")] = "$PROJECTS",
-    [vim.fs.joinpath(vim.env.HOME, "projects")] = "$PROJECTS",
-  }
   return hl_text(path, hls.nc_base) .. hl_text(name, hi)
 end
 

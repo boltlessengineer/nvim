@@ -38,17 +38,21 @@ local function mode()
   return nil
 end
 
-local function lsp_servers()
-  local filter
-  -- filter to current buffer on file buffers
-  if vim.bo.buftype == "" then
-    filter = { bufnr = 0 }
-  end
-  local active_clients = vim.lsp.get_clients(filter)
+local function services()
+  local is_file = vim.bo.buftype == ""
+  local active_clients = vim.lsp.get_clients(is_file and { bufnr = 0 } or nil)
 
   local client_names = {}
   for _, client in ipairs(active_clients) do
     client_names[#client_names + 1] = client.name
+  end
+
+  local ok, conform = pcall(require, "conform")
+  if ok then
+    local formatters = conform.list_formatters()
+    for _, formatter in ipairs(formatters) do
+      client_names[#client_names + 1] = formatter.name
+    end
   end
 
   if #client_names == 0 then
@@ -58,16 +62,10 @@ local function lsp_servers()
   return util_hl.hl_text(" " .. table.concat(client_names, ", ") .. " ", "StlLspBox")
 end
 
--- TODO: LspAttach -> update null-ls server client's attached_buffer list
--- ... or just don't use null-ls
-
 local function tab_info()
   local space_str = "Spaces"
   local tab_str = "Tab"
-  local opt = vim.o
-  if vim.bo.buftype == "" then
-    opt = vim.bo
-  end
+  local opt = vim.bo.buftype == "" and vim.bo or vim.o
   local tabkind = opt.expandtab and space_str or tab_str
   local tabsize = opt.shiftwidth
   return string.format("%s:%d", tabkind, tabsize)
@@ -77,6 +75,18 @@ local function root_dir()
   local root = Util.root()
   -- TODO: replace some paths with $HOME, $PROJECTS, $DOTFILES, $REPO
   -- see akinsho's config
+  local xdg_config = vim.env.XDG_CONFIG or vim.fs.joinpath(vim.env.HOME, ".config")
+  local vim_dotfiles = vim.fs.joinpath(xdg_config, vim.env.NVIM_APPNAME or "nvim", "")
+  -- TODO: if target path is symlink, also check if current path is origin path
+  local paths = {
+    [vim.env.HOME] = "$HOME",
+    [vim.env.VIMRUNTIME] = "$VIMRUNTIME",
+    [vim_dotfiles] = "$NVIM_CONFIG",
+    [xdg_config] = "$DOTFILES",
+    [vim.fs.joinpath(vim.env.HOME, "Projects")] = "$PROJECTS",
+    [vim.fs.joinpath(vim.env.HOME, "projects")] = "$PROJECTS",
+  }
+  -- sort by key
   return root
 end
 
@@ -86,7 +96,7 @@ function _G.statusline()
     root_dir(),
     util_hl.hl_text("%=%S", "StatusLine"), -- ensure hl
     mode(),
-    lsp_servers(),
+    services(),
     tab_info(),
     "",
   }
