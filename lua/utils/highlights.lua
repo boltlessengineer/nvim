@@ -1,6 +1,6 @@
 -- Copied & modified a bit from https://github.com/akinsho/dotfiles/blob/83ae6524eff26c146b5249019c9b985b7e4bdf95/.config/nvim/lua/as/highlights.lua
--- Huge thanks to akinsho!
 
+---@class bt.util.highlights
 local M = {}
 
 ---@alias HLAttr {from: string, attr: "fg" | "bg", alter: integer}
@@ -211,9 +211,11 @@ function M.plugin(name, hls)
   end)
 end
 
-function M.hl_text(hlgroup, content)
-  -- TODO: get one more hlgroup to apply when window is not current window (like NC highlights)
-  -- default to hlgroup.."NC" (if exists)
+---Apply highlight to given text
+---@param content any
+---@param hlgroup string
+---@return string
+function M.hl_text(content, hlgroup)
   return string.format("%%#%s#%s%%*", hlgroup, content)
 end
 

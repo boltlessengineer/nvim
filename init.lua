@@ -1,3 +1,7 @@
+vim.fs.joinpath = vim.fs.joinpath or function(...)
+  return table.concat({ ... }, "/")
+end
+
 local Util = require("utils")
 Util.format.setup()
 Util.root.setup()

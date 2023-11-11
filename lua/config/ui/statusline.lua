@@ -1,5 +1,6 @@
 package.loaded["utils.highlights"] = nil
 local util_hl = require("utils.highlights")
+local Util = require("utils")
 local ui = require("config.ui")
 
 local hls = {
@@ -25,7 +26,7 @@ local function message()
   if package.loaded["noice"] and require("noice").api.status.message.has() then
     return require("noice").api.status.message.get_hl()
     -- TODO: break down to get_hl function,
-    -- read hlgroup and make new hlgroup for it (cache group to use lator)
+    -- read hlgroup and make new hlgroup for it (cache group to use later)
   end
   return nil
 end
@@ -43,21 +44,18 @@ local function lsp_servers()
   if vim.bo.buftype == "" then
     filter = { bufnr = 0 }
   end
-  local active_clients = vim.lsp.get_active_clients(filter)
+  local active_clients = vim.lsp.get_clients(filter)
 
   local client_names = {}
   for _, client in ipairs(active_clients) do
-    -- HACK: ignroe null-ls for now
-    if client.name ~= "null-ls" then
-      client_names[#client_names + 1] = client.name
-    end
+    client_names[#client_names + 1] = client.name
   end
 
   if #client_names == 0 then
-    return util_hl.hl_text("StlLspBoxNone", " LSP Inactive ")
+    return util_hl.hl_text(" LSP Inactive ", "StlLspBoxNone")
   end
 
-  return util_hl.hl_text("StlLspBox", " " .. table.concat(client_names, ", ") .. " ")
+  return util_hl.hl_text(" " .. table.concat(client_names, ", ") .. " ", "StlLspBox")
 end
 
 -- TODO: LspAttach -> update null-ls server client's attached_buffer list
@@ -75,11 +73,18 @@ local function tab_info()
   return string.format("%s:%d", tabkind, tabsize)
 end
 
+local function root_dir()
+  local root = Util.root()
+  -- TODO: replace some paths with $HOME, $PROJECTS, $DOTFILES, $REPO
+  -- see akinsho's config
+  return root
+end
+
 function _G.statusline()
   local modules = {
     "",
-    message(),
-    util_hl.hl_text("StatusLine", "%=%S"), -- ensure hl
+    root_dir(),
+    util_hl.hl_text("%=%S", "StatusLine"), -- ensure hl
     mode(),
     lsp_servers(),
     tab_info(),
@@ -95,3 +100,10 @@ end
 
 vim.o.showcmdloc = "statusline"
 vim.o.statusline = "%{%v:lua.statusline()%}"
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.opt_local.statusline = "%{%v:lua.statusline()%}"
+  end,
+})

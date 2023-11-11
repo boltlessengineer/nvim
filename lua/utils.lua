@@ -5,9 +5,10 @@
 ---@field plugin bt.util.plugin
 ---@field notify bt.util.notify
 ---@field require bt.util.require
+---@field highlights bt.util.highlights
 local M = {}
 setmetatable(M, {
-  __index = function (t, k)
+  __index = function(t, k)
     t[k] = require("utils." .. k)
     return t[k]
   end,

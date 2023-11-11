@@ -1,10 +1,10 @@
-local Util = require('utils')
+local Util = require("utils")
 
 ---@class bt.util.root
 local M = setmetatable({}, {
-  __call = function (m)
+  __call = function(m)
     return m.get()
-  end
+  end,
 })
 
 ---@class LazyRoot
@@ -140,15 +140,15 @@ end
 M.cache = {}
 
 function M.setup()
-  vim.api.nvim_create_user_command("SetRoot", function ()
+  vim.api.nvim_create_user_command("SetRoot", function()
     Util.root.info()
   end, { desc = "Neovim roots for the current buffer" })
 
   vim.api.nvim_create_autocmd({ "LspAttach" }, {
     group = vim.api.nvim_create_augroup("root_cache", { clear = true }),
-    callback = function (event)
+    callback = function(event)
       M.cache[event.buf] = nil
-    end
+    end,
   })
 end
 
@@ -157,17 +157,18 @@ end
 -- * lsp root_dir
 -- * root pattern of filename of the current buffer
 -- * root pattern of cwd
----@param opts? {normalize?:boolean}
+---@param opts? {normalize?:boolean, buf?:number}
 ---@return string
 function M.get(opts)
-  local buf = vim.api.nvim_get_current_buf()
+  opts = opts or {}
+  local buf = opts.buf or vim.api.nvim_get_current_buf()
   local ret = M.cache[buf]
   if not ret then
     local roots = M.detect({ all = false })
     ret = roots[1] and roots[1].paths[1] or vim.loop.cwd()
     M.cache[buf] = ret
   end
-  if opts and opts.normalize then
+  if opts.normalize then
     return ret
   end
   return Util.is_win() and ret:gsub("/", "\\") or ret

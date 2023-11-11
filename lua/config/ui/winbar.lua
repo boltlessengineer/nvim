@@ -1,9 +1,6 @@
+local Util = require("utils")
 local util_hl = require("utils.highlights")
 local ui = require("config.ui")
-
-vim.fs.joinpath = vim.fs.joinpath or function(...)
-  return table.concat({ ... }, "/")
-end
 
 local hls = {
   mode_normal = "ViModeNormal",
@@ -132,48 +129,50 @@ local function is_win_current()
   return winid == curwin
 end
 
-local function lsp_attached()
-  return #vim.lsp.get_active_clients({ bufnr = 0 }) > 0
-end
+-- TODO: handle NC colors with this local function
+-- get one more hlgroup to apply when window is not current window (like NC highlights)
+-- default to hlgroup.."NC" (if exists)
+local hl_text = util_hl.hl_text
 
-local function color(hlgroup, content)
-  -- TODO: replace with util_hl.hl_text()
-  return string.format("%%#%s#%s%%*", hlgroup, content)
+local function lsp_attached()
+  return #vim.lsp.get_clients({ bufnr = 0 }) > 0
 end
 
 local function vi_mode()
   if not is_win_current() then
     return "     "
   end
-  local mode = vim.fn.mode(1)
+  local mode = vim.fn.mode(1) or "n"
   local mode_name = " " .. vi_mode_names[mode][2] .. " "
   local mode_color = vi_mode_colors[mode:sub(1, 1)]
-  return color(mode_color, mode_name)
+  return hl_text(mode_name, mode_color)
 end
 
 local function file_name()
   -- stylua: ignore
-  local path = vim.fn.expand("%:p:h")
-    :gsub(vim.pesc(vim.fs.joinpath(vim.loop.cwd(), "")), "")
+  local path = vim.fn.expand("%:p:h")--[[@as string]]
+    :gsub(vim.pesc(vim.fs.joinpath(Util.root(), "")), "")
   if path == vim.loop.cwd() then
     path = ""
   else
     path = vim.fs.joinpath(path, "")
   end
 
-  local name = vim.fn.expand("%:p:t")
+  local name = vim.fn.expand("%:p:t")--[[@as string]]
 
   local hi = is_win_current() and hls.bold or hls.nc_bold
   -- TODO: make filename shorter using like $DOTFILES, $HOME
   local xdg_config = vim.env.XDG_CONFIG or vim.fs.joinpath(vim.env.HOME, ".config")
   local vim_dotfiles = vim.fs.joinpath(xdg_config, vim.env.NVIM_APPNAME or "nvim", "")
+  -- TODO: if target path is symlink, also check if current path is origin path
   local paths = {
     [vim.env.VIMRUNTIME] = "$VIMRUNTIME",
     [vim_dotfiles] = "$VIM_DOTFILES",
     [xdg_config] = "$DOTFILES",
     [vim.fs.joinpath(vim.env.HOME, "Projects")] = "$PROJECTS",
+    [vim.fs.joinpath(vim.env.HOME, "projects")] = "$PROJECTS",
   }
-  return color(hls.nc_base, path) .. color(hi, name)
+  return hl_text(path, hls.nc_base) .. hl_text(name, hi)
 end
 
 local function get_git_dict(bufnr)
@@ -198,9 +197,9 @@ local function git_status()
   local status_str = "[" .. vim.b.git_status_str .. "]"
 
   return table.concat({
-    color(hls.nc_base, "on"),
-    color(hls.git_branch, " " .. status.head),
-    color(hls.comment, status_str),
+    hl_text("on", hls.nc_base),
+    hl_text(" " .. status.head, hls.git_branch),
+    hl_text(status_str, hls.comment),
   }, " ")
 end
 
@@ -227,16 +226,16 @@ local function lsp_status()
   local warn_sign = get_sign_text("DiagnosticSignWarn", "W ")
   local error_text, warn_text
   if error_count > 0 then
-    error_text = color(hls.diag_error_sign, error_sign) .. color(hls.diag_error, error_count)
+    error_text = hl_text(error_sign, hls.diag_error_sign) .. hl_text(error_count, hls.diag_error)
   else
-    error_text = color(hls.nontext, error_sign .. error_count)
+    error_text = hl_text(error_sign .. error_count, hls.nontext)
   end
   if warn_count > 0 then
-    warn_text = color(hls.diag_warn_sign, warn_sign) .. color(hls.diag_warn, warn_count)
+    warn_text = hl_text(warn_sign, hls.diag_warn_sign) .. hl_text(warn_count, hls.diag_warn)
   else
-    warn_text = color(hls.nontext, warn_sign .. warn_count)
+    warn_text = hl_text(warn_sign .. warn_count, hls.nontext)
   end
-  local text = error_text .. color(hls.nontext, ", ") .. warn_text
+  local text = error_text .. hl_text(", ", hls.nontext) .. warn_text
   return text
 end
 
@@ -258,13 +257,13 @@ local function file_modi()
     return ""
   end
 
-  return color(hls.base, text)
+  return hl_text(text, hls.base)
 end
 
 local function help_file()
   -- TODO: show what section I'm in using tree-sitter
   -- find last `(tag)` from cursor position
-  return color(hls.nc_base, ":") .. color(hls.stx_keyword, "help") .. " " .. vim.fn.expand("%:t")
+  return hl_text(":", hls.nc_base) .. hl_text("help", hls.stx_keyword) .. " " .. vim.fn.expand("%:t")
 end
 
 local function update_file_git_status(bufnr)
@@ -341,6 +340,13 @@ function _G.winbar()
   local modules = {}
   local buftype = vim.bo.buftype
   local filetype = vim.bo.filetype
+  local function center(title)
+    return {
+      vi_mode(),
+      "%=" .. title .. "%=",
+      vi_mode_placer,
+    }
+  end
   if buftype == "" then
     modules = {
       vi_mode(),
@@ -356,37 +362,24 @@ function _G.winbar()
       "%P ",
     }
   elseif buftype == "help" then
-    modules = {
-      vi_mode(),
-      "%=",
-      help_file(),
-      "%=",
-      vi_mode_placer,
-    }
+    modules = center(help_file())
   elseif buftype == "terminal" then
     modules = {
       vi_mode(),
       "%=Terminal%=",
+      -- TODO: add terminal id too
       vi_mode_placer,
     }
+  elseif buftype == "nofile" and filetype == "query" then
+    modules = center("Edit Query")
+  elseif filetype == "qf" then
+    modules = center("Quickfix List")
   elseif filetype == "oil" then
-    modules = {
-      vi_mode(),
-      "%=Oil%=",
-      vi_mode_placer,
-    }
+    modules = center("Oil")
   elseif filetype == "NeogitStatus" then
-    modules = {
-      vi_mode(),
-      "%=Neogit%=",
-      vi_mode_placer,
-    }
+    modules = center("Neogit")
   elseif filetype == "neotest-summary" then
-    modules = {
-      vi_mode(),
-      "%=Test Summary%=",
-      vi_mode_placer,
-    }
+    modules = center("Test Summary")
   end
   return table.concat(vim.tbl_filter(function(i)
     return i ~= nil
