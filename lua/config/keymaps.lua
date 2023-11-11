@@ -1,7 +1,3 @@
--- Keysets are automatically loaded on the VeryLazy event
--- Default keysets that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keysets.lua
--- Add any additional keysets here
-
 local set = vim.keymap.set
 
 local n = "n" -- normal
@@ -73,8 +69,8 @@ set(x, "K", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 -- buffers
 set(n, "[b", "<cmd>bprev<cr>", { desc = "Prev buffer" })
 set(n, "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-set(n, "<c-p>", "<cmd>bprev<cr>", { desc = "Prev buffer" })
-set(n, "<c-n>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+set(n, "<c-p>", "<cmd>tabprev<cr>", { desc = "Prev buffer" })
+set(n, "<c-n>", "<cmd>tabnext<cr>", { desc = "Next buffer" })
 
 -- tabs
 set(n, "<cs-tab>", "<cmd>tabprev<cr>", { desc = "Prev tab" })
@@ -105,5 +101,5 @@ set(x, ">", ">gv")
 -- TODO: matching using treesitter (or maybe matchup-vim?)
 set(nxo, "mm", "%", { desc = "Go to matching" })
 
-set(n, "q", "<cmd>close<cr>", { desc = "Close window" })
+set(n, "q", "<cmd>wincmd q<cr>", { desc = "Close window" })
 set(n, "Q", "q", { desc = "Record macro" })
