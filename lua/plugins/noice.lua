@@ -51,7 +51,7 @@ return {
         filter = {},
       },
     },
-    notify = { enabled = true },
+    notify = { enabled = false },
     lsp = {
       progress = {
         enabled = false,
