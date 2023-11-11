@@ -1,3 +1,4 @@
+-- HACK: refactor this shit
 return {
   { "ellisonleao/gruvbox.nvim", lazy = true },
   {
@@ -25,12 +26,36 @@ return {
       vim.cmd.colorscheme("kanagawa")
     end,
   },
-  { "kvrohit/mellow.nvim", lazy = true },
-  { "sainnhe/gruvbox-material", lazy = true },
+  {
+    "kvrohit/mellow.nvim",
+    lazy = true,
+    enabled = false,
+    config = function ()
+      vim.cmd.colorscheme("mellow")
+    end
+  },
+  {
+    "sainnhe/gruvbox-material",
+    lazy = true,
+    config = function(opts)
+      require('gruvbox-material').setup(opts)
+      vim.cmd.colorscheme("gruvbox-material")
+    end
+  },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
   -- oh-lucy.nvim
   -- nvim-tundra
   -- oxocarbon.nvim
+  {
+    "NTBBloodBath/sweetie.nvim",
+    enabled = false,
+    config = function()
+      vim.g.sweetie = {
+        pumblend = { enable = false }
+      }
+      vim.cmd.colorscheme("sweetie")
+    end,
+  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
