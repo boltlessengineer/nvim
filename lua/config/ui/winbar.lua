@@ -149,16 +149,15 @@ local function vi_mode()
 end
 
 local function file_name()
-  -- stylua: ignore
   local path = vim.fn.expand("%:p:h")--[[@as string]]
+  -- stylua: ignore
+  path = vim.fs.joinpath(path, "")
     :gsub(vim.pesc(vim.fs.joinpath(Util.root(), "")), "")
-  if path == vim.loop.cwd() then
-    path = ""
-  else
-    path = vim.fs.joinpath(path, "")
-  end
 
   local name = vim.fn.expand("%:p:t")--[[@as string]]
+  if name == "" then
+    name = "[No Name]"
+  end
 
   local hi = is_win_current() and hls.bold or hls.nc_bold
   return hl_text(path, hls.nc_base) .. hl_text(name, hi)
