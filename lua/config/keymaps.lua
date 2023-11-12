@@ -23,9 +23,6 @@ set(nxo, "<c-_>", "<c-/>", { remap = true })
 -- fix some default behaviors
 set(nx, "K", vim.lsp.buf.hover)
 
--- auto correct typo on command line
-vim.cmd.cabbrev("w'", "w")
-
 -- paste shortcut for insert mode (paste last yank, not from clipboard)
 set(i, "<c-v>", "<c-r>0")
 
