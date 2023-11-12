@@ -3,6 +3,7 @@ return {
     "nvim-neorg/neorg",
     ft = "norg",
     cmd = "Neorg",
+    enabled = false,
     config = function(_, opts)
       require("nvim-treesitter.install").prefer_git = true
       local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
