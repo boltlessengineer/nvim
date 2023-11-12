@@ -21,45 +21,26 @@ return {
         light = "lotus",
       },
     },
-    config = function(opts)
-      require("kanagawa").setup(opts)
-      vim.cmd.colorscheme("kanagawa")
-    end,
   },
-  {
-    "kvrohit/mellow.nvim",
-    lazy = true,
-    enabled = false,
-    config = function ()
-      vim.cmd.colorscheme("mellow")
-    end
-  },
-  {
-    "sainnhe/gruvbox-material",
-    lazy = true,
-    config = function(opts)
-      require('gruvbox-material').setup(opts)
-      vim.cmd.colorscheme("gruvbox-material")
-    end
-  },
+  { "kvrohit/mellow.nvim", lazy = true },
+  { "sainnhe/gruvbox-material", lazy = true },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
   -- oh-lucy.nvim
   -- nvim-tundra
   -- oxocarbon.nvim
   {
     "NTBBloodBath/sweetie.nvim",
-    enabled = false,
+    lazy = true,
     config = function()
       vim.g.sweetie = {
-        pumblend = { enable = false }
+        pumblend = { enable = false },
       }
-      vim.cmd.colorscheme("sweetie")
     end,
   },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    -- lazy = true,
+    lazy = true,
     opts = {
       transparent_background = true,
       term_colors = true,
@@ -93,11 +74,5 @@ return {
         telescope = true,
       },
     },
-    config = function(_, opts)
-      require("catppuccin").setup(opts)
-      -- compile catppuccin theme to apply theme change every time
-      -- require("catppuccin").compile()
-      vim.cmd.colorscheme("catppuccin")
-    end,
   },
 }

@@ -6,23 +6,23 @@ local M = {}
 ---@alias HLAttr {from: string, attr: "fg" | "bg", alter: integer}
 
 ---@class HLData
----@field fg string foreground
----@field bg string background
----@field sp string special
----@field blend integer between 0 and 100
----@field bold boolean
----@field standout boolean
----@field underline boolean
----@field undercurl boolean
----@field underdouble boolean
----@field underdotted boolean
----@field underdashed boolean
----@field strikethrough boolean
----@field italic boolean
----@field reverse boolean
----@field nocombine boolean
----@field link string
----@field default boolean
+---@field fg? string foreground
+---@field bg? string background
+---@field sp? string special
+---@field blend? integer between 0 and 100
+---@field bold? boolean
+---@field standout? boolean
+---@field underline? boolean
+---@field undercurl? boolean
+---@field underdouble? boolean
+---@field underdotted? boolean
+---@field underdashed? boolean
+---@field strikethrough? boolean
+---@field italic? boolean
+---@field reverse? boolean
+---@field nocombine? boolean
+---@field link? string
+---@field default? boolean
 
 ---@alias HLAttrName
 ---| '"fg"'
@@ -44,20 +44,24 @@ local M = {}
 ---| '"default"'
 
 ---@class HLArgs: HLData
----@field fg string | HLAttr
----@field bg string | HLAttr
----@field sp string | HLAttr
----@field clear boolean clear existing highlight
----@field inherit string inherit other highlight
+---@field fg? string | HLAttr
+---@field bg? string | HLAttr
+---@field sp? string | HLAttr
+---@field clear? boolean clear existing highlight
+---@field inherit? string inherit other highlight
 
 ---@private
----@param opts {name: string?, link: boolean?}?
----@param ns integer?
+---@param opts? {name?: string, link?: boolean}
+---@param ns? integer
+---@return HLData|nil
 local function get_hl_as_hex(opts, ns)
   opts = opts or {}
   ns = ns or 0
   opts.link = opts.link ~= nil and opts.link or false
   local hl = vim.api.nvim_get_hl(ns, opts)
+  if vim.tbl_isempty(hl) then
+    return nil
+  end
   hl.fg = hl.fg and ("#%06x"):format(hl.fg)
   hl.bg = hl.bg and ("#%06x"):format(hl.bg)
   return hl
@@ -85,20 +89,20 @@ local function tint(color, percent)
   return string.format("#%02x%02x%02x", blend(r), blend(g), blend(b))
 end
 
----Get the value a highlight group whilst handling errors, fallbacks as well as returning a gui value
+---Get the value a highlight group whilst handling errors and fallbacks as well as returning a gui value
 ---If no attribute is specified return the entire highlight table
 ---in the right format
 ---@param group string
 ---@param attribute HLAttrName
 ---@param fallback string?
 ---@return string
----@overload fun(group: string): HLData
+---@overload fun(group: string): HLData|nil
 function M.get(group, attribute, fallback)
   local data = get_hl_as_hex({ name = group })
   if not attribute then
     return data
   end
-  local color = data[attribute] or fallback or "NONE"
+  local color = (data and data[attribute]) or fallback or "NONE"
   if not color then
     local error_msg =
       string.format("failed to get highlight %s for attribute %s\n%s", group, attribute, debug.traceback())
@@ -146,15 +150,16 @@ end
 --- This will take the foreground colour from ErrorMsg and set it to the foreground of MatchParen.
 --- NOTE: this function must NOT mutate the options table as these are re-used when the colorscheme is updated
 ---
+---@param ns integer
 ---@param name string
 ---@param opts HLArgs
----@overload fun(ns: integer, name: string, opts: HLArgs)
+---@overload fun(name: string, opts: HLArgs)
 function M.set(ns, name, opts)
   if type(ns) == "string" and type(name) == "table" then
     opts, name, ns = name, ns, 0
   end
 
-  local hl = opts.clear and {} or get_hl_as_hex({ name = opts.inherit or name })
+  local hl = opts.clear and {} or get_hl_as_hex({ name = opts.inherit or name }) or {}
   for attribute, data in pairs(opts) do
     if attribute ~= "clear" and attribute ~= "inherit" then
       local new_data = resolve_from_attr(data, attribute)
@@ -166,7 +171,7 @@ function M.set(ns, name, opts)
 end
 
 ---Apply a list of highlights
----@param hls {[string]: HLArgs}
+---@param hls table<string, HLArgs>
 ---@param namespace integer?
 function M.all(hls, namespace)
   for name, args in pairs(hls) do
@@ -217,6 +222,23 @@ end
 ---@return string
 function M.hl_text(content, hlgroup)
   return string.format("%%#%s#%s%%*", hlgroup, content)
+end
+
+function M.fill_missing_highlights()
+  local missing_links = {
+    ["@lsp.type.class.lua"] = "Structure",
+    ["@lsp.type.keyword.lua"] = "Keyword",
+    ["@lsp.type.parameter"] = "@parameter",
+    ["@lsp.type.type.lua"] = "Type",
+    ["@lsp.typemod.variable.defaultLibrary.lua"] = "@namespace",
+    -- TODO: add more
+  }
+  for hl_name, target in pairs(missing_links) do
+    local hl_data = M.get(hl_name)
+    if not hl_data then
+      M.set(hl_name, { link = target })
+    end
+  end
 end
 
 return M

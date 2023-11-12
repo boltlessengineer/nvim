@@ -10,6 +10,11 @@ require("config.keymaps")
 require("config.abbrevs")
 require("config.autocmds")
 require("config.lazy")
+-- setup colorscheme
+-- pcall require here to lazy-load colorscheme
+pcall(require, "catppuccin")
+vim.cmd.colorscheme("catppuccin")
+require("config.ui")
 require("config.ui.statusline")
 require("config.ui.winbar")
 
