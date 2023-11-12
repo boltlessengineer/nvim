@@ -114,4 +114,9 @@ return {
     },
   },
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
+  {
+    "windwp/nvim-ts-autotag",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
+  },
 }
