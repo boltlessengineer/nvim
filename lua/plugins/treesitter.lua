@@ -116,6 +116,7 @@ return {
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
   {
     "windwp/nvim-ts-autotag",
+    -- FIX: do i have error-on-insert issue? (see README, #19)
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },

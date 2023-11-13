@@ -67,11 +67,13 @@ return {
             GitSignsChangedelete = { fg = c.blue, style = { "underline" }, sp = c.red },
             ["@text.emphasis"] = { fg = c.text },
             ["@text.strong"] = { fg = c.text },
+            NeogitCursorLine = { link = "CursorLine" },
           }
         end,
       },
       integrations = {
         telescope = true,
+        neogit = false,
       },
     },
   },

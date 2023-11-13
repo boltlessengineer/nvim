@@ -103,6 +103,10 @@ return {
     event = "BufReadPost",
     opts = {
       signs = false,
+      highlight = {
+        multiline = true,
+        multiline_context = 5,
+      },
     },
     -- stylua: ignore
     keys = {
