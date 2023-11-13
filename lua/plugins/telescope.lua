@@ -16,6 +16,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    dependencies = { "MunifTanjim/nui.nvim" },
     keys = {
       -- FIX: these don't load Telescope
       { "<plug>(lsp_definitions)", "<cmd>Telescope lsp_definitions<cr>" },
@@ -74,13 +75,23 @@ return {
         desc = "Goto Symbol (Workspace)",
       },
     },
-    -- TODO: show linenumber in telescope preview window
-    -- also, telescope window will be almost full screen (auto-resize on VimResized)
     opts = {
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+        git_files = {
+          show_untracked = true,
+        },
+      },
       defaults = {
-        file_ignore_patterns = { "^.git/" },
+        file_ignore_patterns = {
+          "^.git/",
+          "^node_modules/",
+        },
         prompt_prefix = " ",
         selection_caret = " ",
+        results_title = false,
         mappings = {
           i = {
             ["<c-s>"] = "select_horizontal",
@@ -98,148 +109,220 @@ return {
             ["q"] = "close",
           },
         },
-        -- TODO: use bottom_pane by default
-        layout_strategy = "bottom_horizontal",
+        -- layout_strategy = "bottom_horizontal",
         layout_config = {
           bottom_horizontal = {
             height = 25,
             preview_cutoff = 120,
             prompt_position = "top",
           },
+          horizontal = {
+            width = 0,
+            height = 25,
+          },
         },
         sorting_strategy = "ascending",
-      },
-      pickers = {
-        find_files = {
-          hidden = true,
-        },
-        git_files = {
-          show_untracked = true,
-        },
+        -- FIX:
+        -- 0. fix update-on-resize
+        -- 1. automatically choose "minimal" layout when short width
+        -- 2. remove nui.nvim, or at least, set native window title
+        -- 3. make it use configured border chars, border options
+        create_layout = function(picker)
+          local Layout = require("nui.layout")
+          local Popup = require("nui.popup")
+          local TSLayout = require("telescope.pickers.layout")
+          local resolve = require("telescope.config.resolve")
+          ---@param options nui_popup_options
+          ---@return TelescopeWindow
+          local function make_popup(options)
+            local popup = Popup(options)--[[@as table]]
+            function popup.border:change_title(title)
+              popup.border:set_text(popup.border, "top", title)
+            end
+            return TSLayout.Window(popup)
+          end
+          local border_size = picker.window.border == false and 0 or 1
+          local border = {
+            prompt = {
+              top_left = "┌",
+              top = "─",
+              top_right = "┬",
+              right = "│",
+              bottom_right = "",
+              bottom = "",
+              bottom_left = "",
+              left = "│",
+            },
+            prompt_patch = {
+              minimal = {
+                top_left = "┌",
+                top_right = "┐",
+              },
+              center = {
+                top_left = "┌",
+                top_right = "┐",
+              },
+              horizontal = {
+                top_left = "┌",
+                top_right = "┬",
+              },
+            },
+            results = {
+              top_left = "├",
+              top = "─",
+              top_right = "┤",
+              right = "│",
+              bottom_right = "┘",
+              bottom = "─",
+              bottom_left = "└",
+              left = "│",
+            },
+            results_patch = {
+              minimal = {
+                bottom_right = "┘",
+              },
+              center = {
+                bottom_right = "┘",
+              },
+              horizontal = {
+                bottom_right = "┴",
+              },
+            },
+            preview = {
+              top_left = "┌",
+              top = "─",
+              top_right = "┐",
+              right = "│",
+              bottom_right = "┘",
+              bottom = "─",
+              bottom_left = "└",
+              left = "│",
+            },
+            preview_patch = {
+              minimal = {},
+              center = {},
+              horizontal = {
+                bottom = "─",
+                bottom_left = "",
+                bottom_right = "┘",
+                left = "",
+                top_left = "",
+              },
+            },
+          }
+          local results = make_popup({
+            focusable = false,
+            border = {
+              style = border.results,
+              text = {
+                top = picker.results_title,
+                top_align = "center",
+              },
+            },
+          })
+          local prompt = make_popup({
+            enter = true,
+            border = {
+              style = border.prompt,
+              text = {
+                top = picker.prompt_title,
+                top_align = "center",
+              },
+            },
+          })
+          local preview = make_popup({
+            focusable = false,
+            border = {
+              style = border.preview,
+              text = {
+                top = picker.preview_title,
+                top_align = "center",
+              },
+            },
+          })
+          local box_by_kind = {
+            horizontal = Layout.Box({
+              Layout.Box({
+                Layout.Box(prompt, { size = 1 + border_size }),
+                Layout.Box(results, { grow = 1 }),
+              }, { dir = "col", size = "40%" }),
+              Layout.Box(preview, { grow = 1 }),
+            }, { dir = "row" }),
+            minimal = Layout.Box({
+              Layout.Box(prompt, { size = 1 + border_size }),
+              Layout.Box(results, { grow = 1 }),
+            }, { dir = "col" }),
+            center = Layout.Box({
+              Layout.Box(prompt, { size = 1 + border_size }),
+              Layout.Box(results, { grow = 1 }),
+            }, { dir = "col" }),
+          }
+          local function get_box()
+            local strategy = picker.layout_strategy
+            if not box_by_kind[strategy] then
+              strategy = picker.preview and "horizontal" or "minimal"
+            end
+            return box_by_kind[strategy], strategy
+          end
+          local function prepare_layout_parts(layout, strategy)
+            layout.prompt = prompt
+            layout.results = results
+            prompt
+              .border--[[@as NuiPopupBorder]]
+              :set_style(border.prompt_patch[strategy])
+            results
+              .border--[[@as NuiPopupBorder]]
+              :set_style(border.results_patch[strategy])
+            if strategy == "minimal" then
+              layout.preview = nil
+            else
+              layout.preview = preview
+              preview
+                .border--[[@as NuiPopupBorder]]
+                :set_style(border.preview_patch[strategy])
+            end
+          end
+          local function get_layout_size(strategy)
+            strategy = strategy == "minimal" and "vertical" or strategy
+            local layout_config = picker.layout_config[strategy]
+            local width = resolve.resolve_width(layout_config.width)(picker, vim.o.columns, vim.o.lines)
+            local height = resolve.resolve_height(layout_config.height)(picker, vim.o.columns, vim.o.lines)
+            return {
+              width = width == 0 and vim.o.columns or width,
+              height = height == 0 and vim.o.lines or height,
+            }
+          end
+          local function get_layout_pos(strategy, size)
+            strategy = strategy == "minimal" and "vertical" or strategy
+            return strategy == "center" and "50%"
+              or {
+                col = "50%",
+                row = vim.o.lines - size.height - vim.o.cmdheight - (vim.o.laststatus % 2),
+              }
+          end
+          local box, strategy = get_box()
+          local layout_opts = {
+            relative = "editor",
+            size = get_layout_size(strategy),
+          }
+          layout_opts.position = get_layout_pos(strategy, layout_opts.size)
+
+          local layout = Layout(layout_opts, box) --[[@as table]]
+          layout.picker = picker
+          prepare_layout_parts(layout, strategy)
+          local layout_update = layout--[[@as NuiLayout]].update
+          function layout:update()
+            local box_, strategy_ = get_box()
+            prepare_layout_parts(strategy_)
+            local size = get_layout_size(strategy_)
+            layout_update(self, {
+              position = get_layout_pos(strategy_, size),
+              size = size,
+            }, box_)
+          end
+          return TSLayout(layout)
+        end,
       },
     },
-    config = function(_, opts)
-      local function get_border_size(picker)
-        if picker.window.border == false then
-          return 0
-        end
-        return 1
-      end
-
-      local function calc_tabline(max_lines)
-        local tbln = (vim.o.showtabline == 2) or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
-        if tbln then
-          max_lines = max_lines - 1
-        end
-        return max_lines, tbln
-      end
-
-      ---Helper function for capping over/undersized width/height, and calculating spacing
-      ---@param cur_size number size of capped
-      ---@param max_size number the maximum size, e.g. max_lines or max_columns
-      ---@param bs number the size of the border
-      ---@param w_num number the maximum number of windows of the picker in the given direction
-      ---@param b_num number the number of border rows/column in the given direction (when border enabled)
-      ---@param s_num number the number of gaps in the given direction (when border disabled)
-      ---@return number cur_size
-      ---@return number spacing
-      local function calc_size_and_spacing(cur_size, max_size, bs, w_num, b_num, s_num)
-        local spacing = s_num * (1 - bs) + b_num * bs
-        cur_size = math.min(cur_size, max_size)
-        cur_size = math.max(cur_size, w_num + spacing)
-        return cur_size, spacing
-      end
-
-      -- HACK: get layout_config in more proper way
-      local layout_config = opts.defaults.layout_config.bottom_horizontal
-      require("telescope.pickers.layout_strategies").bottom_horizontal = function(picker, max_columns, max_lines, _)
-        local resolve = require("telescope.config.resolve")
-        local initial_options = require("telescope.pickers.window").get_initial_window_options(picker)
-        local preview = initial_options.preview
-        local prompt = initial_options.prompt
-        local results = initial_options.results
-
-        local tbln
-        max_lines, tbln = calc_tabline(max_lines)
-        local bs = get_border_size(picker)
-
-        local height_opt = layout_config.height
-        local height = resolve.resolve_height(height_opt)(picker, max_columns, max_lines)
-
-        -- Height
-        prompt.height = 1
-        results.height = height - prompt.height - (3 * bs)
-        preview.height = height - (2 * bs)
-
-        -- Width
-        if picker.previewer and (max_columns >= layout_config.preview_cutoff) then
-          -- Cap over/undersized width (with preview)
-          local width, w_space = calc_size_and_spacing(max_columns, max_columns, bs, 2, 3, 1)
-          preview.width =
-            resolve.resolve_width(vim.F.if_nil(layout_config.preview_width, 0.6))(picker, width, max_lines)
-          prompt.width = width - preview.width - w_space
-        else
-          preview.width = 0
-          prompt.width = max_columns - 2 * bs
-        end
-        results.width = prompt.width
-
-        results.borderchars = vim.deepcopy(results.borderchars)
-        preview.borderchars = vim.deepcopy(preview.borderchars)
-
-        -- Line
-        if layout_config.prompt_position == "top" then
-          prompt.line = max_lines - results.height - (1 + bs)
-          results.line = prompt.line + prompt.height + bs
-          preview.line = prompt.line
-          if results.border and preview.border then
-            results.borderchars[5] = "├"
-            results.borderchars[6] = "┤"
-            if picker.previewer and preview.width > 0 then
-              results.borderchars[7] = "┴"
-            end
-            preview.borderchars[5] = "┬"
-          end
-          results.title = nil
-        elseif layout_config.prompt_position == "bottom" then
-          results.line = max_lines - results.height - (1 + bs)
-          prompt.line = max_lines - bs
-          preview.line = results.line
-          if results.border and preview.border then
-            results.borderchars[6] = "┬"
-            results.borderchars[7] = "┤"
-            results.borderchars[8] = "├"
-            preview.borderchars[8] = "┴"
-          end
-        else
-          error(
-            string.format("Unkown prompt_position: %s\n%s", picker.window.prompt_position, vim.inspect(layout_config))
-          )
-        end
-
-        -- Col
-        prompt.col = 1 + bs
-        if layout_config.mirror and preview.width > 0 then
-          preview.col = bs + 1
-          results.col = preview.width + (3 * bs)
-        else
-          results.col = bs + 1
-          preview.col = results.width + (3 * bs)
-        end
-
-        if tbln then
-          prompt.line = prompt.line + 1
-          results.line = results.line + 1
-          preview.line = preview.line + 1
-        end
-
-        return {
-          preview = (picker.previewer and preview.width > 0) and preview,
-          prompt = prompt,
-          results = results,
-        }
-      end
-      require("telescope").setup(opts)
-    end,
   },
 }
