@@ -120,6 +120,10 @@ return {
             width = 0,
             height = 25,
           },
+          vertical = {
+            width = 0,
+            height = 25,
+          },
         },
         sorting_strategy = "ascending",
         -- FIX:
@@ -158,6 +162,10 @@ return {
                 top_left = "┌",
                 top_right = "┐",
               },
+              vertical = {
+                top_left = "┌",
+                top_right = "┐",
+              },
               center = {
                 top_left = "┌",
                 top_right = "┐",
@@ -181,6 +189,9 @@ return {
               minimal = {
                 bottom_right = "┘",
               },
+              vertical = {
+                bottom_right = "┘",
+              },
               center = {
                 bottom_right = "┘",
               },
@@ -201,6 +212,9 @@ return {
             preview_patch = {
               minimal = {},
               center = {},
+              vertical = {
+                bottom_right = "┘",
+              },
               horizontal = {
                 bottom = "─",
                 bottom_left = "",
@@ -241,6 +255,11 @@ return {
             },
           })
           local box_by_kind = {
+            vertical = Layout.Box({
+              Layout.Box(preview, { grow = 1 }),
+              Layout.Box(prompt, { size = 1 + border_size }),
+              Layout.Box(results, { grow = 1 }),
+            }, { dir = "col" }),
             horizontal = Layout.Box({
               Layout.Box({
                 Layout.Box(prompt, { size = 1 + border_size }),
@@ -261,6 +280,9 @@ return {
             local strategy = picker.layout_strategy
             if not box_by_kind[strategy] then
               strategy = picker.preview and "horizontal" or "minimal"
+            end
+            if strategy == "horizontal" and vim.o.columns < 100 then
+              strategy = "minimal"
             end
             return box_by_kind[strategy], strategy
           end
@@ -313,13 +335,25 @@ return {
           local layout_update = layout--[[@as NuiLayout]].update
           function layout:update()
             local box_, strategy_ = get_box()
-            prepare_layout_parts(strategy_)
+            if strategy_ == "minimal" then
+              self.preview:unmount()
+              self.preview = nil
+            end
+            prepare_layout_parts(self, strategy_)
             local size = get_layout_size(strategy_)
             layout_update(self, {
               position = get_layout_pos(strategy_, size),
               size = size,
             }, box_)
           end
+          vim.api.nvim_create_autocmd("FocusLost", {
+            callback = function()
+              if not layout then
+                return true
+              end
+              layout:update()
+            end,
+          })
           return TSLayout(layout)
         end,
       },
