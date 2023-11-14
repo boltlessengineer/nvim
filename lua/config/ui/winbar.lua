@@ -358,13 +358,15 @@ function _G.winbar()
       -- TODO: add terminal id too
       vi_mode_placer,
     }
-  elseif buftype == "nofile" and filetype == "query" then
+  elseif buftype == "nofile" and filetype == "query" and vim.bo.modifiable and not vim.bo.readonly then
     modules = center("Edit Query")
   elseif filetype == "qf" then
     modules = center("Quickfix List")
+  elseif filetype == "checkhealth" then
+    modules = center("checkhealth")
   elseif filetype == "oil" then
     modules = center("Oil")
-  elseif filetype == "NeogitStatus" then
+  elseif filetype:match("^Neogit.*") then
     modules = center("Neogit")
   elseif filetype == "neotest-summary" then
     modules = center("Test Summary")
