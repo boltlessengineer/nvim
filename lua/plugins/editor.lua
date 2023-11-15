@@ -1,8 +1,14 @@
+local Util = require("utils")
 ---@type LazySpec[]
 return {
   -- buffer style folder view
   {
     "stevearc/oil.nvim",
+    keys = {
+      -- stylua: ignore
+      { "_", function () vim.cmd.edit(Util.root()) end, desc = "Open root dir" },
+      { "-", "<cmd>Oil<cr>" },
+    },
     opts = {
       -- stylua: ignore
       keymaps = {
@@ -16,6 +22,7 @@ return {
         ["<C-l>"] = "actions.refresh",
         ["<C-.>"] = "actions.toggle_hidden",
         ["-"]     = "actions.parent",
+        ["_"]     = false,
         ["<c-h>"] = false,
       },
     },
