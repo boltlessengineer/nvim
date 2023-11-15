@@ -150,12 +150,16 @@ end
 
 local function file_name()
   local path = vim.fn.expand("%:p:h")--[[@as string]]
+  path = path:gsub("oil://", "")
   -- stylua: ignore
   path = vim.fs.joinpath(path, "")
     :gsub(vim.pesc(vim.fs.joinpath(Util.root(), "")), "")
 
   local name = vim.fn.expand("%:p:t")--[[@as string]]
-  if name == "" then
+  if vim.bo.filetype == "oil" then
+    name = path == "" and "." or path
+    path = "oil://"
+  elseif name == "" then
     name = "[No Name]"
   end
 
@@ -365,7 +369,17 @@ function _G.winbar()
   elseif filetype == "checkhealth" then
     modules = center("checkhealth")
   elseif filetype == "oil" then
-    modules = center("Oil")
+    modules = {
+      vi_mode(),
+      "  ",
+      file_name(),
+      file_modi(),
+      "  ",
+      git_status(),
+      "%=",
+      " ",
+      "%P ",
+    }
   elseif filetype:match("^Neogit.*") then
     modules = center("Neogit")
   elseif filetype == "neotest-summary" then
