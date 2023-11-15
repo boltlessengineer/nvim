@@ -77,6 +77,47 @@ return {
       scope = { enabled = false },
     },
   },
+  -- better list view
+  {
+    "folke/trouble.nvim",
+    enabled = false,
+    cmd = { "Trouble", "TroubleToggle" },
+    keys = {
+      { "<leader>x", desc = "+trouble" },
+      { "<leader>xx", cmd = "<cmd>Trouble quickfix<cr>" },
+    },
+    opts = {
+      -- TODO:
+      icons = false,
+    },
+    config = function(_, opts)
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "qf",
+        callback = function(event)
+          vim.notify("quickfix!")
+          vim.api.nvim_buf_delete(event.buf, {})
+          vim.cmd("Trouble quickfix")
+        end,
+      })
+      require("trouble").setup(opts)
+    end,
+  },
+  -- window layout management
+  {
+    "folke/edgy.nvim",
+    event = "VeryLazy",
+    opts = {
+      wo = {
+        winbar = false,
+      },
+      animate = {
+        enabled = false,
+      },
+      bottom = {
+        "qf",
+      },
+    },
+  },
   -- better fold
   {
     "kevinhwang91/nvim-ufo",
