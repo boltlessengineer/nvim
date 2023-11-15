@@ -6,7 +6,6 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim",
     "smjonas/inc-rename.nvim",
-    { "rcarriga/nvim-notify", lazy = true },
   },
   cond = function()
     return not vim.g.neovide
