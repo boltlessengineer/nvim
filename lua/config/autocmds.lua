@@ -17,14 +17,14 @@ local au = vim.api.nvim_create_autocmd
 ---@field data any
 
 ---@class local.Autocommand
----@field desc string
----@field event string | string[]
----@field pattern string | string[]
----@field command string
----@field callback fun(args: local.AutocmdArgs): boolean?
----@field once boolean
----@field nested boolean
----@field buffer number
+---@field desc? string
+---@field event? string | string[]
+---@field pattern? string | string[]
+---@field command? string
+---@field callback? fun(args: local.AutocmdArgs): boolean?
+---@field once? boolean
+---@field nested? boolean
+---@field buffer? number
 
 ---Create an autocommands
 ---returns the group ID
