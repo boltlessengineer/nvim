@@ -24,6 +24,7 @@ return {
         ["-"]     = "actions.parent",
         ["_"]     = false,
         ["<c-h>"] = false,
+        ["<c-p>"] = false,
       },
     },
   },
