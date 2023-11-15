@@ -1,6 +1,6 @@
 return {
   "folke/which-key.nvim",
-  keys = { "<leader>", "]", "[", "m", '"', { "<c-r>", mode = "i" } },
+  event = "VeryLazy",
   opts = {
     plugins = {
       marks = false,
@@ -34,7 +34,7 @@ return {
       mode = { "n", "v" },
       ["<leader>c"] = { name = "+code" },
       ["<leader>g"] = { name = "+git" },
-      ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      ["<c-g>"] = { name = "+chatgpt" },
       ["]"] = { name = "+next" },
       ["["] = { name = "+prev" },
       ["m"] = { name = "+match" },

@@ -7,13 +7,15 @@ return {
       -- stylua: ignore
       keymaps = {
         -- TODO: put a small note that I can use `g?` for help
+        -- TODO: change `_` opens Oil in util.root()
+        -- and make it global keymap
         ["<C-/>"] = "actions.show_help",
         ["<C-s>"] = "actions.select_split",
         ["<C-v>"] = "actions.select_vsplit",
         ["K"]     = "actions.preview",
         ["<C-l>"] = "actions.refresh",
         ["<C-.>"] = "actions.toggle_hidden",
-        ["-"] = "actions.parent",
+        ["-"]     = "actions.parent",
         ["<c-h>"] = false,
       },
     },
@@ -39,7 +41,7 @@ return {
   {
     "cbochs/grapple.nvim",
     keys = {
-      { "<leader>h", desc = "Grapple" },
+      { "<leader>h", desc = "+harppon" },
       { "<leader><leader>", "<cmd>GrapplePopup tags<cr>", desc = "Grapple Tags" },
       { "<leader>hs", "<cmd>GrapplePopup scopes<cr>", desc = "Popup scopes" },
       { "<leader>hp", "<cmd>GrappleTag<cr>", desc = "Pin File" },

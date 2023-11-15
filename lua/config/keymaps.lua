@@ -75,6 +75,10 @@ set(n, "<c-n>", "<cmd>tabnext<cr>", { desc = "Next buffer" })
 set(n, "<cs-tab>", "<cmd>tabprev<cr>", { desc = "Prev tab" })
 set(n, "<c-tab>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
+-- quickfix list
+set(n, "[q", "<cmd>cprev<cr>", { desc = "Prev qf item" })
+set(n, "]q", "<cmd>cnext<cr>", { desc = "Next qf item" })
+
 -- toggle options
 -- set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
 
