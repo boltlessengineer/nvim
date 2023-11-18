@@ -384,6 +384,8 @@ function _G.winbar()
     modules = center("Neogit")
   elseif filetype == "neotest-summary" then
     modules = center("Test Summary")
+  elseif filetype == "tsplayground" then
+    modules = center("TSPlayground")
   end
   return table.concat(vim.tbl_filter(function(i)
     return i ~= nil

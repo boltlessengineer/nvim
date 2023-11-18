@@ -4,6 +4,8 @@ return {
   -- buffer style folder view
   {
     "stevearc/oil.nvim",
+    -- disable lazy loading to load oil on `vim [folder]`
+    event = "VimEnter",
     keys = {
       -- stylua: ignore
       { "_", function () vim.cmd.edit(Util.root()) end, desc = "Open root dir" },
