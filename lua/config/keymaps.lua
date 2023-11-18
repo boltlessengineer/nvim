@@ -62,6 +62,7 @@ set(c, "<c-n>", "<down>")
 set(c, "<c-p>", "<up>")
 
 -- Move lines
+-- FIX: do only when 'indentexpr' is not empty
 set(x, "J", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
 set(x, "K", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 
