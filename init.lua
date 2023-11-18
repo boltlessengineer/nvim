@@ -9,6 +9,7 @@ require("config.options")
 require("config.keymaps")
 require("config.abbrevs")
 require("config.autocmds")
+require("config.editorconfig")
 require("config.lazy")
 -- setup colorscheme
 -- pcall require here to lazy-load colorscheme

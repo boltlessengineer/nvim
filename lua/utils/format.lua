@@ -52,12 +52,17 @@ end
 ---@param buf? number
 function M.info(buf)
   buf = buf or vim.api.nvim_get_current_buf()
-  local gaf = vim.g.autoformat == nil or vim.g.autoformat
+  local gaf = vim.g.autoformat
+  local eaf = vim.b[buf].editorconfig_autoformat
   local baf = vim.b[buf].autoformat
   local enabled = M.enabled(buf)
   local lines = {
     "# Status",
     ("- [%s] global **%s**"):format(gaf and "x" or " ", gaf and "enabled" or "disabled"),
+    ("- [%s] editorconfig **%s**"):format(
+      enabled and "x" or " ",
+      eaf == nil and "inherit" or eaf and "enabled" or "disabled"
+    ),
     ("- [%s] buffer **%s**"):format(
       enabled and "x" or " ",
       baf == nil and "inherit" or baf and "enabled" or "disabled"
@@ -85,16 +90,14 @@ end
 ---@param buf? number
 function M.enabled(buf)
   buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
-  local gaf = vim.g.autoformat
-  local baf = vim.b[buf].autoformat
 
-  -- If the buffer has a local value, use that
-  if baf ~= nil then
-    return baf
-  end
-
-  -- Otherwise use the global value if set, or true by default
-  return gaf == nil or gaf
+  -- autoformat options fallback. buffer > editorconfig > global
+  -- stylua: ignore
+  return vim.F.if_nil(
+    vim.b[buf].autoformat,
+    vim.b[buf].editorconfig_autoformat,
+    vim.g.autoformat
+  )
 end
 
 ---@param buf? boolean
@@ -132,6 +135,7 @@ function M.format(opts)
 end
 
 function M.setup()
+  vim.g.autoformat = true
   -- Autoformat autocmd
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("LazyFormat", {}),
