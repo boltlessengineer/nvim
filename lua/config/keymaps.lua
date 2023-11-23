@@ -31,10 +31,6 @@ set(i, "<c-v>", "<c-r>0")
 -- command-line remap that feals *right*
 set(c, "<c-l>", "<c-d>")
 
--- better up/down
-set(nxo, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-set(nxo, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 set(
