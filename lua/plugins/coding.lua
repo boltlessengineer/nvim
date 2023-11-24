@@ -1,3 +1,4 @@
+local Util = require("utils")
 return {
   {
     "windwp/nvim-autopairs",
@@ -60,22 +61,22 @@ return {
     dependencies = {
       {
         "JoosepAlviste/nvim-ts-context-commentstring",
-        dependencies = {
-          "nvim-treesitter/nvim-treesitter",
-          opts = {
-            context_commentstring = {
-              enable = true,
-              enable_autocmd = false,
-            },
-          },
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        init = function()
+          vim.g.skip_ts_context_commentstring_module = true
+        end,
+        opts = {
+          enable_autocmd = false,
         },
       },
     },
     keys = {
       { "g/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
+      { "g\\", "<Plug>(comment_toggle_blockwise_current)", desc = "Comment Blockwise" },
+      { mode = "x", "g/", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
+      { mode = "x", "g\\", "<Plug>(comment_toggle_blockwise_visual)", desc = "Comment Blockwise" },
       { "<C-/>", "<Plug>(comment_toggle_linewise_current)", desc = "Comment Linewise" },
       { "<C-\\>", "<Plug>(comment_toggle_blockwise_current)", desc = "Comment Blockwise" },
-      { mode = "x", "g/", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
       { mode = "x", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment Linewise" },
       { mode = "x", "<C-\\>", "<Plug>(comment_toggle_blockwise_visual)", desc = "Comment Blockwise" },
     },
