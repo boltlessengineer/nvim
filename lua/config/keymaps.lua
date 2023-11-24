@@ -57,6 +57,9 @@ set(n, "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 set(c, "<c-n>", "<down>")
 set(c, "<c-p>", "<up>")
 
+-- don't move cursor on 'J'
+set(n, "J", "mzJ`z")
+
 -- Move lines
 -- FIX: do only when 'indentexpr' is not empty
 set(x, "J", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
