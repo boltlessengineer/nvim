@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -16,7 +17,6 @@ return {
       local cmp = require("cmp")
 
       ---@type cmp.ConfigSchema
-      ---@diagnostic disable-next-line: missing-fields
       return {
         snippet = {
           expand = function(args)
