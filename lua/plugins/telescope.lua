@@ -1,4 +1,5 @@
 local Utils = require("utils")
+local icons = require("config.icons")
 
 ---this will return a function that calls telescope
 ---cwd will default to util.root()
@@ -89,8 +90,8 @@ return {
           "^.git/",
           "^node_modules/",
         },
-        prompt_prefix = " ",
-        selection_caret = " ",
+        prompt_prefix = icons.telescope.prompt_prefix,
+        selection_caret = icons.telescope.selection_caret,
         results_title = false,
         mappings = {
           i = {
@@ -111,27 +112,22 @@ return {
         },
         -- layout_strategy = "bottom_horizontal",
         layout_config = {
-          bottom_horizontal = {
-            height = 25,
-            preview_cutoff = 120,
-            prompt_position = "top",
-          },
           horizontal = {
-            width = 0,
-            height = 25,
+            prompt_position = "top",
+            -- HACK: make width 100%
+            width = 0.99999999,
+            height = 0.5,
           },
           vertical = {
-            width = 0,
+            -- width = 0,
             height = 25,
           },
         },
         sorting_strategy = "ascending",
         -- FIX:
-        -- 0. fix update-on-resize
-        -- 1. automatically choose "minimal" layout when short width
-        -- 2. remove nui.nvim, or at least, set native window title
-        -- 3. make it use configured border chars, border options
-        create_layout = function(picker)
+        -- 1. remove nui.nvim
+        -- 2. make it use configured border chars, border options
+        _create_layout = function(picker)
           local Layout = require("nui.layout")
           local Popup = require("nui.popup")
           local TSLayout = require("telescope.pickers.layout")

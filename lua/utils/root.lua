@@ -152,11 +152,11 @@ function M.setup()
   })
 end
 
--- returns the root directory based on:
--- * lsp workspace folders
--- * lsp root_dir
--- * root pattern of filename of the current buffer
--- * root pattern of cwd
+---returns the root directory based on:
+---* lsp workspace folders
+---* lsp root_dir
+---* root pattern of filename of the current buffer
+---* root pattern of cwd
 ---@param opts? {normalize?:boolean, buf?:number}
 ---@return string
 function M.get(opts)

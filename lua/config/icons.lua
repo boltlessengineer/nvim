@@ -54,4 +54,8 @@ return {
     Value = " ",
     Variable = " ",
   },
+  telescope = {
+    prompt_prefix = " ",
+    selection_caret = " ",
+  },
 }
