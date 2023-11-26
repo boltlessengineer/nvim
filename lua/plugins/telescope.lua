@@ -115,7 +115,7 @@ return {
           horizontal = {
             prompt_position = "top",
             -- HACK: make width 100%
-            width = 0.99999999,
+            width = 99999999,
             height = 0.5,
           },
           vertical = {

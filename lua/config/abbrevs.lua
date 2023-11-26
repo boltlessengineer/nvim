@@ -1,3 +1,4 @@
+-- FIXME: this breaks cabbrev... cabrev doesn't works with this keymap
 local Aliases = {}
 -- NOTE: don't use <tab> here. it messes up with wildchar (see `:h 'wildchar'`)
 local trigger_chars = { "<space>", "<cr>" }

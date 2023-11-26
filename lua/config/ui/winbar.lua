@@ -386,6 +386,8 @@ function _G.winbar()
     modules = center("Test Summary")
   elseif filetype == "tsplayground" then
     modules = center("TSPlayground")
+  else
+    modules = center(filetype)
   end
   return table.concat(vim.tbl_filter(function(i)
     return i ~= nil
