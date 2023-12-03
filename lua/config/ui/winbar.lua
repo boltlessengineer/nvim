@@ -386,6 +386,8 @@ function _G.winbar()
     modules = center("Test Summary")
   elseif filetype == "tsplayground" then
     modules = center("TSPlayground")
+  elseif vim.fn.win_gettype(vim.api.nvim_get_current_win()) == "command" then
+    modules = center("Command Window")
   else
     modules = center(filetype)
   end
