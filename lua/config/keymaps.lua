@@ -20,9 +20,6 @@ set(t, "<tab>", "<tab>")
 -- detect CTRL-/ in any terimnals
 set(nxo, "<c-_>", "<c-/>", { remap = true })
 
--- fix some default behaviors
-set(nx, "K", vim.lsp.buf.hover)
-
 set(nx, "gK", ":Inspect<cr>")
 
 -- paste shortcut for insert mode (paste last yank, not from clipboard)

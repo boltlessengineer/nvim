@@ -20,6 +20,7 @@ return {
     },
     -- stylua: ignore
     _keys = {
+      { "K", vim.lsp.buf.hover, desc = "hover", mode = { 'n', 'x' } },
       { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
       -- TODO: toggle inlay hints
       -- { "<leader>ci", desc = "Toggle inlay-hints" },
