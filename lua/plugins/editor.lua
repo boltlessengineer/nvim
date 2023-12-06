@@ -55,6 +55,10 @@ return {
       { "<leader><leader>", "<cmd>GrapplePopup tags<cr>", desc = "Grapple Tags" },
       { "<leader>hs", "<cmd>GrapplePopup scopes<cr>", desc = "Popup scopes" },
       { "<leader>hp", "<cmd>GrappleTag<cr>", desc = "Pin File" },
+      { "<leader>1", "<cmd>GrappleSelect key=1<cr>", desc = "Pin 1" },
+      { "<leader>2", "<cmd>GrappleSelect key=2<cr>", desc = "Pin 2" },
+      { "<leader>3", "<cmd>GrappleSelect key=3<cr>", desc = "Pin 3" },
+      { "<leader>4", "<cmd>GrappleSelect key=4<cr>", desc = "Pin 4" },
     },
   },
   -- highlight search only while n/N typed
