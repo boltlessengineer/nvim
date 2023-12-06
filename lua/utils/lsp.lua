@@ -1,4 +1,4 @@
-local Util = require('utils')
+local Util = require("utils")
 
 ---@class bt.util.lsp
 local M = {}
@@ -24,25 +24,59 @@ function M.on_attach(cb)
   })
 end
 
+-- TODO: run on_rename on Oil.nvim rename event
+
 ---@param from string
 ---@param to string
 function M.on_rename(from, to)
   local clients = M.get_clients()
   for _, client in ipairs(clients) do
     if client.supports_method("workspace/willRenameFiles") then
+      ---@diagnostic disable-next-line: invisible
       local resp = client.request_sync("workspace/willRenameFiles", {
         files = {
           {
             oldUri = vim.uri_from_fname(from),
             newUri = vim.uri_from_fname(to),
-          }
-        }
+          },
+        },
       }, 1000, 0)
       if resp and resp.result ~= nil then
         vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
       end
     end
   end
+end
+
+---copied from https://github.com/neovim/neovim/issues/25869
+function M.set_handler_diag_line_sign()
+  local diagnostic_lines_ns = vim.api.nvim_create_namespace("Diagnostic Lines")
+  local orig_signs_handler = vim.diagnostic.handlers.signs
+  local function severity_highlight(severity)
+    -- TODO: make highlight from diagnostic highlights
+    -- if bg color exists for virtual text, use it
+    -- if not, create one by mixing fg color and Normal bg color
+    return "DiffDelete"
+  end
+  vim.diagnositc.handlers.signs = {
+    show = function(_, bufnr, _, opts)
+      local diagnostics = vim.diagnostic.get(bufnr)
+      for _, diagnostic in ipairs(diagnostics) do
+        vim.api.nvim_buf_set_extmark(
+          diagnostic.bufnr,
+          diagnostic_lines_ns,
+          diagnostic.lnum,
+          0,
+          { line_hl_group = severity_highlight(diagnostic.severity) }
+        )
+      end
+      orig_signs_handler.show(diagnostic_lines_ns, bufnr, diagnostics, opts)
+    end,
+    hide = function(_, bufnr)
+      vim.api.nvim_buf_clear_namespace(bufnr, diagnostic_lines_ns, 0, -1)
+      orig_signs_handler.hide(diagnostic_lines_ns, bufnr)
+    end,
+  }
 end
 
 ---@return _.lspconfig.options
