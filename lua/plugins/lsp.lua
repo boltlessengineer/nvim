@@ -20,7 +20,7 @@ return {
     },
     -- stylua: ignore
     _keys = {
-      { "K", vim.lsp.buf.hover, desc = "hover", mode = { 'n', 'x' } },
+      { "K", vim.lsp.buf.hover, desc = "hover" },
       { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
       -- TODO: toggle inlay hints
       -- { "<leader>ci", desc = "Toggle inlay-hints" },
@@ -30,7 +30,7 @@ return {
       { "gd", "<plug>(lsp_definitions)", desc = "Goto Definition", has = "definition" },
       { "gy", "<plug>(lsp_type_definitions)", desc = "Goto T[y]pe Definition", has = "typeDefinition" },
       { "gr", "<plug>(lsp_references)", desc = "References", has = "references" },
-      { "gi", "<plug>(lsp_implementations)", desc = "Goto Implementations", has = "implementation" },
+      { "gI", "<plug>(lsp_implementations)", desc = "Goto Implementations", has = "implementation" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
       { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic", mode = { 'n', 'x' } },
       { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic", mode = { 'n', 'x' } },
