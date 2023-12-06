@@ -2,26 +2,33 @@ local Util = require("utils")
 local util_hl = require("utils.highlights")
 local ui = require("config.ui")
 
+-- TODO:
+-- indicate root directory if it is different from main root directory
+-- support sg://
+-- support cargo package path shrink
+-- e.g. crate://lsp-types-0.94.1/src/completion.rs
+
+-- stylua: ignore
 local hls = {
-  mode_normal = "ViModeNormal",
-  mode_insert = "ViModeInsert",
-  mode_replace = "ViModeReplace",
-  mode_select = "ViModeSelect",
-  mode_visual = "ViModeVisual",
-  mode_command = "ViModeCommand",
-  mode_terminal = "ViModeTerminal",
-  base = "Winbar",
-  bold = "WinbarBold",
-  nc_base = "WinbarNC",
-  nc_bold = "WinbarNCBold",
-  nontext = "WinbarNonText",
-  git_branch = "WinbarBlue",
-  diag_error = "WinbarDiagError",
-  diag_warn = "WinbarDiagWarn",
+  mode_normal     = "ViModeNormal",
+  mode_insert     = "ViModeInsert",
+  mode_replace    = "ViModeReplace",
+  mode_select     = "ViModeSelect",
+  mode_visual     = "ViModeVisual",
+  mode_command    = "ViModeCommand",
+  mode_terminal   = "ViModeTerminal",
+  base            = "Winbar",
+  bold            = "WinbarBold",
+  nc_base         = "WinbarNC",
+  nc_bold         = "WinbarNCBold",
+  nontext         = "WinbarNonText",
+  git_branch      = "WinbarBlue",
+  diag_error      = "WinbarDiagError",
+  diag_warn       = "WinbarDiagWarn",
   diag_error_sign = "WinbarDiagSignError",
-  diag_warn_sign = "WinbarDiagSignWarn",
-  stx_keyword = "WinbarKeyword",
-  comment = "WinbarComment",
+  diag_warn_sign  = "WinbarDiagSignWarn",
+  stx_keyword     = "WinbarKeyword",
+  comment         = "WinbarComment",
 }
 
 local function set_colors()
@@ -140,7 +147,9 @@ end
 
 local function vi_mode()
   if not is_win_current() then
-    return "     "
+    local str = tostring(vim.api.nvim_get_current_buf())
+    return hl_text(string.rep("0", 5 - #str), hls.nontext) .. hl_text(str, hls.nc_base)
+    -- return "     "
   end
   local mode = vim.fn.mode(1) or "n"
   local mode_name = " " .. vi_mode_names[mode][2] .. " "
