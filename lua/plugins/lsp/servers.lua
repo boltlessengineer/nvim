@@ -70,6 +70,7 @@ local M = {
         },
         diagnostics = {
           unusedLocalExclude = { "_*" },
+          globals = { "vim" },
         },
         format = {
           enable = false, -- use stylua istead

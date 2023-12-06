@@ -135,7 +135,7 @@ function M.format(opts)
 end
 
 function M.setup()
-  vim.g.autoformat = true
+  vim.g.autoformat = false
   -- Autoformat autocmd
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("LazyFormat", {}),

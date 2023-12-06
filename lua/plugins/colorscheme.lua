@@ -3,7 +3,6 @@ return {
   { "ellisonleao/gruvbox.nvim", lazy = true },
   {
     "rebelot/kanagawa.nvim",
-    lazy = true,
     opts = {
       compile = true,
       dimInactive = false,

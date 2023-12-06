@@ -13,6 +13,7 @@ vim.opt.diffopt:append({
 })
 vim.o.clipboard = "unnamedplus"
 vim.o.cmdheight = 1
+vim.o.cmdwinheight = 10
 vim.o.colorcolumn = "80"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 0
@@ -43,6 +44,7 @@ vim.fn.system("rg --version")
 if vim.v.shell_error == 0 then
   vim.o.grepprg = "rg --vimgrep"
 end
+vim.o.inccommand = "split"
 vim.o.ignorecase = true
 vim.o.laststatus = 3
 vim.o.list = true
