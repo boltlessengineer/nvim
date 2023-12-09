@@ -1,8 +1,4 @@
 return {
-  -- set buffer options automatically based on file contents
-  -- TODO: guess-indent.nvim for similar feature?
-  -- is this even working????
-  { "tpope/vim-sleuth", event = "VeryLazy" },
   -- makes some plugins dot-repeatable like leap
   { "tpope/vim-repeat", event = "VeryLazy" },
   { "johngrib/vim-f-hangul", keys = { "f", "t", "F", "T", ";", "," } },
