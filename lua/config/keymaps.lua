@@ -76,6 +76,17 @@ set(n, "<c-tab>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 set(n, "[q", "<cmd>cprev<cr>", { desc = "Prev qf item" })
 set(n, "]q", "<cmd>cnext<cr>", { desc = "Next qf item" })
 
+-- diagnostics
+set(nx, "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+set(nx, "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
+-- stylua: ignore start
+set(nx, "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, { desc = "Next Error" })
+set(nx, "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, { desc = "Prev Error" })
+set(nx, "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, { desc = "Next Warning" })
+set(nx, "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, { desc = "Prev Warning" })
+set(n, "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+-- stylua: ignore end
+
 -- toggle options
 -- set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
 

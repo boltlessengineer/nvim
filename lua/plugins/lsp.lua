@@ -16,6 +16,7 @@ return {
       },
       -- NOTE: mason dependency is needed to use mason-installed servers
       "williamboman/mason.nvim",
+      ---@diagnostic disable-next-line: assign-type-mismatch
       { "b0o/SchemaStore.nvim", version = false, lazy = true },
     },
     -- stylua: ignore
@@ -24,7 +25,6 @@ return {
       { "<leader>cI", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
       -- TODO: toggle inlay hints
       -- { "<leader>ci", desc = "Toggle inlay-hints" },
-      { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { 'n', 'x' }, has = "codeAction" },
       { "<leader>cr", "<plug>(lsp_rename)", desc = "Rename", mode = { 'n', 'x' }, has = "rename" },
       { "gd", "<plug>(lsp_definitions)", desc = "Goto Definition", has = "definition" },
@@ -32,12 +32,6 @@ return {
       { "gr", "<plug>(lsp_references)", desc = "References", has = "references" },
       { "gI", "<plug>(lsp_implementations)", desc = "Goto Implementations", has = "implementation" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", has = "declaration" },
-      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic", mode = { 'n', 'x' } },
-      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic", mode = { 'n', 'x' } },
-      { "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Next Error", mode = { 'n', 'x' } },
-      { "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = "Prev Error", mode = { 'n', 'x' } },
-      { "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, desc = "Next Warning", mode = { 'n', 'x' } },
-      { "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, desc = "Prev Warning", mode = { 'n', 'x' } },
       { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
     },
     init = function()
