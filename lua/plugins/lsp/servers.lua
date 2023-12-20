@@ -55,7 +55,13 @@ local M = {
   html = {},
   gopls = {},
   ruff_lsp = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    cargo = {
+      buildScripts = {
+        -- enable = true,
+      }
+    }
+  },
   lua_ls = {
     settings = {
       Lua = {

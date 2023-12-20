@@ -155,6 +155,10 @@ return {
     },
     opts = function(plugin, _)
       return {
+        -- FIXME: aerial.nvim doesn't update symbols from lsp backend
+        layout = {
+          width = 0.3,
+        },
         on_attach = function(bufnr)
           require("utils").attach_keymaps(bufnr, plugin.keys)
         end,

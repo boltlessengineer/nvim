@@ -68,6 +68,7 @@ return {
         -- virtual_text = false,
         virtual_lines = false,
         severity_sort = true,
+        -- TODO: neovim/neovim#25869 full line highlight for diagnostics
       },
       capabilities = {},
       ---@type lspconfig.options

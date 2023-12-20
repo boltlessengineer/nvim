@@ -65,7 +65,7 @@ return {
         injected = { options = { ignore_errors = true } },
         prettierd = {
           env = {
-            -- FIXME: this doesn't works for some reason
+            -- FIXME: this doesn't work for some reason
             PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json"),
           },
         },
