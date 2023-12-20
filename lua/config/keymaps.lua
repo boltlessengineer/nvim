@@ -65,12 +65,12 @@ set(x, "K", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 -- buffers
 set(n, "[b", "<cmd>bprev<cr>", { desc = "Prev buffer" })
 set(n, "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-set(n, "<c-p>", "<cmd>tabprev<cr>", { desc = "Prev buffer" })
-set(n, "<c-n>", "<cmd>tabnext<cr>", { desc = "Next buffer" })
 
 -- tabs
 set(n, "<cs-tab>", "<cmd>tabprev<cr>", { desc = "Prev tab" })
 set(n, "<c-tab>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+set(n, "<c-p>", "<cmd>tabprev<cr>", { desc = "Prev tab" })
+set(n, "<c-n>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 
 -- quickfix list
 set(n, "[q", "<cmd>cprev<cr>", { desc = "Prev qf item" })
@@ -88,12 +88,11 @@ set(n, "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 -- stylua: ignore end
 
 -- toggle options
--- set(n, "<leader>of", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
+set(n, "<leader>of", function () require("utils").format.toggle(0) end, { desc = "Toggle format on Save" })
 
 -- helix-style mappings
 -- stylua: ignore start
 set(n, "U", "<C-r>")  -- reasonable redo
-set(n, "m", "v")      -- enable mi-/ma- mappings
 set(x, "m", "<nop>")  -- =
 set(x, "y", "ygv")    -- stay visual mode after yank
 set(x, "R", 'P')      -- replace (don't modify registers)
@@ -104,7 +103,6 @@ set(nxo, "gt", "H")
 set(nxo, "gb", "L")
 set(nxo, "H", "<nop>") -- disable H/L, try be used to gt/gb
 set(nxo, "L", "<nop>")
-set(nxo, "%", "gg0vG$")
 set(n, "<", "<<")
 set(x, "<", "<gv")
 set(n, ">", ">>")

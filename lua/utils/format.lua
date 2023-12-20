@@ -88,6 +88,7 @@ function M.info(buf)
 end
 
 ---@param buf? number
+---@return boolean
 function M.enabled(buf)
   buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
 
@@ -100,10 +101,10 @@ function M.enabled(buf)
   )
 end
 
----@param buf? boolean
+---@param buf? number
 function M.toggle(buf)
   if buf then
-    vim.b.autoformat = not M.enabled()
+    vim.b[buf].autoformat = not M.enabled()
   else
     vim.g.autoformat = not M.enabled()
     vim.b.autoformat = nil
