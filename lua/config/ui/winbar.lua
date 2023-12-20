@@ -176,6 +176,21 @@ local function file_name()
   return hl_text(path, hls.nc_base) .. hl_text(name, hi)
 end
 
+local function sg_name()
+  local path = vim.fn.expand("%:p:h")--[[@as string]]
+  path = path .. "/"
+  local name = vim.fn.expand("%:p:t")--[[@as string]]
+  local hi = is_win_current() and hls.bold or hls.nc_bold
+  return hl_text(path, hls.nc_base) .. hl_text(name, hi)
+end
+
+local function sg_status()
+  -- TODO:
+  -- on github.com
+  -- on crates.io
+  return ""
+end
+
 local function get_git_dict(bufnr)
   bufnr = bufnr or 0
   ---@diagnostic disable-next-line: undefined-field
@@ -341,6 +356,7 @@ function _G.winbar()
   local modules = {}
   local buftype = vim.bo.buftype
   local filetype = vim.bo.filetype
+  local filename = vim.api.nvim_buf_get_name(0)
   local function center(title)
     return {
       vi_mode(),
@@ -397,6 +413,19 @@ function _G.winbar()
     modules = center("TSPlayground")
   elseif vim.fn.win_gettype(vim.api.nvim_get_current_win()) == "command" then
     modules = center("Command Window")
+  elseif filename:match("^sg://") then
+    modules = {
+      vi_mode(),
+      "  ",
+      sg_name(),
+      file_modi(),
+      "  ",
+      sg_status(), -- TODO: sg_status instead of git_status
+      "%=",
+      "%<",
+      " ",
+      "%P ",
+    }
   else
     modules = center(filetype)
   end

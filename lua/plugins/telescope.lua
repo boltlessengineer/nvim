@@ -41,7 +41,7 @@ return {
       { "<leader>sg", telescope("live_grep"), desc = "Grep (root dir)" },
       { "<leader>sG", telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
       {
-        "<leader>ss",
+        "<leader>cs",
         telescope("lsp_document_symbols", {
           symbols = {
             "Class",
@@ -59,7 +59,7 @@ return {
         desc = "Goto Symbol",
       },
       {
-        "<leader>sS",
+        "<leader>cS",
         telescope("lsp_dynamic_workspace_symbols", {
           symbols = {
             "Class",
