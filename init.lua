@@ -13,8 +13,8 @@ require("config.editorconfig")
 require("config.lazy")
 -- setup colorscheme
 -- pcall require here to lazy-load colorscheme
-pcall(require, "catppuccin")
-vim.cmd.colorscheme("catppuccin")
+pcall(require, "kanagawa")
+vim.cmd.colorscheme("kanagawa-dragon")
 require("config.ui")
 require("config.ui.statusline")
 require("config.ui.winbar")

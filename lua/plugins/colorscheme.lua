@@ -11,7 +11,8 @@ return {
         local theme = colors.theme
         -- FIX: why this isn't working
         return {
-          WinBar = { bg = "white" },
+          Winbar = { bg = theme.ui.bg_m3 },
+          WinbarNC = { bg = theme.ui.bg_m3 },
           -- ["@lsp.type.string"] = { link = "@string" },
         }
       end,
@@ -41,15 +42,13 @@ return {
     name = "catppuccin",
     lazy = true,
     opts = {
-      transparent_background = true,
+      transparent_background = false,
       term_colors = true,
       highlight_overrides = {
         all = function(c)
-          local winsep = c.crust
           return {
             NonText = { fg = c.surface0 },
             TabLineFill = { fg = c.overlay2, bg = c.crust },
-            VertSplit = { fg = winsep },
             StatusLine = { bg = c.surface0 },
             WinBar = { fg = c.text, bg = c.mantle },
             StatusLineNC = { fg = c.surface2 },
