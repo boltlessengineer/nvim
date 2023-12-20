@@ -153,4 +153,11 @@ au("BufWinEnter", {
   end,
 })
 
+au("CmdlineEnter", {
+  group = aug("auto_hlsearch"),
+  callback = vim.schedule_wrap(function()
+    vim.cmd.nohlsearch()
+  end),
+})
+
 return M

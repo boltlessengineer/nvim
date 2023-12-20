@@ -61,25 +61,6 @@ return {
       { "<leader>4", "<cmd>GrappleSelect key=4<cr>", desc = "Pin 4" },
     },
   },
-  -- highlight search only while n/N typed
-  -- TODO: move to ui.lua
-  {
-    -- TODO: also diable highlights on CmdLineLeave for search-replace situation
-    "asiryk/auto-hlsearch.nvim",
-    event = "VeryLazy",
-    opts = {
-      remap_keys = { "/", "?", "*", "#", "n", "N" },
-      create_commands = true,
-      post_hook = function()
-        -- HACK: clear noice search count messages
-        vim.cmd([[normal! :<CR>]])
-      end,
-    },
-    -- wrap with schedule to load *after* `config.keymaps`
-    config = vim.schedule_wrap(function(_, opts)
-      require("auto-hlsearch").setup(opts)
-    end),
-  },
   -- immediate visual feedback for `:norm` command
   {
     -- TODO: affraid I'll forget this useful command
