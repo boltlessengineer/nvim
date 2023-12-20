@@ -29,6 +29,7 @@ return {
       { "<leader>f", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>F", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
       { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
+      { "<leader>gs", "<cmd>Telescope git_status", desc = "Status" },
       { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
       { "<leader>sf", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>sR", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
@@ -84,6 +85,15 @@ return {
         git_files = {
           show_untracked = true,
         },
+        buffers = {
+          mappings = {
+            i = {
+              -- ["<cs-d>"] = "delete_buffer",
+              -- TODO: delete buffer from telescope
+              -- see: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#mapping-c-d-to-delete-buffer
+            }
+          }
+        }
       },
       defaults = {
         file_ignore_patterns = {
