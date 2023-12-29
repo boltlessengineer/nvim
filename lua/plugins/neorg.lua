@@ -1,8 +1,8 @@
 return {
   {
     "nvim-neorg/neorg",
-    ft = "norg",
-    cmd = "Neorg",
+    -- ft = "norg",
+    -- cmd = "Neorg",
     -- enabled = false,
     build = ":Neorg sync-parsers",
     config = function(_, opts)
@@ -35,6 +35,11 @@ return {
             format_on_escape = false,
           },
         },
+        ["core.completion"] = {
+          config = {
+            engine = "nvim-cmp",
+          }
+        }
       },
     },
     dependencies = {
