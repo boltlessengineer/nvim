@@ -297,6 +297,7 @@ return {
       excluded_buftypes = {
         "terminal",
         "prompt",
+        "nofile",
       },
       excluded_filetypes = {
         "prompt",

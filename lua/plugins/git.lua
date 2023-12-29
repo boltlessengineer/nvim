@@ -59,7 +59,9 @@ return {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-    config = true,
+    opts = {
+      use_icons = false,
+    },
     keys = {
       { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" },
     },
