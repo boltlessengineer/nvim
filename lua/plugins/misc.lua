@@ -91,4 +91,8 @@ return {
   },
   -- cool neovim startup profile with GUI
   { "stevearc/profile.nvim", enabled = false },
+  {
+    "ThePrimeagen/lsp-debug-tools.nvim",
+    lazy = true,
+  },
 }
