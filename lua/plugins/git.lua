@@ -5,8 +5,8 @@ return {
     cmd = "Neogit",
     dependencies = "sindrets/diffview.nvim",
     opts = {
+      kind = "tab",
       integrations = {
-        kind = "tab",
         diffview = true,
       },
     },
