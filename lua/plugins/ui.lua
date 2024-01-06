@@ -76,6 +76,11 @@ return {
       whitespace = { remove_blankline_trail = true },
       scope = { enabled = false },
     },
+    config = function (_, opts)
+      local ibl = require('ibl')
+      ibl.setup(opts)
+      ibl.overwrite({ exclude = { filetypes = { "norg" } } })
+    end,
   },
   -- better list view
   {
