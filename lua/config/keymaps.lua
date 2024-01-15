@@ -85,6 +85,7 @@ set(nx, "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.se
 set(nx, "]w", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN }) end, { desc = "Next Warning" })
 set(nx, "[w", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN }) end, { desc = "Prev Warning" })
 set(n, "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+set(n, "<leader>cf", "<cmd>Format<cr>", { desc = "Format" })
 -- stylua: ignore end
 
 -- toggle options
