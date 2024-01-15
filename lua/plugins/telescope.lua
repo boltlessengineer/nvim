@@ -7,6 +7,7 @@ local icons = require("config.icons")
 ---@param opts? any
 ---@return function
 local function telescope(builtin, opts)
+  -- TOOD: use git_files to properly gitignore files (like submodules)
   return function()
     opts = vim.tbl_deep_extend("force", { cwd = Utils.root.get() }, opts or {})
     require("telescope.builtin")[builtin](opts)

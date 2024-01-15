@@ -5,7 +5,8 @@ local ext_telescope = Util.require.on_exported_call("sg.extensions.telescope")
 return {
   {
     "sourcegraph/sg.nvim",
-    -- enabled = false,
+    -- TODO: how to lazy-load sg.nvim?
+    enabled = false,
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     -- keys = { "<leader>ss", ext_telescope.fuzzy_search_results },
     opts = {

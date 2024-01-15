@@ -1,0 +1,6 @@
+- ( ) [telescope-fzf-native.nvim]{https://github.com/nvim-telescope/telescope-fzf-native.nvim} for better performance
+- ( ) open folder with telescope maybe `<leader>fd`, and `<leader>ff` for normal file
+- ( ) automatically set `nomodifable` on files in `node_modules` or `.cargo/register`
+- ( ) `gl` mapping for local- sope. e.g. `glr` for local references (all references occur in current file)
+      extremely useful for "go to all reference in current file"
+- ( ) add `LazyFile` event like LazyVim
