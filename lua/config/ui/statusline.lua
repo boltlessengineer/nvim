@@ -40,11 +40,17 @@ end
 
 local function services()
   local is_file = vim.bo.buftype == ""
+  -- FIXME: this returns *all* configured clients when nofile
   local active_clients = vim.lsp.get_clients(is_file and { bufnr = 0 } or nil)
 
   local client_names = {}
   for _, client in ipairs(active_clients) do
-    client_names[#client_names + 1] = client.name
+    local name = client.name
+    -- TODO: trim "-language-server" or "-ls", "_ls"
+    if name == "emmet_language_server" then
+      name = "emmet"
+    end
+    client_names[#client_names + 1] = name
   end
 
   local ok, conform = pcall(require, "conform")

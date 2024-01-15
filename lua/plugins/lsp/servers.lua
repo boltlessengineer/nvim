@@ -2,6 +2,7 @@ local M = {
   clangd = {},
   cssls = {},
   dartls = {},
+  emmet_language_server = {},
   hls = {
     settings = {
       haskell = {
@@ -52,7 +53,7 @@ local M = {
     },
   },
   svelte = {},
-  html = {},
+  -- html = {},
   gopls = {},
   ruff_lsp = {},
   rust_analyzer = {
