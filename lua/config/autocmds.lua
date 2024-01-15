@@ -153,6 +153,18 @@ au("BufWinEnter", {
   end,
 })
 
+-- prevent editing module files
+au("BufNew", {
+  group = ftplugins,
+  pattern = {
+    "node_modules/**",
+    vim.fs.joinpath(vim.env.CARGO_HOME or "~/.cargo", "register/**"),
+  },
+  callback = function(event)
+    vim.bo[event.buf].modifiable = false
+  end
+})
+
 au("CmdlineEnter", {
   group = aug("auto_hlsearch"),
   callback = vim.schedule_wrap(function()
