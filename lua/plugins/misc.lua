@@ -2,6 +2,7 @@ return {
   -- makes some plugins dot-repeatable like leap
   { "tpope/vim-repeat", event = "VeryLazy" },
   { "johngrib/vim-f-hangul", keys = { "f", "t", "F", "T", ";", "," } },
+  "lambdalisue/suda.vim",
   {
     "wintermute-cell/gitignore.nvim",
     cmd = "Gitignore",

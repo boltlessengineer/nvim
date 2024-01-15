@@ -364,7 +364,7 @@ function _G.winbar()
       vi_mode_placer,
     }
   end
-  if buftype == "" then
+  if buftype == "" or filename:match('^suda://') then
     modules = {
       vi_mode(),
       "  ",
