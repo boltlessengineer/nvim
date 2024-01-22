@@ -16,7 +16,7 @@ require("lazy").setup({
   },
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
-    path = "~/projects",
+    path = vim.fn.has('mac') and "~/Projects" or "~/projects",
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
