@@ -142,7 +142,7 @@ end
 local hl_text = util_hl.hl_text
 
 local function lsp_attached()
-  return #vim.lsp.get_clients({ bufnr = 0 }) > 0
+  return #vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() }) > 0
 end
 
 local function vi_mode()

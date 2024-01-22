@@ -41,7 +41,7 @@ end
 local function services()
   local is_file = vim.bo.buftype == ""
   -- FIXME: this returns *all* configured clients when nofile
-  local active_clients = vim.lsp.get_clients(is_file and { bufnr = 0 } or nil)
+  local active_clients = vim.lsp.get_active_clients(is_file and { bufnr = vim.api.nvim_get_current_buf() } or nil)
 
   local client_names = {}
   for _, client in ipairs(active_clients) do
