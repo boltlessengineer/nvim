@@ -68,6 +68,11 @@ return {
         },
       },
       message = { enabled = false },
+      documentation = {
+        opts = {
+          -- TODO: border
+        }
+      }
     },
     presets = {
       bottom_search = true,

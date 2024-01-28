@@ -5,3 +5,5 @@
 - ( ) `gl` mapping for local- sope. e.g. `glr` for local references (all references occur in current file)
       extremely useful for "go to all reference in current file"
 - ( ) add `LazyFile` event like LazyVim
+- ( ) [linrongbin16/gitlinker.nvim]{https://github.com/linrongbin16/gitlinker.nvim}
+- ( ) [rasulomaroff/reactive.nvim]{https://github.com/rasulomaroff/reactive.nvim}

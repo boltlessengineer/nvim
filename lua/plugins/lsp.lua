@@ -111,8 +111,13 @@ return {
         opts.capabilities or {}
       )
       local function setup(server)
-        local server_opts =
-          vim.tbl_deep_extend("force", { capabilities = vim.deepcopy(capabilities) }, servers[server] or {})
+        local server_opts = vim.tbl_deep_extend("force", {
+          capabilities = vim.deepcopy(capabilities),
+          -- handlers = {
+          --   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+          --   ["textDocument/signature_help"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+          -- }
+        }, servers[server] or {})
 
         if opts.setup[server] then
           if opts.setup[server](server, server_opts) then

@@ -7,6 +7,8 @@ end
 
 local au = vim.api.nvim_create_autocmd
 
+-- TODO: move these to utils
+
 ---@class local.AutocmdArgs
 ---@field id number
 ---@field event string

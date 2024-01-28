@@ -53,6 +53,9 @@ local function services()
     client_names[#client_names + 1] = name
   end
 
+  -- TODO: to really lazy-load conform
+  -- local conform = package.loaded["conform"]
+  -- if conform then
   local ok, conform = pcall(require, "conform")
   if ok then
     local formatters = conform.list_formatters()

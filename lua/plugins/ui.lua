@@ -11,6 +11,7 @@ return {
     },
   },
   {
+    -- TODO: https://github.com/LunarVim/Launch.nvim/blob/0235c4b5f2d44c2e2fe025dc996dd79c68c73c84/lua/user/extras/dressing.lua
     "stevearc/dressing.nvim",
     lazy = true,
     init = function()
