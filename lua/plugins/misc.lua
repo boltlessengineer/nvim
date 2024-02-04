@@ -12,6 +12,15 @@ return {
     dependencies = "nvim-telescope/telescope.nvim",
   },
   {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function () vim.fn["mkdp#util#install"]() end,
+    init = function ()
+      vim.g.mkdp_port = "8000"
+    end,
+  },
+  {
     "dimaportenko/telescope-simulators.nvim",
     -- FIX: can't lazyload with sub-command `Telescope simulators run`
     enabled = false,

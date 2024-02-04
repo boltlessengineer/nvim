@@ -80,7 +80,7 @@ return {
     config = function (_, opts)
       local ibl = require('ibl')
       ibl.setup(opts)
-      ibl.overwrite({ exclude = { filetypes = { "norg" } } })
+      ibl.overwrite({ exclude = { filetypes = { "norg", "help" } } })
     end,
   },
   -- better list view
@@ -265,6 +265,7 @@ return {
   -- scrollbar
   {
     "petertriho/nvim-scrollbar",
+    enabled = false,
     event = "BufReadPost",
     opts = {
       hide_if_all_visible = true,
