@@ -124,6 +124,7 @@ return {
               json = true,
               yaml = true,
               toml = true,
+              norg = false,
             },
           },
         },

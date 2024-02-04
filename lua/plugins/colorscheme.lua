@@ -39,6 +39,13 @@ return {
           ["@comment.danger"] = { link = "@text.danger" },
           ["@diff.plus"] = { link = "@text.diff.add" },
           ["@diff.minus"] = { link = "@text.diff.delete" },
+
+          -- personal
+          ["@markup.raw.verbatim"] = { fg = "#8a9a7b", bg = "#282727" },
+          ["@markup.underline"] = { underline = true },
+          ["@markup.strikethrough"] = { strikethrough = true },
+          ["@markup.heading.2"] = { link = "@attribute" },
+          ["@error"] = { link = "Error" },
         }
       end,
       background = {

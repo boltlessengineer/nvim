@@ -21,3 +21,7 @@ require("config.ui.winbar")
 
 -- for tint.nvim
 vim.api.nvim_exec_autocmds("User", { pattern = "InitDone" })
+
+vim.opt.rtp:prepend(vim.fs.normalize("$HOME/projects/tree-sitter-norg3"))
+vim.treesitter.language.add("norg", { path = vim.fs.normalize("$HOME/.cache/tree-sitter/lib/norg.so") })
+vim.treesitter.language.register("norg", "norg")

@@ -3,7 +3,7 @@ return {
     "nvim-neorg/neorg",
     -- ft = "norg",
     -- cmd = "Neorg",
-    -- enabled = false,
+    cond = false,
     build = ":Neorg sync-parsers",
     config = function(_, opts)
       require("nvim-treesitter.install").prefer_git = true
@@ -39,11 +39,17 @@ return {
           config = {
             engine = "nvim-cmp",
           }
+        },
+        ["core.presenter"] = {
+          config = {
+            zen_mode = "zen-mode"
+          }
         }
       },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
+      { "folke/zen-mode.nvim", lazy = true },
     },
   },
 }
