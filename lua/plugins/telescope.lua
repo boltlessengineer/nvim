@@ -123,9 +123,10 @@ return {
         },
         -- layout_strategy = "bottom_horizontal",
         layout_config = {
+          anchor = 'S',
           horizontal = {
             prompt_position = "top",
-            -- HACK: make width 100%
+            -- make width 100%
             width = 99999999,
             height = 0.5,
           },

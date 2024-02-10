@@ -62,6 +62,10 @@ set(n, "J", "mzJ`z")
 set(x, "J", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
 set(x, "K", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 
+-- add empty line
+set(n, 'go', "o<esc>k")
+set(n, 'gO', "O<esc>j")
+
 -- buffers
 set(n, "[b", "<cmd>bprev<cr>", { desc = "Prev buffer" })
 set(n, "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })

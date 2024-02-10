@@ -61,6 +61,11 @@ return {
             if icons[item.kind] then
               item.kind = icons[item.kind] .. item.kind
             end
+            local label = item.abbr
+            local truncated_label = vim.fn.strcharpart(label, 0, 30)
+            if truncated_label ~= label then
+              item.abbr = truncated_label .. '…'
+            end
             -- stylua: ignore
             item.menu = ({
               nvim_lsp       = "[LSP]",
