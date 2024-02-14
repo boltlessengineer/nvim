@@ -100,6 +100,14 @@ return {
       },
       highlight = {
         enable = true,
+        disable = function (_lang, buf)
+          local MAX_FILESIZE = 10000 * 1024 -- 10MB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > MAX_FILESIZE then
+            vim.notify("Tree-sitter highlight disabled")
+            return true
+          end
+        end,
         additional_vim_regex_highlighting = false,
       },
       indent = { enable = true },
