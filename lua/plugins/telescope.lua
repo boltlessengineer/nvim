@@ -27,8 +27,13 @@ return {
       { "<plug>(lsp_implementations)", "<cmd>Telescope lsp_implementations<cr>" },
       { "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Help" },
       { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>f", telescope("find_files"), desc = "Find files (root dir)" },
-      { "<leader>F", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
+      -- TODO: change to `<leader>ff`
+      -- and add directory-specific keymap `<leader>fd`
+      { "<leader>ff", telescope("find_files"), desc = "Find files (root dir)" },
+      { "<leader>fc", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
+      -- { "<leader>fd", "<cmd>Telescope find_dir<cr>", desc = "Find Dir (cwd)" },
+      { "<leader>e", telescope("find_files"), desc = "Find files (root dir)" },
+      { "<leader>E", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
       { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
       { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
       { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
