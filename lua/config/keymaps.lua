@@ -95,6 +95,9 @@ set(n, "<leader>cf", "<cmd>Format<cr>", { desc = "Format" })
 -- toggle options
 set(n, "<leader>of", function () require("utils").format.toggle(0) end, { desc = "Toggle format on Save" })
 
+-- quick exit in visual mode
+set(x, "<C-c>", "<esc>")
+
 -- helix-style mappings
 -- stylua: ignore start
 set(n, "U", "<C-r>")  -- reasonable redo
