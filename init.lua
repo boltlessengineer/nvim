@@ -25,7 +25,7 @@ vim.api.nvim_exec_autocmds("User", { pattern = "InitDone" })
 vim.opt.rtp:prepend(vim.fs.normalize("$HOME/Projects/tree-sitter-norg3"))
 if not vim.treesitter.language.get_lang("norg") then
     local parser_dir = "$HOME/.cache/tree-sitter/lib/norg.so"
-    if vim.fn.has("mac") then
+    if vim.fn.has("macunix") == 1 then
         parser_dir = "$HOME/Library/Caches/tree-sitter/lib/norg.so"
     end
     vim.treesitter.language.add("norg", { path = vim.fs.normalize(parser_dir) })
