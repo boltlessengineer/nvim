@@ -1,5 +1,34 @@
 return {
   {
+    "lukas-reineke/headlines.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    -- event = "VeryLazy",
+    ft = "norg",
+    opts = function(_, _)
+      return {
+        markdown = { headline_highlights = false },
+        rmd = { headline_highlights = false },
+        org = { headline_highlights = false },
+        norg = {
+          query = vim.treesitter.query.parse(
+            "norg",
+            [[
+            ; query
+            [
+              (verbatim_ranged_tag
+                (identifier) @_name
+                (#eq? @_name "code"))
+              (standard_ranged_tag
+                (identifier) @_name
+                (#eq? @_name "example"))
+            ] @codeblock
+            ]]
+          ),
+        }
+      }
+    end
+  },
+  {
     "levouh/tint.nvim",
     event = "User InitDone",
     -- FIX: doesn't work well with my WinbarNC highlights
