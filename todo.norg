@@ -1,11 +1,10 @@
+- (x) automatically set `nomodifable` on files in `node_modules` or
+      `.cargo/register`
 - ( ) open folder with telescope maybe `<leader>fd`, and `<leader>ff` for
       normal file or `<leader>e`
-- ( ) automatically set `nomodifable` on files in `node_modules` or
-      `.cargo/register`
 - ( ) `gl` mapping for local- sope. e.g. `glr` for local references
       (all references occur in current file)
       extremely useful for "go to all reference in current file"
-- ( ) support count and dot repeat for `go` / `gO`
 - ( ) add `LazyFile` event like LazyVim
 - ( ) move `queries/` to `after/queries` to not overwrite existing queries
 - ( ) highlight full line instead of showing diagnostic sign So I can use extra
@@ -13,6 +12,8 @@
 - ( ) highlight full diagnostic line ({https://github.com/neovim/neovim/issues/25869#issuecomment-1858765363}[snippet])
 - ( ) {https://github.com/vsedov/nvim/blob/ccab95c8ed2d7deef2f3d6840f352529c7d5ee13/lua/modules/editor/hydra/api/AiSecond.lua}[AI configuration]
 - ( ) Volar LS ({https://www.reddit.com/r/neovim/comments/117gopv/disable_tsserver_if_using_volar_takeover_mode/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button}[snippet])
+- ( ) `<leader><esc>` to `<c-\\><c-n>` in terminal mode. make sure it don't
+  delay each spaces.
 
 * Plugins to try
 
