@@ -115,5 +115,5 @@ set(x, ">", ">gv")
 -- TODO: matching using treesitter (or maybe matchup-vim?)
 set(nxo, "mm", "%", { desc = "Go to matching" })
 
-set(n, "q", "<cmd>wincmd q<cr>", { desc = "Close window" })
-set(n, "Q", "q", { desc = "Record macro" })
+set(nx, "q", "<cmd>wincmd q<cr>", { desc = "Close window" })
+set(nx, "Q", "q", { desc = "Record macro" })
