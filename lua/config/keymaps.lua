@@ -62,6 +62,9 @@ set(n, "J", "mzJ`z")
 set(x, "J", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
 set(x, "K", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 
+-- fix visual C-c
+set(x, "<c-c>", "<esc>")
+
 -- add empty line
 set(n, 'go', "o<esc>k")
 set(n, 'gO', "O<esc>j")
