@@ -87,6 +87,7 @@ return {
   },
   {
     "giusgad/pets.nvim",
+    enabled = false,
     cmd = { "PetsNew", "PetsNewCustom" },
     dependencies = { "edluffy/hologram.nvim", "MunifTanjim/nui.nvim" },
     config = true,

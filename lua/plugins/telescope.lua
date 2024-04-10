@@ -36,6 +36,8 @@ return {
       { "<leader>E", "<cmd>Telescope find_files<cr>", desc = "Find files (cwd)" },
       { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Logs" },
       { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Status" },
+      -- TODO: disable preview
+      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy" },
       { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
       { "<leader>sf", telescope("find_files"), desc = "Find files (root dir)" },
       { "<leader>sR", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },

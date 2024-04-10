@@ -14,6 +14,9 @@
 - ( ) Volar LS ({https://www.reddit.com/r/neovim/comments/117gopv/disable_tsserver_if_using_volar_takeover_mode/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button}[snippet])
 - ( ) `<leader><esc>` to `<c-\\><c-n>` in terminal mode. make sure it don't
   delay each spaces.
+- ( ) `ys`, `ds`, `rs` to replace `ms`, `md`, `mr`. Don't map `s` on operator pending mode
+- ( ) {https://github.com/lewis6991/gitsigns.nvim/issues/780}
+- ( ) `[r`, `]r` to goto next/prev references. copy the code from illuminate.nvim
 
 * Plugins to try
 
@@ -24,3 +27,10 @@
 - ( ) Tradis.nvim
 - ( ) xcodebuild.nvim
 - ( ) [vim-pencil]{https://github.com/preservim/vim-pencil}
+- ( ) {https://github.com/laytan/cloak.nvim}[cloak.nvim] - censors dotenv file content
+- ( ) {https://github.com/brenoprata10/nvim-highlight-colors}[nvim-highlight-colors] - simple virtual color support
+
+* Things to make
+
+- ( ) graphite cli in my workflow
+- ( ) `dc` to "delete comments" useful when cleaning AI-generated code
