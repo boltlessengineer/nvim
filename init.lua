@@ -22,14 +22,14 @@ require("config.ui.winbar")
 -- for tint.nvim
 vim.api.nvim_exec_autocmds("User", { pattern = "InitDone" })
 
-vim.opt.rtp:prepend(vim.fs.normalize("$HOME/Projects/tree-sitter-norg3"))
+vim.opt.rtp:prepend(vim.fs.normalize("$HOME/projects/tree-sitter-norg3"))
+local parser_dir = "$HOME/.cache/tree-sitter/lib/norg.so"
+if vim.fn.has("macunix") == 1 then
+  parser_dir = "$HOME/Library/Caches/tree-sitter/lib/norg.so"
+end
+vim.treesitter.language.add("norg", { path = vim.fs.normalize(parser_dir) })
 if not vim.treesitter.language.get_lang("norg") then
-    local parser_dir = "$HOME/.cache/tree-sitter/lib/norg.so"
-    if vim.fn.has("macunix") == 1 then
-        parser_dir = "$HOME/Library/Caches/tree-sitter/lib/norg.so"
-    end
-    vim.treesitter.language.add("norg", { path = vim.fs.normalize(parser_dir) })
-    vim.treesitter.language.register("norg", "norg")
+  vim.treesitter.language.register("norg", "norg")
 end
 -- rainbow heading
 vim.cmd[[
