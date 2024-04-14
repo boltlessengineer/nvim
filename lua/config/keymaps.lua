@@ -82,6 +82,8 @@ set(n, "<c-n>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 -- quickfix list
 set(n, "[q", "<cmd>cprev<cr>", { desc = "Prev qf item" })
 set(n, "]q", "<cmd>cnext<cr>", { desc = "Next qf item" })
+set(n, "<c-k>", "<cmd>cprev<cr>", { desc = "Prev qf item" })
+set(n, "<c-j>", "<cmd>cnext<cr>", { desc = "Next qf item" })
 
 -- diagnostics
 set(nx, "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
