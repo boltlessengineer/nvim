@@ -57,6 +57,7 @@ return {
   -- show status in discord
   {
     "andweeb/presence.nvim",
+    enabled = false,
     event = "VeryLazy",
     config = function()
       -- local presence = require("presence")
