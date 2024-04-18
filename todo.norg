@@ -20,6 +20,7 @@
 
 * Plugins to try
 
+- ( ) {https://github.com/kevinhwang91/nvim-bqf}[nvim-bqf]
 - ( ) [telescope-fzf-native.nvim]{https://github.com/nvim-telescope/telescope-fzf-native.nvim} for better performance
 - ( ) [linrongbin16/gitlinker.nvim]{https://github.com/linrongbin16/gitlinker.nvim}
 - ( ) [rasulomaroff/reactive.nvim]{https://github.com/rasulomaroff/reactive.nvim}
