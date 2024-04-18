@@ -52,14 +52,17 @@ return {
     "cbochs/grapple.nvim",
     keys = {
       { "<leader>h", desc = "+harppon" },
-      { "<leader><leader>", "<cmd>Grapple popup tags<cr>", desc = "Grapple Tags" },
-      { "<leader>hs", "<cmd>Grapple popup scopes<cr>", desc = "Popup scopes" },
-      { "<leader>hp", "<cmd>Grapple tag<cr>", desc = "Pin File" },
-      { "<leader>1", "<cmd>Grapple select key=1<cr>", desc = "Pin 1" },
-      { "<leader>2", "<cmd>Grapple select key=2<cr>", desc = "Pin 2" },
-      { "<leader>3", "<cmd>Grapple select key=3<cr>", desc = "Pin 3" },
-      { "<leader>4", "<cmd>Grapple select key=4<cr>", desc = "Pin 4" },
+      { "<leader><leader>", "<cmd>Grapple toggle_tags<cr>", desc = "Grapple Tags" },
+      { "<leader>hs", "<cmd>Grapple toggle<cr>", desc = "Popup scopes" },
+      -- { "<leader>hp", "<cmd>Grapple tag<cr>", desc = "Pin File" },
+      { "<leader>1", "<cmd>Grapple select index=1<cr>", desc = "Index 1" },
+      { "<leader>2", "<cmd>Grapple select index=2<cr>", desc = "Index 2" },
+      { "<leader>3", "<cmd>Grapple select index=3<cr>", desc = "Index 3" },
+      { "<leader>4", "<cmd>Grapple select index=4<cr>", desc = "Index 4" },
     },
+    opts = {
+      icons = false
+    }
   },
   -- immediate visual feedback for `:norm` command
   {
