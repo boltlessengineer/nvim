@@ -73,7 +73,7 @@ vim.opt.shortmess:append({
 })
 vim.o.showbreak = "↳ "
 vim.o.showmode = false
-vim.o.sidescrolloff = 12
+vim.o.sidescrolloff = 6
 vim.o.signcolumn = "yes"
 vim.o.smartcase = true
 vim.o.smartindent = true
