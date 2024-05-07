@@ -88,19 +88,19 @@ local M = {
       },
     },
   },
-  volar = {
-    filetypes = {
-      "javascript",
-      "typescript",
-      "javascriptreact",
-      "typescriptreact",
-      "vue",
-      "json",
-    },
-    -- on_new_config = function(new_config, new_root_dir)
-    --   new_config.init_options.typescript.tsdk = "/path/to/tsserver"
-    -- end
-  },
+  -- volar = {
+  --   filetypes = {
+  --     "javascript",
+  --     "typescript",
+  --     "javascriptreact",
+  --     "typescriptreact",
+  --     "vue",
+  --     "json",
+  --   },
+  --   -- on_new_config = function(new_config, new_root_dir)
+  --   --   new_config.init_options.typescript.tsdk = "/path/to/tsserver"
+  --   -- end
+  -- },
   -- yamlls = {
   --   enable = false,
   --   settings = {
