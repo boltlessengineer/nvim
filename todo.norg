@@ -14,9 +14,11 @@
 - ( ) Volar LS ({https://www.reddit.com/r/neovim/comments/117gopv/disable_tsserver_if_using_volar_takeover_mode/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button}[snippet])
 - ( ) `<leader><esc>` to `<c-\\><c-n>` in terminal mode. make sure it don't
   delay each spaces.
-- ( ) `ys`, `ds`, `rs` to replace `ms`, `md`, `mr`. Don't map `s` on operator pending mode
+- ( ) `ys`, `ds`, `rs` to replace `ms`, `md`, `mr`.
 - ( ) {https://github.com/lewis6991/gitsigns.nvim/issues/780}
 - ( ) `[r`, `]r` to goto next/prev references. copy the code from illuminate.nvim
+- ( ) `is` to represent /inside section/ `is` will select section's children
+      while `as` includes heading
 
 * Plugins to try
 
@@ -30,6 +32,7 @@
 - ( ) [vim-pencil]{https://github.com/preservim/vim-pencil}
 - ( ) {https://github.com/laytan/cloak.nvim}[cloak.nvim] - censors dotenv file content
 - ( ) {https://github.com/brenoprata10/nvim-highlight-colors}[nvim-highlight-colors] - simple virtual color support
+- ( ) {https://github.com/rktjmp/playtime.nvim} - card game in neovim with crazy animations
 
 * Things to make
 

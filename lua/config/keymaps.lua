@@ -122,3 +122,4 @@ set(nxo, "mm", "%", { desc = "Go to matching" })
 
 set(nx, "q", "<cmd>wincmd q<cr>", { desc = "Close window" })
 set(nx, "Q", "q", { desc = "Record macro" })
+set(nx, "g:", "q:", { desc = "CmdWin" })
