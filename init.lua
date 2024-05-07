@@ -23,7 +23,7 @@ require("config.ui.winbar")
 vim.api.nvim_exec_autocmds("User", { pattern = "InitDone" })
 
 vim.opt.rtp:prepend(vim.fs.normalize("$HOME/projects/tree-sitter-norg3"))
-local parser_dir = "$HOME/.cache/tree-sitter/lib/norg.so"
+local parser_dir = "$HOME/.cache/tree-sitter/lib/norg_stable.so"
 if vim.fn.has("macunix") == 1 then
   parser_dir = "$HOME/Library/Caches/tree-sitter/lib/norg.so"
 end
