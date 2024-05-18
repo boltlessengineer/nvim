@@ -31,8 +31,8 @@ return {
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-c>"] = cmp.mapping.close(),
           ["<C-j>"] = cmp.mapping.complete(), -- show menu
-          ["<c-y>"] = cmp.mapping.confirm({ select = false }),
-          ["<cr>"] = cmp.mapping.confirm({ select = false }),
+          ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+          -- ["<cr>"] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },

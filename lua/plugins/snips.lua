@@ -22,13 +22,12 @@ return {
       {
         "<c-l>",
         function()
-          if ls.locally_jumpable() then
-            ls.jump(1)
+          if ls.expand_or_jumpable() then
+            ls.expand_or_jump()
           end
         end,
-        mode = "i",
+        mode = { "i", "s" },
       },
-      { "<c-l>", function() ls.jump(1) end, mode = "s" },
       { "<c-h>", function() ls.jump(-1) end, mode = { "i", "s" } },
     },
     config = function(_, opts)

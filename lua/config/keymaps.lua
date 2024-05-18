@@ -55,7 +55,7 @@ set(c, "<c-n>", "<down>")
 set(c, "<c-p>", "<up>")
 
 -- don't move cursor on 'J'
-set(n, "J", "mzJ`z")
+-- set(n, "J", "mzJ`z")
 
 -- Move lines
 -- FIX: do only when 'indentexpr' is not empty
@@ -105,7 +105,6 @@ set(n, "<leader>of", function () require("utils").format.toggle(0) end, { desc =
 set(n, "U", "<C-r>")  -- reasonable redo
 set(x, "m", "<nop>")  -- =
 set(x, "y", "ygv")    -- stay visual mode after yank
-set(x, "R", 'P')      -- replace (don't modify registers)
 -- stylua: ignore end
 set(nxo, "gh", "^", { desc = "goto line start (non-blank)" })
 set(nxo, "gl", "g_", { desc = "goto line end (non-blank)" })

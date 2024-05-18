@@ -27,6 +27,11 @@ return {
         ["_"]     = false,
         ["<c-h>"] = false,
         ["<c-p>"] = false,
+        ["%"] = function ()
+          vim.ui.input({ prompt = "Enter filename: " }, function (input)
+            vim.cmd.edit(vim.fn.expand("%") .. input)
+          end)
+        end
       },
     },
   },
