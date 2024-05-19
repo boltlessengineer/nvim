@@ -19,6 +19,7 @@
 - ( ) `[r`, `]r` to goto next/prev references. copy the code from illuminate.nvim
 - ( ) `is` to represent /inside section/ `is` will select section's children
       while `as` includes heading
+- ( ) `]u` to navigate unsaved files
 
 * Plugins to try
 
@@ -38,3 +39,4 @@
 
 - ( ) graphite cli in my workflow
 - ( ) `dc` to "delete comments" useful when cleaning AI-generated code
+- ( ) support `(table (dotted_key))` support from `TreeSJ`

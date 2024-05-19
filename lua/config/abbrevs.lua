@@ -35,3 +35,5 @@ calias("chmod", "!chmod +x %")
 -- auto correct typo on command line
 calias("w'", "w")
 calias("ems", "mes")
+
+-- TODO: iabbrev retrun -> return

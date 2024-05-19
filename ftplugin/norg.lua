@@ -12,4 +12,5 @@ nnoremap <buffer> $ g$
 setlocal breakindent
 setlocal linebreak
 setlocal wrap
+setlocal shiftwidth=1
 ]]

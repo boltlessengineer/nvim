@@ -8,9 +8,7 @@
 
 vim.cmd([[let $LANG='en_US.UTF-8']])
 
-vim.opt.diffopt:append({
-  "linematch:60",
-})
+vim.opt.diffopt:append("linematch:60")
 vim.o.clipboard = "unnamedplus"
 vim.o.cmdheight = 1
 vim.o.cmdwinheight = 10
