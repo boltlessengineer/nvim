@@ -104,7 +104,7 @@ set(n, "<leader>of", function () require("utils").format.toggle(0) end, { desc =
 -- stylua: ignore start
 set(n, "U", "<C-r>")  -- reasonable redo
 set(x, "m", "<nop>")  -- =
-set(x, "y", "ygv")    -- stay visual mode after yank
+-- set(x, "y", "ygv")    -- stay visual mode after yank
 -- stylua: ignore end
 set(nxo, "gh", "^", { desc = "goto line start (non-blank)" })
 set(nxo, "gl", "g_", { desc = "goto line end (non-blank)" })

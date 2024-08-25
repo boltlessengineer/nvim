@@ -5,6 +5,7 @@ return {
     event = "InsertEnter",
     opts = {
       check_ts = true,
+      map_c_w = true,
     },
     config = function(_, opts)
       local ap = require("nvim-autopairs")

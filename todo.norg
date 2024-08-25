@@ -40,3 +40,10 @@
 - ( ) graphite cli in my workflow
 - ( ) `dc` to "delete comments" useful when cleaning AI-generated code
 - ( ) support `(table (dotted_key))` support from `TreeSJ`
+
+* Things to fix
+
+- ( ) {https://github.com/ibhagwan/fzf-lua/issues/1220} - this isn't really
+      resolved. I can still see some weird "scroll up 1 line" before actually
+      reaching the start of file. Copy solution from telescope to fix this
+      issue.

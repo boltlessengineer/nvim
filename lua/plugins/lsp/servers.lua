@@ -1,3 +1,5 @@
+---@diagnostic disable: missing-fields
+---@type lspconfig.options
 local M = {
   clangd = {},
   cssls = {},

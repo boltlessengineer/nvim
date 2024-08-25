@@ -42,6 +42,7 @@ return {
   {
     -- TODO: https://github.com/LunarVim/Launch.nvim/blob/0235c4b5f2d44c2e2fe025dc996dd79c68c73c84/lua/user/extras/dressing.lua
     "stevearc/dressing.nvim",
+    enabled = false,
     lazy = true,
     init = function()
       ---@diagnostic disable-next-line: duplicate-set-field
@@ -156,6 +157,7 @@ return {
   -- better fold
   {
     "kevinhwang91/nvim-ufo",
+    enabled = false,
     event = "BufReadPost",
     dependencies = {
       "kevinhwang91/promise-async",

@@ -1,6 +1,10 @@
 -- TODO: maybe simple vim file is enough
 -- vim.opt_local.conceallevel = 2
-vim.opt_local.formatoptions:remove('r')
+-- vim.opt_local.formatoptions:remove('r')
+vim.opt_local.comments:remove('fb:-')
+vim.opt_local.comments:remove('n:>')
+vim.opt_local.comments:append('fn:-')
+vim.opt_local.comments:append('fn:>')
 
 vim.cmd[[
 nnoremap <buffer> j gj

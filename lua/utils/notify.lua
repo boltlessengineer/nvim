@@ -1,7 +1,7 @@
 ---@class bt.util.notify
 local M = {}
 
----@alias BtNotifyOpts {lang?:string, title?:string, level?:number, once?:boolean, stacktrace?:boolean, stacklevel?:number}
+---@alias BtNotifyOpts {lang?:string, title?:string, level?:number, once?:boolean}
 
 ---@param msg string|string[]
 ---@param opts? BtNotifyOpts
@@ -45,7 +45,7 @@ function M.md_notify(msg, opts)
 end
 
 ---@param msg string|string[]
----@param opts? LazyNotifyOpts
+---@param opts? BtNotifyOpts
 function M.error(msg, opts)
   opts = opts or {}
   opts.level = vim.log.levels.ERROR
@@ -53,7 +53,7 @@ function M.error(msg, opts)
 end
 
 ---@param msg string|string[]
----@param opts? LazyNotifyOpts
+---@param opts? BtNotifyOpts
 function M.info(msg, opts)
   opts = opts or {}
   opts.level = vim.log.levels.INFO
@@ -61,7 +61,7 @@ function M.info(msg, opts)
 end
 
 ---@param msg string|string[]
----@param opts? LazyNotifyOpts
+---@param opts? BtNotifyOpts
 function M.warn(msg, opts)
   opts = opts or {}
   opts.level = vim.log.levels.WARN

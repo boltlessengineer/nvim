@@ -2,12 +2,6 @@ local Util = require("utils")
 
 return {
   {
-    -- TODO:
-    -- copy from LazyVim
-    -- formatting.lua
-    -- util/format.lua
-    -- util/root.lua
-    -- remove lsp/format.lua
     "stevearc/conform.nvim",
     lazy = true,
     cmd = "ConformInfo",
